@@ -150,18 +150,19 @@ void processing(double pIn[][BLOCK_SIZE], double pOut[][BLOCK_SIZE])
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// @Author	<student name>
-// @Date		<date>  
+// @Author	Branko Trifkovic
+// @Date		November 2023  
 //
 // Function:
 // main
 //
-// @param - argv[0] - Input file name
-//        - argv[1] - Output file name
-// @return - nothing
-// Comment: main routine of a program
-//
-// E-mail:	<email>
+// @param - argv[1] - Input file name
+//        - argv[2] - Output file name
+//        - argv[3] - Enable command
+//        - argv[4] - Mode
+//        - argv[5] - Input gain
+//        - argv[6] - Headroom gain
+// @return - success code
 //
 /////////////////////////////////////////////////////////////////////////////////
 int main(int argc, char* argv[])
