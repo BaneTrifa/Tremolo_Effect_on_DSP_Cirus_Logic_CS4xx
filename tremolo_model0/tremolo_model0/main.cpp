@@ -71,82 +71,34 @@ double saturation(double in)
 
 void processing(double pIn[][BLOCK_SIZE], double pOut[][BLOCK_SIZE])
 {
-	// first stage, apply input gain (common stage for all modes)
+	// first stage, apply input gain
 	for (int i = 0; i < BLOCK_SIZE; i++)
 	{
 		pIn[LEFT_CH][i] *= input_gain;
 		pIn[RIGHT_CH][i] *= input_gain;
 	}
 
-	switch (mode) 
+
+	// Second stage, apply tremolo on Ls and Rs
+	processBlock(pIn[LEFT_CH], pOut[LS_CH], &tremolo_parameters_L, BLOCK_SIZE);
+	processBlock(pIn[RIGHT_CH], pOut[RS_CH], &tremolo_parameters_R, BLOCK_SIZE);
+
+	for (int i = 0; i < BLOCK_SIZE; i++)
 	{
-		case  0:	// mode 3_2_0 (L, R, C, Ls, Rs)
+		// second stage, sum L and R channels from first stage and apply headroom gain
+		pOut[CENTER_CH][i] = pIn[LEFT_CH][i] + pIn[RIGHT_CH][i];
+		pOut[CENTER_CH][i] = pOut[CENTER_CH][i] * headroom_gain;
 
-			// Second stage, apply tremolo on Ls and Rs
-			processBlock(pIn[LEFT_CH], pOut[LS_CH], &tremolo_parameters_L, BLOCK_SIZE);
-			processBlock(pIn[RIGHT_CH], pOut[RS_CH], &tremolo_parameters_R, BLOCK_SIZE);
+		// third stage, apply post gain on L and R channels (-6dB)
+		pOut[LEFT_CH][i] = saturation(pOut[CENTER_CH][i] * LR_postGain);
+		pOut[RIGHT_CH][i] = pOut[LEFT_CH][i];
+		pOut[CENTER_CH][i] = saturation(pOut[CENTER_CH][i]);
 
-			for (int i = 0; i < BLOCK_SIZE; i++)
-			{
-				// second stage, sum L and R channels from first stage and apply headroom gain
-				pIn[CENTER_CH][i] = pIn[LEFT_CH][i] + pIn[RIGHT_CH][i];
-				pOut[CENTER_CH][i] = pIn[CENTER_CH][i] * headroom_gain;
-
-				// third stage, apply post gain on L and R channels (-6dB)
-				pOut[LEFT_CH][i] = saturation(pOut[CENTER_CH][i] * LR_postGain);
-				pOut[RIGHT_CH][i] = pOut[LEFT_CH][i];
-				pOut[CENTER_CH][i] = saturation(pOut[CENTER_CH][i]);
-
-				// third stage, apply post gain on tremolo (Ls and Rs) channels (-2dB)
-				pOut[LS_CH][i] = saturation(pOut[LS_CH][i] * tremolo_postGain);
-				pOut[RS_CH][i] = saturation(pOut[RS_CH][i] * tremolo_postGain);
-			}
-			break;
-
-		case  1:	// mode 2_0_0 (L, R)
-
-			for (int i = 0; i < BLOCK_SIZE; i++)
-			{
-				// second stage, sum L and R channels from first stage and apply headroom gain
-				pIn[LEFT_CH][i] = pIn[LEFT_CH][i] + pIn[RIGHT_CH][i];
-				pIn[LEFT_CH][i] *= headroom_gain;
-
-				// third stage, apply post gain on L and R channels (-6dB)
-				pOut[LEFT_CH][i] = saturation(pIn[LEFT_CH][i] * LR_postGain);
-				pOut[RIGHT_CH][i] = pOut[LEFT_CH][i];
-
-			}
-
-			break;
-
-		case  2:	// mode 0_2_0 (L, R, C)
-
-			// Second stage, apply tremolo on Ls and Rs
-			processBlock(pIn[LEFT_CH], pOut[LS_CH], &tremolo_parameters_L, BLOCK_SIZE);
-			processBlock(pIn[RIGHT_CH], pOut[RS_CH], &tremolo_parameters_R, BLOCK_SIZE);
-
-			for (int i = 0; i < BLOCK_SIZE; i++)
-			{
-				// third stage, apply post gain on tremolo (Ls and Rs) channels (-2dB)
-				pOut[LS_CH][i] = saturation(pOut[LS_CH][i] * tremolo_postGain);
-				pOut[RS_CH][i] = saturation(pOut[RS_CH][i] * tremolo_postGain);
-			}
-			break;
-
-		default:	// mode 3_0_0 (L, R, C)
-
-			for (int i = 0; i < BLOCK_SIZE; i++)
-			{
-				// second stage, sum L and R channels from first stage and apply headroom gain
-				pIn[CENTER_CH][i] = pIn[LEFT_CH][i] + pIn[RIGHT_CH][i];
-				pOut[CENTER_CH][i] = pIn[CENTER_CH][i] * headroom_gain;
-
-				// third stage, apply post gain on L and R channels (-6dB)
-				pOut[LEFT_CH][i] = saturation(pOut[CENTER_CH][i] * LR_postGain);
-				pOut[RIGHT_CH][i] = pOut[LEFT_CH][i];
-				pOut[CENTER_CH][i] = saturation(pOut[CENTER_CH][i]);
-			}
+		// third stage, apply post gain on tremolo (Ls and Rs) channels (-2dB)
+		pOut[LS_CH][i] = saturation(pOut[LS_CH][i] * tremolo_postGain);
+		pOut[RS_CH][i] = saturation(pOut[RS_CH][i] * tremolo_postGain);
 	}
+	
 }
 
 /////////////////////////////////////////////////////////////////////////////////
