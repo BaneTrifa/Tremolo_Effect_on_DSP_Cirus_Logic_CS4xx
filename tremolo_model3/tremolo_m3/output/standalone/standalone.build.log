@@ -1,0 +1,260 @@
+============= BUILDING STARTED ============
+  Project: tremolo_m3
+===========================================
+Linking files...
+C:/CirrusDSP/bin/clink
+ -oC:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/tremolo_m3.img
+ -fC:/CirrusDSP/crystal32/memory_maps/v00.mem.xml
+ --output_type=RAM
+ --overlay_type=standalone
+ -lC:/CirrusDSP/lib/
+ -lC:/CirrusDSP/lib/dsplib
+ -lC:/CirrusDSP/lib/dsplib/crystal32/
+C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/main.O
+C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/processing.O
+C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O
+C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/sin_gen.O
+     [exec] Warning #507: Unknown class: Y_OS_CC_GLOBALS
+     [exec]             for the segment: CC_HEAPSTEAL_VALUES
+     [exec]             from the module: C:\CirrusDSP\lib\dsplib\crystal32\cl_heapsteal.O
+     [exec] DWARF WARNING: Could not find symbol "_main_a" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/main.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "_saturation_tremolo" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_3_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_16_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_3_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_16_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_19_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_36_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_19_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_36_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_19_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_36_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "_processBlock" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_39_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_49_1" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_39_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_49_1" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_39_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_49_1" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_39_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_49_1" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_39_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_49_1" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_39_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_49_1" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_39_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_49_1" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_39_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_49_1" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_19_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_24_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_25_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_27_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_28_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_29_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_31_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_32_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_34_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_36_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "_processBlock" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_39_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_47_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_49_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_52_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_55_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_56_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_57_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_59_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_60_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_62_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_64_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_69_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_71_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_72_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_74_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_76_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_77_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_49_1" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "_saturation_tremolo" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_3_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_5_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_7_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_9_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_11_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_13_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] DWARF WARNING: Could not find symbol "cline_16_0" in object file "C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/src/tremolo.O".
+     [exec] Debug information for the symbol will be missing.
+     [exec] Try passing -s option to casm.
+     [exec] 
+     [exec] List of linked library's modules:
+     [exec] C:\CirrusDSP\lib\crt0.o
+     [exec] C:\CirrusDSP\lib\div.o
+     [exec] C:\CirrusDSP\lib\exit.o
+     [exec] C:\CirrusDSP\lib\simulator_stack.o
+     [exec] C:\CirrusDSP\lib\strcpy_x2x.o
+     [exec] C:\CirrusDSP\lib\udiv.o
+     [exec] C:\CirrusDSP\lib\dsplib\crystal32\cl_get_cycle_count.o
+     [exec] C:\CirrusDSP\lib\dsplib\crystal32\cl_wavread_bits_per_sample.o
+     [exec] C:\CirrusDSP\lib\dsplib\crystal32\cl_wavread_close.o
+     [exec] C:\CirrusDSP\lib\dsplib\crystal32\cl_wavread_frame_rate.o
+     [exec] C:\CirrusDSP\lib\dsplib\crystal32\cl_wavread_getnchannels.o
+     [exec] C:\CirrusDSP\lib\dsplib\crystal32\cl_wavread_number_of_frames.o
+     [exec] C:\CirrusDSP\lib\dsplib\crystal32\cl_wavread_open.o
+     [exec] C:\CirrusDSP\lib\dsplib\crystal32\cl_wavread_recvsample.o
+     [exec] C:\CirrusDSP\lib\dsplib\crystal32\cl_wavwrite_close.o
+     [exec] C:\CirrusDSP\lib\dsplib\crystal32\cl_wa
+     [exec] vwrite_open.o
+     [exec] C:\CirrusDSP\lib\dsplib\crystal32\cl_wavwrite_sendsample.o
+     [exec] C:\CirrusDSP\lib\dsplib\crystal32\printf.o
+Creating .uld file...
+C:/CirrusDSP/bin/lnkuld
+ -ja
+ C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/tremolo_m3.img
+ C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/tremolo_m3.uld
+     [exec] 
+     [exec] Reading file: C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/tremolo_m3.img ...
+     [exec] 	Processed 816 line(s).
+     [exec] 
+     [exec] Writing output to file: C:/Users/tbran/D
+     [exec] esktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/tremolo_m3.uld ...
+     [exec] 
+     [exec] Done!
+     [exec] 
+     [exec] Writing output to file: C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/tremolo_m3.uldb ...
+     [exec] 
+     [exec] Done!
+     [exec] 
+     [exec] Writing output to file: C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/tremolo_m3.uldc ...
+
+BUILD SUCCESSFUL
+Total time: 1 second

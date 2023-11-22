@@ -1,0 +1,378 @@
+1     						/** @file example_module_os_interface.a
+2     						 *
+3     						 *  This file defines the data structures necessary for a module that fits into
+4     						 *  the Cirrus Logic OS Framework.
+5     						 */
+6     						.include .strcat (_COMMON_INC_PATH_, "macros.h")
+6      >> open include file: C:/CirrusDSP/crystal32/common/inc/macros.h
+1+    							.if !defined(_MCT_MACROS_H_)
+2+    						
+441+  							.list on
+442+  						
+443+  						#------------------------------------------------------------------
+444+  						# macros to support patching a jump table function. The macros assume
+445+  						# that x0 contains the current value of the jump table entry.
+446+  						#------------------------------------------------------------------
+447+  						
+448+  							.macro
+449+  							PATCH_JTABLE %originalFunctionName,%newFunctionName
+450+  							.public %originalFunctionName%&_patched
+451+  						%originalFunctionName%&_patched .equ 1    #duplicate patches of the same function should cause an error	
+452+  							lo16(x0) = (%newFunctionName)
+453+  							pmem[%originalFunctionName] = x0
+454+  							.endm
+455+  							
+456+  							.macro
+457+  							PATCH_JTABLE_OS_HD_LRAM_INIT %newFunctionName,%originalFunctionName
+458+  							.if !defined (_os_hd_a_l_jmp_tbl_patches_)
+459+  							.public %originalFunctionName%&_patched
+460+  						%originalFunctionName%&_patched .equ 1    #duplicate patches of the same function should cause an error	
+461+  							.else
+462+  						        .dw (%newFunctionName), %originalFunctionName
+463+  							.endif
+464+  							.endm
+465+  							
+466+  							.macro
+467+  							PATCH_2JTABLE_OS_HD_LRAM_INIT %newFunctionName,%originalFunctionName1,%originalFunctionName2
+468+  							.if !defined (_os_hd_a_l_jmp_tbl_patches_)
+469+  							.public %originalFunctionName1%&_patched
+470+  							.public %originalFunctionName2%&_patched
+471+  						%originalFunctionName1%&_patched .equ 1    #duplicate patches of the same function should cause an error	
+472+  						%originalFunctionName2%&_patched .equ 1    #duplicate patches of the same function should cause an error	
+473+  							.else
+474+  						        .dw (%newFunctionName), %originalFunctionName1
+475+  						        .dw (%newFunctionName), %originalFunctionName2
+476+  							.endif
+477+  							.endm
+478+  							
+479+  							.macro
+480+  							PATCH_JTABLE_OS_DC %originalFunctionName,%newFunctionName
+481+  							.if defined (OS_DC)
+482+  							.public %originalFunctionName%&_patched
+483+  						%originalFunctionName%&_patched .equ 1    #duplicate patches of the same function should cause an error	
+484+  							.endif
+485+  							lo16(x0) = (%newFunctionName)
+486+  							pmem[%originalFunctionName] = x0
+487+  							.endm
+488+  							
+489+  							.macro
+490+  							PATCH_JTABLE_OS_EGG_OS_DC %originalFunctionName,%newJtableName,%newJtableLength
+491+  							.if defined (OS_EGG)
+492+  							do_patch (%newJtableName), %newJtableLength
+493+  							.endif
+494+  							.if defined (OS_DC)
+495+  							.public %originalFunctionName%&_patched
+496+  						%originalFunctionName%&_patched .equ 1    #duplicate patches of the same function should cause an error	
+497+  							.endif
+498+  							.endm
+499+  							
+500+  							.macro
+501+  							PATCH_JTABLE_OS_EGG_OK_NO_OS_DC %originalFunctionName,%newJtableName,%newJtableLength
+502+  							.if defined (OS_EGG)
+503+  							do_patch (%newJtableName), %newJtableLength
+504+  							.endif
+505+  							.endm
+506+  							
+507+  							.macro
+508+  							PATCH_2JTABLE_OS_EGG_OS_DC  %originalFunctionName1,%originalFunctionName2,%newJtableName,%newJtableLength
+509+  							.if defined (OS_EGG)
+510+  							do_patch (%newJtableName), %newJtableLength
+511+  							.endif
+512+  							.if defined (OS_DC)
+513+  							.public %originalFunctionName1%&_patched
+514+  							.public %originalFunctionName2%&_patched
+515+  						%originalFunctionName1%&_patched .equ 1    #duplicate patches of the same function should cause an error	
+516+  						%originalFunctionName2%&_patched .equ 1    #duplicate patches of the same function should cause an error	
+517+  							.endif
+518+  							.endm
+519+  							
+520+  							.macro
+521+  							PATCH_JTABLE_USE_LAST_X0 %originalFunctionName
+522+  							.public %originalFunctionName%&_patched
+523+  						%originalFunctionName%&_patched .equ 1    #duplicate patches of the same function should cause an error	
+524+  							pmem[%originalFunctionName] = x0
+525+  							.endm
+526+  							
+527+  							.macro
+528+  							PATCH_2JTABLE %originalFunctionName1,%originalFunctionName2,%newFunctionName
+529+  							.public %originalFunctionName1%&_patched
+530+  							.public %originalFunctionName2%&_patched
+531+  						%originalFunctionName1%&_patched .equ 1    #duplicate patches of the same function should cause an error	
+532+  						%originalFunctionName2%&_patched .equ 1    #duplicate patches of the same function should cause an error	
+533+  							lo16(x0) = (%newFunctionName)
+534+  							pmem[%originalFunctionName1] = x0
+535+  							pmem[%originalFunctionName2] = x0
+536+  							.endm
+537+  							
+538+  						#-----------------------------------------------------------------
+539+  						# macros to support defining lables if in RAM
+540+  						# and not labled if in ROM
+541+  						#-----------------------------------------------------------------
+542+  							.macro 
+543+  						%lable  .rom_no_label  
+544+  							.if .substr(.classname($),.strlen(.classname($))-2)="ROM"
+545+  							.else
+546+  						%lable
+547+  							.endif
+548+  						        .endm
+549+  							
+550+  						#-----------------------------------------------------------------
+551+  						# macro to support reserving space during ROM build 
+552+  						# and download initialization during RAM build
+553+  						#-----------------------------------------------------------------
+554+  							.macro 
+555+  						        .dw_ram_bss_rom %initialValue  
+556+  							.if defined (_RAM_BUILD_) 
+557+  							 .dw %initialValue  
+558+  							.else
+559+  							 .bss 1
+560+  							.endif
+561+  						        .endm
+562+  							
+563+  						#-----------------------------------------------------------------
+564+  						# macro to support reserving space during build under OS_DC
+565+  						# and download initialization during build under OS_EGG
+566+  						#-----------------------------------------------------------------
+567+  							.macro 
+568+  						        .dw_egg_bss_dc %initialValue  
+569+  							.if defined (OS_EGG) 
+570+  							 .dw %initialValue  
+571+  							.endif
+572+  							.if defined (OS_DC) 
+573+  							 .bss 1
+574+  							.endif
+575+  						        .endm
+576+  							
+577+  							.endif
+578+  							
+579+   >> end of include file: C:/CirrusDSP/crystal32/common/inc/macros.h
+579+   >> continuing with file: C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model4_FINAL/example_module/src/example_module_os_interface.a
+7     						.include "example_module_module.h"
+7      >> open include file: C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model4_FINAL/example_module/gen/inc/example_module_module.h
+1+    						/* This file is automatically generated by CLIDE.
+2+    						 *
+3+    						 * Module ID is unique identifier used in Cirrus Logic framework.
+4+    						 */
+5+    						 
+6+    	 0074				example_module_MODULEID .equ 0x74       # 0x70 - 0x7F are reserved for custom modules
+7+     >> end of include file: C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model4_FINAL/example_module/gen/inc/example_module_module.h
+7+     >> continuing with file: C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model4_FINAL/example_module/src/example_module_os_interface.a
+8     						
+9     						#====================================================================
+10    						# Declare the MIF for this module. It needs to be public so that it 
+11    						# can be referenced in the ODT definition in another source file.
+12    						# Also need to declare a public symbol for the module ID for this module
+13    	 0000					.public X_BY_example_module_MIF, example_module_MODULEID
+14    						
+15    	 0000					.public example_module_mif
+16    						
+17    						example_module_mif	.ydata_ovly
+17     >> start of macro: .ydata_ovly
+1+    									seg_single example_module_mif, "Y_OVLY", Y
+1+     >> start of macro: seg_single
+1+    						  .if ( "example_module_mif" != "" ) & defined( ___SegStart_Y_example_module_mif )
+2+    						example_module_mif    segment
+3+    						  .else
+4+    						example_module_mif    segment "Y_OVLY"
+5+    							.if "example_module_mif" != ""
+6+    	 0000				___SegStart_Y_example_module_mif
+7+    							.endif
+8+    						  .endif
+9+    							#RememberSegmentType
+10+    >> end of macro: seg_single
+2+     >> end of macro: .ydata_ovly
+18    						#
+19    						# use macros to declare the MIF structure. The macros ensure that the 
+20    						# data structure is properly constructed
+21    						#	
+22    	 0000				X_BY_example_module_MIF:
+23    	 0000					.extern example_module_HOST_MCV
+24    						 MIF_BEGIN
+24     >> start of macro: MIF_BEGIN
+1+    							.if ""!=""
+2+    						:
+3+    							.endif
+4+    	 0000				__External_MCV_X__ .set 0
+5+    	 0000				__External_MCV_Y__ .set 0
+6+    	 0000				__External_MCT__ .set 0
+7+    	 0000				__Internal_MCV_X__ .set 0
+8+    	 0000				__Internal_MCV_Y__ .set 0
+9+    	 0000				__Internal_MCT__ .set 0
+10+    >> end of macro: MIF_BEGIN
+25    						  EXT_MCV_Y    example_module_HOST_MCV
+25     >> start of macro: EXT_MCV_Y
+1+    	 0000				__External_MCV_Y__ .set example_module_HOST_MCV
+2+     >> end of macro: EXT_MCV_Y
+26    						  EXT_MCT      mct
+26     >> start of macro: EXT_MCT
+1+    	 0000				__External_MCT__ .set mct
+2+     >> end of macro: EXT_MCT
+27    						 MIF_END
+27     >> start of macro: MIF_END
+1+    	 0000					.dw __External_MCV_Y__
+	 0000	 00000000	 
+2+    	 0001					.dw __External_MCT__
+	 0001	 00000000	 
+3+    	 0002					.dw __External_MCV_X__
+	 0002	 00000000	 
+4+    	 0003				    .dw 0
+	 0003	 00000000	 
+5+    	 0004					.dw __Internal_MCV_Y__
+	 0004	 00000000	 
+6+    	 0005					.dw __Internal_MCT__
+	 0005	 00000000	 
+7+    	 0006					.dw __Internal_MCV_X__
+	 0006	 00000000	 
+8+    	 0007				    .dw 0
+	 0007	 00000000	 
+9+     >> end of macro: MIF_END
+28    						
+29    						#
+30    						# create the MCT (Module Call Table)
+31    						# The symbols for the entry points are assumed to be external to this
+32    						# source file, hence the .extern directives.
+33    						#
+34    						# To remove any particular entry point, just comment out or remove
+35    						# that line in the MCT structure. Ordering of the entry points is not
+36    						# important -- the macro ensures that the order expected by the OS is
+37    						# followed.
+38    						#
+39    						example_module_MCT	.ydata_ovly
+39     >> start of macro: .ydata_ovly
+1+    									seg_single example_module_MCT, "Y_OVLY", Y
+1+     >> start of macro: seg_single
+1+    						  .if ( "example_module_MCT" != "" ) & defined( ___SegStart_Y_example_module_MCT )
+2+    						example_module_MCT    segment
+3+    						  .else
+4+    						example_module_MCT    segment "Y_OVLY"
+5+    							.if "example_module_MCT" != ""
+6+    	 0000				___SegStart_Y_example_module_MCT
+7+    							.endif
+8+    						  .endif
+9+    							#RememberSegmentType
+10+    >> end of macro: seg_single
+2+     >> end of macro: .ydata_ovly
+40    	 0000					.extern X_S_example_module_PreKickstart,X_S_example_module_PostKickstart,X_S_example_module_Timer,X_S_example_module_Frame
+41    	 0000					.extern X_S_example_module_Brick,X_S_example_module_PreMalloc,X_S_example_module_PostMalloc,X_S_example_module_Background
+42    	 0000				mct:
+43    						 MCT_BEGIN
+43     >> start of macro: MCT_BEGIN
+1+    							.if ""!=""
+2+    						:
+3+    							.endif
+4+    	 0000				__prekickEP__ .set 0
+5+    	 0000				__postkickEP__ .set 0
+6+    	 0000				__timerEP__ .set 0	
+7+    	 0000				__frameEP__ .set 0
+8+    	 0000				__blockEP__ .set 0
+9+    	 0000				__afapEP__ .set 0
+10+   	 0000				__backgroundEP__ .set 0
+11+   	 0000				__postmallocEP__ .set 0
+12+   	 0000				__premallocEP__ .set 0
+13+    >> end of macro: MCT_BEGIN
+44    						  PREKICK      X_S_example_module_PreKickstart
+44     >> start of macro: PREKICK
+1+    	 0000				__prekickEP__ .set X_S_example_module_PreKickstart
+2+     >> end of macro: PREKICK
+45    						  POSTKICK     X_S_example_module_PostKickstart
+45     >> start of macro: POSTKICK
+1+    	 0000				__postkickEP__ .set X_S_example_module_PostKickstart
+2+     >> end of macro: POSTKICK
+46    						  TIMER        X_S_example_module_Timer
+46     >> start of macro: TIMER
+1+    	 0000				__timerEP__ .set X_S_example_module_Timer
+2+     >> end of macro: TIMER
+47    						  FRAME        X_S_example_module_Frame
+47     >> start of macro: FRAME
+1+    	 0000				__frameEP__ .set X_S_example_module_Frame
+2+     >> end of macro: FRAME
+48    						  BLOCK        X_S_example_module_Brick
+48     >> start of macro: BLOCK
+1+    	 0000				__blockEP__ .set X_S_example_module_Brick
+2+     >> end of macro: BLOCK
+49    						  PREMALLOC    X_S_example_module_PreMalloc
+49     >> start of macro: PREMALLOC
+1+    	 0000				__premallocEP__ .set X_S_example_module_PreMalloc
+2+     >> end of macro: PREMALLOC
+50    						  POSTMALLOC   X_S_example_module_PostMalloc
+50     >> start of macro: POSTMALLOC
+1+    	 0000				__postmallocEP__ .set X_S_example_module_PostMalloc
+2+     >> end of macro: POSTMALLOC
+51    						  BACKGROUND   X_S_example_module_Background 
+51     >> start of macro: BACKGROUND
+1+    	 0000				__backgroundEP__ .set X_S_example_module_Background
+2+     >> end of macro: BACKGROUND
+52    						 MCT_END
+52     >> start of macro: MCT_END
+1+    	 0000					.dw __prekickEP__
+	 0000	 00000000	 
+2+    	 0001					.dw __postkickEP__
+	 0001	 00000000	 
+3+    	 0002					.dw __timerEP__
+	 0002	 00000000	 
+4+    	 0003					.dw __frameEP__
+	 0003	 00000000	 
+5+    	 0004					.dw __blockEP__
+	 0004	 00000000	 
+6+    	 0005					.dw __afapEP__
+	 0005	 00000000	 
+7+    	 0006					.dw __backgroundEP__
+	 0006	 00000000	 
+8+    	 0007					.dw __postmallocEP__
+	 0007	 00000000	 
+9+    	 0008					.dw __premallocEP__
+	 0008	 00000000	 
+10+    >> end of macro: MCT_END
+53    						
+54    						(null)
+				 SYMBOL TABLE 
+
+    Name                                                                                    Type                  Value 
+
+MCT_SIZE                                                                        			  Unused Number				      9 (9H)
+MIF_SIZE                                                                        			  Unused Number				      8 (8H)
+X_BY_example_module_MIF                                                         			  Public Relocatable       example_module_mif:0000H
+X_S_example_module_Background                                                   					 External   
+X_S_example_module_Brick                                                        					 External   
+X_S_example_module_Frame                                                        					 External   
+X_S_example_module_PostKickstart                                                					 External   
+X_S_example_module_PostMalloc                                                   					 External   
+X_S_example_module_PreKickstart                                                 					 External   
+X_S_example_module_PreMalloc                                                    					 External   
+X_S_example_module_Timer                                                        					 External   
+_COMMON_INC_PATH_                                                               					 Define                 "C:/CirrusDSP/crystal32/common/inc/"
+_DSP_                                                                           			  Unused Variable		        0 (0H)
+_LOCAL_INC_PATH_                                                                					 Define                 "inc/"
+_LOCAL_SRC_PATH_                                                                					 Define                 "src/"
+_MCT_MACROS_H_                                                                  			  Unused Variable		        0 (1H)
+_ROUTER_INC_PATH_                                                               					 Define                 "rom_inc/"
+__CASM_VER__                                                                    			  Unused Variable		        0 (701H)
+__External_MCT__                                                                					 Variable		            0 (0H)
+__External_MCV_X__                                                              					 Variable		            0 (0H)
+__External_MCV_Y__                                                              					 Variable		            0 (0H)
+__Internal_MCT__                                                                					 Variable		            0 (0H)
+__Internal_MCV_X__                                                              					 Variable		            0 (0H)
+__Internal_MCV_Y__                                                              					 Variable		            0 (0H)
+___SegStart_Y_example_module_MCT                                                			  Unused Relocatable        example_module_MCT:0000H
+___SegStart_Y_example_module_mif                                                			  Unused Relocatable        example_module_mif:0000H
+__afapEP__                                                                      					 Variable		            0 (0H)
+__backgroundEP__                                                                					 Variable		            0 (0H)
+__blockEP__                                                                     					 Variable		            0 (0H)
+__frameEP__                                                                     					 Variable		            0 (0H)
+__postkickEP__                                                                  					 Variable		            0 (0H)
+__postmallocEP__                                                                					 Variable		            0 (0H)
+__prekickEP__                                                                   					 Variable		            0 (0H)
+__premallocEP__                                                                 					 Variable		            0 (0H)
+__timerEP__                                                                     					 Variable		            0 (0H)
+example_module_HOST_MCV                                                         					 External   
+example_module_MCT                                                              			  Unused Relocatable        example_module_MCT:0000H
+example_module_MODULEID                                                         			  Unused Number				      116 (74H)
+example_module_mif                                                              			  Public Relocatable       example_module_mif:0000H
+mct                                                                             			         Relocatable         example_module_MCT:0000H
+
+	       SEGMENTS:
+
+Size			  Name										 Class
+0000H	 __INIT                                  			 CODE                                    
+0008H	 example_module_mif                      			 Y_OVLY                                  
+0009H	 example_module_MCT                      			 Y_OVLY                                  

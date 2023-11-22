@@ -1,0 +1,274 @@
+1     	 0000				_TREMOLO_ASM
+2     						
+3     							.if defined (_TREMOLO_ASM)
+4     						
+5     	 0010				_BLOCK_SIZE .equ 16	
+6     						
+7     	 0000					.public _tremoloLeft
+8     	 0000					.public _tremoloRight
+9     	 0000				    .extern _generate_sine
+10    	 0000				    .extern _tremolo_postGain
+11    	 0000				    .extern _limiterThreshold
+12    							
+13    						X_SECTION   .xdata_ovly
+13     >> start of macro: .xdata_ovly
+1+    									seg_single X_SECTION, "X_OVLY", X
+1+     >> start of macro: seg_single
+1+    						  .if ( "X_SECTION" != "" ) & defined( ___SegStart_X_X_SECTION )
+2+    						X_SECTION    segment
+3+    						  .else
+4+    						X_SECTION    segment "X_OVLY"
+5+    							.if "X_SECTION" != ""
+6+    	 0000				___SegStart_X_X_SECTION
+7+    							.endif
+8+    						  .endif
+9+    							#RememberSegmentType
+10+    >> end of macro: seg_single
+2+     >> end of macro: .xdata_ovly
+14    						
+15    	 0000				PI	.dw 0.78539816339725	// PI scaled by 4 (2 bits)
+	 0000	 6487ED51	 
+16    						
+17    						
+18    						L_SECTION   .data_ovly
+18     >> start of macro: .data_ovly
+1+    									seg_single L_SECTION, "L_OVLY", L
+1+     >> start of macro: seg_single
+1+    						  .if ( "L_SECTION" != "" ) & defined( ___SegStart_L_L_SECTION )
+2+    						L_SECTION    segment
+3+    						  .else
+4+    						L_SECTION    segment "L_OVLY"
+5+    							.if "L_SECTION" != ""
+6+    	 0000				___SegStart_L_L_SECTION
+7+    							.endif
+8+    						  .endif
+9+    							#RememberSegmentType
+10+    >> end of macro: seg_single
+2+     >> end of macro: .data_ovly
+19    						
+20    	 0000				phLeft .bss (1)
+21    	 0001				phRight .bss (1)
+22    	 0002				PH_STEP .dw (0x00015cf7), (0x51db94e7)	// phase step, 0.0000416=(freq/sample_rate)=(2/48000)
+	 0002	 00015CF751DB94E7	 
+23    						
+24    							.code_ovly
+24     >> start of macro: .code_ovly
+1+    									seg_single , "CODE_OVLY", CODE
+1+     >> start of macro: seg_single
+1+    						  .if ( "" != "" ) & defined( ___SegStart_CODE_ )
+2+    						    segment
+3+    						  .else
+4+    						    segment "CODE_OVLY"
+5+    							.if "" != ""
+6+    						___SegStart_CODE_
+7+    							.endif
+8+    						  .endif
+9+    							#RememberSegmentType
+10+    >> end of macro: seg_single
+2+     >> end of macro: .code_ovly
+25    						
+26    						  # x1 - parameter phase, DO NOT MODIFY i2 and i3
+27    						  # return value: a0 
+28    	 0000				_lfo:	# formula for lfo is: return 0.5 + 0.5 * gen_sin(2.0 * PI * phase);
+29    							
+30    							//fract_pi = (DSPaccum)PI;	scaled by 4
+31    	 0000	 80040000		x0 = xmem[PI]
+32    							
+33    							//accum_pi = fract_pi * phase;
+34    	 0001	 00002080		a0 = x0 * x1	// multiply phase with PI
+35    							//accum_pi <<= 3;
+36    	 0002	 00004E00		a0 = a0 << 1	// resacle by 4
+37    	 0003	 00004E00		a0 = a0 << 1
+38    	 0004	 00004E00		a0 = a0 << 1	// multiply by 2, IN a0 is now  2*PI*phase
+39    						
+40    							//accum_pi = (DSPaccum)gen_sin(accum_pi); a0 is return value from gen_sin
+41    	 0005	 80880000		call _generate_sine
+42    							
+43    							//accum_pi >>= 1; 
+44    	 0006	 00004E40		a0 = a0 >> 1 // by formula multiply by 0.5
+45    						
+46    							//accum_pi += (DSPaccum)0.5;
+47    	 0007	 897A4000		a1 =(0x4000) // const 0.5
+48    	 0008	 00004408		a0 = a0 + a1	// by formula add 0.5
+49    							
+50    	 0009	 81880000		ret	
+51    							
+52    							
+53    							 # i4 - parameter pointer to in channel (left)
+54    							 # i5 - parameter pointer to out channel (Ls)
+55    							 #return value: None
+56    	 000A				_tremoloLeft: // DO NOT MODIFY i2 and i3
+57    						
+58    							
+59    	 000A	 A6050000		i6 = (phLeft) + (0)	// memory address where the phase for the left channel is located 
+60    	 000B	 3C467FFF		b0 = xymem[i6]		// load phase for L channel
+61    	 000C	 4C417FFF		x1 = b0				// in x0 is local copy of  the phase
+62    							
+63    							//for (i = 0; i < BLOCK_SIZE; ++i)
+64    	 000D	 81000029		do(_BLOCK_SIZE),>loop
+65    								//accum_lfo = (DSPaccum) lfo(ph); -> return value is a0
+66    	 000E	 80880000			call _lfo
+67    								
+68    								//accum_lfo = (DSPaccum)1.0 - accum_lfo;
+69    	 000F	 895A8000			ufixed16(a1) = (0x8000)	// a1 = 1.0
+70    	 0010	 000044C1			a1 = a1 - a0
+71    								
+72    								//accum_lfo >>= 1;
+73    	 0011	 00004E41			a1 = a1 >> 1	// scale value by 2 
+74    								
+75    								//accum_lfo = (DSPfract)accum_lfo * in;
+76    	 0012	 49407FFF			x0 = a1
+77    	 0013	 84940014			y0 = ymem[i4]; i4 += 1
+78    	 0014	 00002401			a1 = x0 * y0		// multiply input sample with math calculateted value
+79    								
+80    								//accum_lfo = (DSPfract)accum_lfo * postgain;
+81    	 0015	 49407FFF			x0 = a1
+82    	 0016	 84040000			y0 = xmem[_tremolo_postGain]
+83    	 0017	 00002401			a1 = x0 * y0	// multiply with tremolo post gain
+84    								
+85    								//accum_lfo <<= 1;
+86    	 0018	 00004E01			a1 = a1 << 1	// rescale by 2
+87    								
+88    								// *output = saturation_tremolo(accum_lfo);
+89    	 0019	 8D040000			b1 = xmem[_limiterThreshold]	
+90    	 001A	 00004869			if (b1 < a1) a1 = b1	// check saturation for upper bound
+91    								
+92    	 001B	 00004C8D			b1 = -b1
+93    	 001C	 00004829			if (b1 > a1) a1 = b1	// check saturation for lower bound
+94    								
+95    	 001D	 89D40015			ymem[i5] = a1; i5 += 1	// write output in Ls
+96    								
+97    								// *accum_ph += (DSPaccum)PH_STEP;
+98    	 001E	 A6050000			i6 = (phLeft) + (0)	// memory address where the phase for the left channel is located 
+99    	 001F	 3C467FFF			b0 = xymem[i6]	// load phase for left channel (accum_ph)
+100   								
+101   	 0020	 A6050002			i6 = (PH_STEP) + (0)	// memory address where the phase step is located 
+102   	 0021	 38467FFF			a0 = xymem[i6]
+103   								
+104   	 0022	 00004424			b0 = b0 + a0	// update phase
+105   								
+106   								
+107   								//if (*accum_ph >= (DSPaccum)1.0)
+108   								//	*accum_ph -= (DSPaccum)1.0;
+109   	 0023	 895A8000			ufixed16(a1) = (0x8000)	// a1 = 1.0
+110   	 0024	 00004F2C			b0 - a1
+111   	 0025	 86880027			if (b < 0) jmp>write_b0	//  Keep phase in range [0, 1)
+112   	 0026	 0000446C				b0 = b0 - a1
+113   						
+114   								//ph = *accum_ph;
+115   	 0027	 A6050000	%write_b0:	i6 = (phLeft) + (0)
+116   	 0028	 7C467FFF				xymem[i6] = b0	// Save update phase in global variable
+117   								
+118   	 0029	 4C417FFF	%loop:	x1 = b0	// save update phase in local copy
+119   						
+120   	 002A	 81880000		ret
+121   						
+122   						
+123   							# i4 - parameter pointer to in channel (left)
+124   							# i5 - parameter pointer to out channel (Ls)
+125   							#return value: None
+126   	 002B				_tremoloRight: // DO NOT MODIFY i2 and i3
+127   						
+128   	 002B	 A6050001		i6 = (phRight) + (0)	// memory address where the phase for the right channel is located 
+129   	 002C	 3C467FFF		b0 = xymem[i6]	// load global phase for right channel
+130   	 002D	 4C417FFF		x1 = b0				// local phase
+131   							
+132   							//for (i = 0; i < BLOCK_SIZE; ++i)
+133   	 002E	 8100004A		do(_BLOCK_SIZE),>loop
+134   								//accum_lfo = (DSPaccum) lfo(ph); -> return value is a0
+135   	 002F	 80880000			call _lfo
+136   								
+137   								//accum_lfo = (DSPaccum)1.0 - accum_lfo;
+138   	 0030	 895A8000			ufixed16(a1) = (0x8000)	// a1 = 1.0
+139   	 0031	 000044C1			a1 = a1 - a0
+140   								
+141   								//accum_lfo >>= 1;
+142   	 0032	 00004E41			a1 = a1 >> 1
+143   								
+144   								//accum_lfo = (DSPfract)accum_lfo * in;
+145   	 0033	 49407FFF			x0 = a1
+146   	 0034	 84940014			y0 = ymem[i4]; i4 += 1
+147   	 0035	 00002401			a1 = x0 * y0		// multiply input sample with math calculateted value
+148   								//accum_lfo = (DSPfract)accum_lfo * postgain;
+149   	 0036	 49407FFF			x0 = a1
+150   	 0037	 84040000			y0 = xmem[_tremolo_postGain]
+151   	 0038	 00002401			a1 = x0 * y0		// multiply with tremolo post gain
+152   								
+153   								//accum_lfo <<= 1;
+154   	 0039	 00004E01			a1 = a1 << 1
+155   								
+156   								// *output = saturation_tremolo(accum_lfo);
+157   	 003A	 8D040000			b1 = xmem[_limiterThreshold]
+158   	 003B	 00004869			if (b1 < a1) a1 = b1	// check saturation for upper bound
+159   								
+160   	 003C	 00004C8D			b1 = -b1
+161   	 003D	 00004829			if (b1 > a1) a1 = b1	// check saturation for lower bound
+162   								
+163   	 003E	 89D40015			ymem[i5] = a1; i5 += 1	// write output in Ls
+164   								
+165   								// *accum_ph += (DSPaccum)PH_STEP;
+166   	 003F	 A6050001			i6 = (phRight) + (0)	// memory address where the phase for the right channel is located 
+167   	 0040	 3C467FFF			b0 = xymem[i6]			// load phase for R channel
+168   								
+169   	 0041	 A6050002			i6 = (PH_STEP) + (0)	// memory address where the phase step is located 
+170   	 0042	 38467FFF			a0 = xymem[i6]
+171   								
+172   	 0043	 00004424			b0 = b0 + a0	// update phase
+173   								
+174   								//if (*accum_ph >= (DSPaccum)1.0)
+175   								//	*accum_ph -= (DSPaccum)1.0;
+176   	 0044	 895A8000			ufixed16(a1) = (0x8000)	// a1 = 1.0
+177   	 0045	 00004F2C			b0 - a1
+178   	 0046	 86880048			if (b < 0) jmp>write_phase	//  Keep phase in range [0, 1)
+179   	 0047	 0000446C				b0 = b0 - a1
+180   						
+181   	 0048	 A6050001	%write_phase: 	i6 = (phRight) + (0)
+182   	 0049	 7C467FFF					xymem[i6] = b0	// Save update phase in global variable
+183   						
+184   								//ph = *accum_ph;
+185   	 004A	 4C417FFF	%loop:	x1 = b0		// save update phase in local copy
+186   						
+187   	 004B	 81880000		ret
+188   							
+189   							.endif
+				 SYMBOL TABLE 
+
+    Name                                                                                    Type                  Value 
+
+L_SECTION                                                                       			  Unused Relocatable        L_SECTION:0000H
+PH_STEP                                                                         			         Relocatable         L_SECTION:0002H
+PI                                                                              			         Relocatable         X_SECTION:0000H
+X_SECTION                                                                       			  Unused Relocatable        X_SECTION:0000H
+_BLOCK_SIZE                                                                     					 Number				          16 (10H)
+_COMMON_INC_PATH_                                                               					 Define                 "C:/CirrusDSP/crystal32/common/inc/"
+_DSP_                                                                           					 Define                 "a"
+_LOCAL_INC_PATH_                                                                					 Define                 "inc/"
+_LOCAL_SRC_PATH_                                                                					 Define                 "src/"
+_MUI_VERSION_                                                                   					 Define                 "020000"
+_OVLY_                                                                          					 Define                 "standalone"
+_OVLY_REVISION_                                                                 					 Define                 "020000"
+_ROUTER_INC_PATH_                                                               					 Define                 "rom_inc/"
+_SLOT_                                                                          					 Define                 "0"
+_TARGET_FAMILY_                                                                 					 Define                 "crystal32"
+_TOOLS_VERSION_                                                                 					 Define                 "0x0701"
+_TREMOLO_ASM                                                                    			  Unused Relocatable        __INIT:0000H
+_VERSION_                                                                       					 Define                 "00"
+__CASM_VER__                                                                    			  Unused Variable		        0 (701H)
+___SegStart_L_L_SECTION                                                         			  Unused Relocatable        L_SECTION:0000H
+___SegStart_X_X_SECTION                                                         			  Unused Relocatable        X_SECTION:0000H
+_generate_sine                                                                  					 External   
+_lfo                                                                            			         Relocatable         tremolo_GEN_0000:0000H
+_limiterThreshold                                                               					 External   
+_tremoloLeft                                                                    			  Public Relocatable       tremolo_GEN_0000:000AH
+_tremoloRight                                                                   			  Public Relocatable       tremolo_GEN_0000:002BH
+_tremolo_postGain                                                               					 External   
+phLeft                                                                          			         Relocatable         L_SECTION:0000H
+phRight                                                                         			         Relocatable         L_SECTION:0001H
+
+	       SEGMENTS:
+
+Size			  Name										 Class
+0000H	 __INIT                                  			 CODE                                    
+0001H	 X_SECTION                               			 X_OVLY                                  
+0003H	 L_SECTION                               			 L_OVLY                                  
+004CH	 tremolo_GEN_0000                        			 CODE_OVLY                               

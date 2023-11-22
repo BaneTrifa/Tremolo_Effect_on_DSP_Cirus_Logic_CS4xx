@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+<clideViews>
+<clideView viewId="clide.debug.ui.registersView">
+<registerView regViewCoreName="DSP_A">
+<regViewMementoCore scrollPercent="NaN">
+<layoutType horizontal="0" register_details="1"/>
+<expandedPath item_0="DSP_A"/>
+</regViewMementoCore>
+</registerView>
+</clideView>
+</clideViews>
+<perspective id="CLIDE.DebugPerspective"/>
+<workbench_editors/>
+<views/>
+<watchExpressions/>
+<launcherConfiguration/>
+<projectSettings/>
+</settings>

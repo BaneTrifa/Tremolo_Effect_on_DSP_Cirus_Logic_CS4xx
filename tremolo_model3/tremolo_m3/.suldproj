@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:StandaloneULD xmlns:ns2="v7.0">
+    <SDKVersion>7_1_7</SDKVersion>
+    <CLIDEVersion>7_1_8</CLIDEVersion>
+    <chipFamily>crystal32</chipFamily>
+    <chipTargets/>
+    <designTimeProperties/>
+    <DSPCore>DSP_A</DSPCore>
+</ns2:StandaloneULD>

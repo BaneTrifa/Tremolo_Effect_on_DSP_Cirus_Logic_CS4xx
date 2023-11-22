@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<CL_PROJECT>
+    <argv>BoardConfigMapItem{name: {}, value: {}}</argv>
+    <FILE_IO_CFG block_type="Input" channels_per_line="2" delay="0" file_mode="BoardConfigMapItem{name: {PCM}, value: {PCM}}" index="0" justification="BoardConfigMapItem{name: {Left}, value: {Left}}" sample_format="BoardConfigMapItem{name: {LittleEndian}, value: {LittleEndian}}" sample_rate="48000" sample_size="32"/>
+    <FILE_IO_CFG block_type="Output" channels_per_line="2" delay="0" file_mode="BoardConfigMapItem{name: {PCM}, value: {PCM}}" index="0" justification="BoardConfigMapItem{name: {Left}, value: {Left}}" sample_format="BoardConfigMapItem{name: {LittleEndian}, value: {LittleEndian}}" sample_rate="48000" sample_size="32"/>
+    <MEMORY_CFG>
+        <ULD_FILE disk_path="C:\CirrusDSP\crystal32\apps\release\v01\os\os_1_0_0.uld"/>
+        <ULD_FILE disk_path="C:\Users\tbran\Desktop\BRANKO\E2\1_FTN_E2\1_Fakultet\AA_DSP\Projekat\Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx\tremolo_model4_FINAL\example_ovly\output\application\example_ovly__application_1_0_0.uld"/>
+    </MEMORY_CFG>
+    <PROFILE_CFG enable="BoardConfigMapItem{name: {on}, value: {--profile}}"/>
+    <SCP_CFG load_delay="0"/>
+</CL_PROJECT>

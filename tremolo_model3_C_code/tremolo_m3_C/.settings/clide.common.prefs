@@ -1,0 +1,5 @@
+clide.project.core=DSP_A
+clide.project.outputFolder=output
+clide.project.target=Cirrus DSP Core
+clide.project.type=buildableUld
+eclipse.preferences.version=1

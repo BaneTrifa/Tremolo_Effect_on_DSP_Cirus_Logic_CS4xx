@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="pda.launchType">
+<stringAttribute key="ATTR_APPLICATION_PROJECT" value="example_app"/>
+<stringAttribute key="ATTR_CONCURRENCY_NAME" value="cc1"/>
+<stringAttribute key="ATTR_OVERLAY_NAMES" value="application,os,"/>
+<stringAttribute key="ATTR_SELECTED_DEBUG_INFO_TYPE" value="DSP_APP_DEBUG_INFO_TYPE"/>
+<stringAttribute key="ATTR_SELECTED_TARGET_TYPE" value="TARGET_TYPE_SIMULATOR"/>
+</launchConfiguration>

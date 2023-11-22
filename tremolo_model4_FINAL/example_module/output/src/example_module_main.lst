@@ -1,0 +1,1625 @@
+1     						/** @file example_module_main.c
+2     						 *
+3     						 *  This file defines the actual implementation of the functions for 
+4     						 *  example_module.
+5     						 */
+6     						
+7     						.include "dsplib/os_asm.h" # include the definition of ROM functions and OS global variables
+7      >> open include file: C:/CirrusDSP/include/dsplib/os_asm.h
+1+    						 /**
+2+    						 * @file
+3+    						 * @brief DSP OS support.
+4+    						 *
+5+    						 * Project/Subproject: Cirrus Logic C library/ccc <p>
+6+    						 * Component: DSP OS support.
+7+    						 *
+8+    						 * Language: English, Code page: ASCII, Coding standard: MG-CPP-DOXY-OCT08 <p>
+9+    						 */
+10+   						/** @defgroup os_interface OS interface
+11+   						 *  These functions are called at various points during system
+12+   						 *  initialization, before normal audio processing begins.
+13+   						 */
+14+   						
+15+   						/** @defgroup module_api Module API
+16+   						 *  These data structures are required for the OS to be able to call
+17+   						 *  audio processing code. Code is packaged as a <em>module</em>. 
+18+   						 *  One or more modules can be linked together as an <em>overlay</em>.
+19+   						 *
+20+   						 *  Each module must declare an instance of a mct, mcv, and mif.
+21+   						 *
+22+   						 *  @ingroup os_interface
+23+   						 */
+24+   						 
+25+   						/** @defgroup call_convention Calling conventions
+26+   						 *  These typedefs specify calling conventions expected by the OS when calling
+27+   						 *  certain application code entry points.
+28+   						 *  @ingroup os_interface
+29+   						 */
+30+   						 
+31+   						/** @defgroup useful_types Useful typedefs
+32+   						 *  These typedefs are useful in dealing with data provided by the OS.
+33+   						 *  @ingroup os_interface
+34+   						 */
+35+   						
+36+   						 
+37+   						 .if !defined(_framework_interface_asm_h_)
+38+   	 0000				_framework_interface_asm_h_
+39+   						
+40+   						
+41+   						
+42+   						/* Module Control Vector peek/poke function prototypes.*/
+43+   						
+44+   						/**
+45+   						 * @brief return the pointer to a module's Module Control Vector (MCV), if it exists.
+46+   						 *
+47+   						 * The relationship between memory maps, overlays, the "*.uld" file, modules, module interface table, module control
+48+   						 * vector is as follows:
+49+   						 *
+50+   						 * \li A memory map partitions the DSP's memory into functional units such as Decoder (DEC),
+51+   						 * Matrix Processing Modules (MPM), Virtual Processing Modules (VPM), and Post Processing Modules (PPM)
+52+   						 * \li the binary file that is downloaded to an overlay, such as the PPM, has a .uld extension. Example: myPPM.ULD is downloaded to the PPM overlay.
+53+   						 * \li The .uld has an overlay definition table (ODT) to determine what module or modules are present, and the order
+54+   						 *  that this chain of modules processes audio data. The ODT is essentially an array, and each element points to a
+55+   						 *  Module's Module Interface Table or MIF. If the PPM overlay has parametric EQ (PEQ), bass manager (BM), and audio manager (AM), and in that
+56+   						 *  order, the ODT will have four entries- a pointer to the PEQ MIF, pointer to the BM MIF, pointer to the AM MIF,
+57+   						 *  and then a terminating entry of zero.
+58+   						 * \li Each module has a Module Interface table or MIF, which is an array of pointers. The first element in the MIF, or MIF[0], is a pointer to the
+59+   						 * Module Control Vector or MCV. The second, or MIF[1], is a pointer to the Module Control Table or MCT.
+60+   						 * \li cl_get_mcv_pointer returns MIF[0] which is a ptr_MCV for a particular module. For example,
+61+   						 * cl_get_mcv_pointer(0x3) returns AudioManagerMIF[0], which is ptr_AudioManager_MCV.
+62+   						 *
+63+   						 * Again,
+64+   						 * \li ODT[idx] is a ptr_MIF
+65+   						 * \li MIF[0] is a ptr_MCV. cl_get_mcv_pointer() returns a ptr_MCV
+66+   						 * \li MIF[1] is a ptr_MCT
+67+   						 *
+68+   						 * Usage:
+69+   						 * cl_get_mcv_pointer() retrieves the MCV pointer for particular module. If the module is
+70+   						 * not loaded, return zero pointer. Use this before doing peek to ensure that you will get a valid data.
+71+   						 *
+72+   						 * @param   moduleID (a0)
+73+   						 *          ID of the module
+74+   						 *
+75+   						 * @return (a0)
+76+   						 *          __memY void * of the MCV[0]
+77+   						 *
+78+   						 * @ingroup os_interface
+79+   						 *
+80+   						 *  Registers used (assembly programmers only):
+81+   						 *    a0, a1, b1, i0, i1, nm6, nm7
+82+   						 */
+83+   						
+84+   	 0000				 .extern _cl_get_mcv_pointer
+85+   						 
+86+   						/** 
+87+   						 * @brief mcv peek function.
+88+   						 *
+89+   						 * Function that peeks a value in MCV for particular module
+90+   						 * If module is not loaded routine will return zero.
+91+   						 *
+92+   						 * @param   moduleID (a0)
+93+   						 *          ID of the module
+94+   						 *
+95+   						 * @param   index (a1)
+96+   						 *          MCV index (must be 0x7FF or less)
+97+   						 *
+98+   						 * @return (a0)
+99+   						 *          integer value of the MCV[index]
+100+  						 *
+101+  						 * @ingroup os_interface
+102+  						 *
+103+  						 *  Registers used (assembly programmers only):
+104+  						 *     a0, a1, b1, i0, i1, nm6, nm7
+105+  						 */
+106+  	 0000				 .extern _cl_mcv_peek
+107+  						
+108+  						/**
+109+  						 * @brief mcv poke function.
+110+  						 *
+111+  						 * Function that poke integer value in MCV for particular module.
+112+  						 * If module is not loaded poke will be ignored.
+113+  						 *
+114+  						 * @param   moduleID (a0)
+115+  						 *          ID of the module
+116+  						 *
+117+  						 * @param   index (a1)
+118+  						 *          MCV index (must be 0x7FF or less)
+119+  						 *
+120+  						 * @param   value (b0)
+121+  						 *          value that will be written to MCV[index]
+122+  						 *
+123+  						 * @return
+124+  						 *          nothing
+125+  						 *
+126+  						 * @ingroup os_interface
+127+  						 *
+128+  						 *  Registers used (assembly programmers only):
+129+  						 *     a0, a1, b1, i0, i1, nm6, nm7
+130+  						 */
+131+  	 0000				 .extern _cl_mcv_poke
+132+  						
+133+  						/** Request a chunk of X memory with no alignment requirement.
+134+  						 *  This function should be called inside of a premalloc module
+135+  						 *  entry point. After the OS finishes heap allocations, the pointer
+136+  						 *  should be initialized with the address of the requested memory.
+137+  						 *
+138+  						 *  @param[in] pointer (i0)
+139+  						 *             pointer to an X memory pointer in X memory
+140+  						 *
+141+  						 *  @param[in] size (x0)
+142+  						 *             number of words to allocate.
+143+  						 *             Assembly programmers only: note that the malloc request modifies register x0.
+144+  						 *             Therefore, if malloc requests are performed back to back (such as within a loop) please remember to restore x0 between requests.
+145+  						 *
+146+  						 *  Registers used (assembly programmers only):
+147+  						 *    i1,i6,i7,a0,a3,b3,x0
+148+  						 *
+149+  						 *  <b>VERY IMPORTANT:</b> this routine, cl_mallocX, clobbers I7, the C stack pointer.
+150+  						 *  Although this routine's C wrapper preserves I7, the C developer must be sure
+151+  						 *  to preserve I7 if his or her program bypasses the wrapper and calls cl_mallocX
+152+  						 *  directly.
+153+  						 *
+154+  						 *  @ingroup os_interface
+155+  						 */
+156+  	 0000				  .extern cl_mallocX
+157+  						
+158+  						/** Request a chunk of Y memory with no alignment requirement.
+159+  						 *  This function should be called inside of a premalloc module
+160+  						 *  entry point. After the OS successfully finishes heap allocations, the pointer
+161+  						 *  contains the address of the requested memory.
+162+  						 *
+163+  						 *  @param[in] pointer (i0)
+164+  						 *             pointer to a Y memory pointer in X memory
+165+  						 *
+166+  						 *  @param[in] size (x0)
+167+  						 *             number of words to allocate
+168+  						 *             Assembly programmers only: note that the malloc request modifies register x0.
+169+  						 *             Therefore, if malloc requests are performed back to back (such as within a loop) please remember to restore x0 between requests.
+170+  						 *
+171+  						 *  Registers used (assembly programmers only):
+172+  						 *    i1,i6,i7,a0,a3,b3,x0
+173+  						 *
+174+  						 *  <b>VERY IMPORTANT:</b> this routine, cl_mallocY, clobbers I7, the C stack pointer.
+175+  						 *  Although this routine's C wrapper preserves I7, the C developer must be sure
+176+  						 *  to preserve I7 if his or her program bypasses the wrapper and calls cl_mallocY
+177+  						 *  directly.
+178+  						 *
+179+  						 *  @ingroup os_interface
+180+  						 */
+181+  	 0000				  .extern cl_mallocY
+182+  						
+183+  						/** Request a chunk of XY (L) memory with no alignment requirement.
+184+  						 *  This function should be called inside of a premalloc module
+185+  						 *  entry point. After the OS successfully finishes heap allocations, the pointer
+186+  						 *  contains the address of the requested memory.
+187+  						 *
+188+  						 *  @param[in] pointer (i0)
+189+  						 *             pointer to an XY memory pointer in X memory
+190+  						 *
+191+  						 *  @param[in] size (x0)
+192+  						 *             number of words to allocate
+193+  						 *             Assembly programmers only: note that the malloc request modifies register x0.
+194+  						 *             Therefore, if malloc requests are performed back to back (such as within a loop) please remember to restore x0 between requests.
+195+  						 *
+196+  						 *  Registers used (assembly programmers only):
+197+  						 *    i1,i6,i7,a0,a3,b3,x0
+198+  						 *
+199+  						 *  <b>VERY IMPORTANT:</b> this routine, cl_mallocL, clobbers I7, the C stack pointer.
+200+  						 *  Although this routine's C wrapper preserves I7, the C developer must be sure
+201+  						 *  to preserve I7 if his or her program bypasses the wrapper and calls cl_mallocL
+202+  						 *  directly.
+203+  						 *
+204+  						 *  @ingroup os_interface
+205+  						 */
+206+  	 0000				  .extern cl_mallocL
+207+  						
+208+  						/** Request a chunk of X memory aligned on a modulo boundary.
+209+  						 *  This function should be called inside of a premalloc module
+210+  						 *  entry point. After the OS successfully finishes heap allocations, the pointer
+211+  						 *  contains the address of the requested memory.
+212+  						 *
+213+  						 *  @param[in] pointer (i0)
+214+  						 *             pointer to an X memory pointer in X memory
+215+  						 *
+216+  						 *  @param[in] size (x0)
+217+  						 *             number of words to allocate. <b>SIZE MUST BE A POWER OF 2.</b>
+218+  						 *             Address of allocated memory is guaranteed to be
+219+  						 *             an even multiple of the next power of 2 >= size.
+220+  						 *             Assembly programmers only: note that the malloc request modifies register x0.
+221+  						 *             Therefore, if malloc requests are performed back to back (such as within a loop) please remember to restore x0 between requests.
+222+  						 *
+223+  						 *  Registers used (assembly programmers only):
+224+  						 *    i1,i6,i7,a0,a3,b3,x0
+225+  						 *
+226+  						 *  <b>VERY IMPORTANT:</b> this routine, cl_mallocModX, clobbers I7, the C stack pointer.
+227+  						 *  Although this routine's C wrapper preserves I7, the C developer must be sure
+228+  						 *  to preserve I7 if his or her program bypasses the wrapper and calls cl_mallocModX
+229+  						 *  directly.
+230+  						 *
+231+  						 *  @ingroup os_interface
+232+  						 */
+233+  	 0000				  .extern cl_mallocModX
+234+  						
+235+  						/** Request a chunk of Y memory aligned on a modulo boundary.
+236+  						 *  This function should be called inside of a premalloc module
+237+  						 *  entry point. After the OS successfully finishes heap allocations, the pointer
+238+  						 *  contains the address of the requested memory.
+239+  						 *
+240+  						 *  @param[in] pointer (i0)
+241+  						 *             pointer to an X memory pointer in X memory
+242+  						 *
+243+  						 *  @param[in] size (x0)
+244+  						 *             number of words to allocate. <b>SIZE MUST BE A POWER OF 2.</b>
+245+  						 *             Address of allocated memory is guaranteed to be
+246+  						 *             an even multiple of the next power of 2 >= size.
+247+  						 *             Assembly programmers only: note that the malloc request modifies register x0.
+248+  						 *             Therefore, if malloc requests are performed back to back (such as within a loop) please remember to restore x0 between requests.
+249+  						 *
+250+  						 *  Registers used (assembly programmers only):
+251+  						 *    i1,i6,i7,a0,a3,b3,x0
+252+  						 *
+253+  						 *  <b>VERY IMPORTANT:</b> this routine, cl_mallocModY, clobbers I7, the C stack pointer.
+254+  						 *  Although this routine's C wrapper preserves I7, the C developer must be sure
+255+  						 *  to preserve I7 if his or her program bypasses the wrapper and calls cl_mallocModY
+256+  						 *  directly.
+257+  						 *
+258+  						 *  @ingroup os_interface
+259+  						 */
+260+  	 0000				  .extern cl_mallocModY
+261+  						
+262+  						/** Request a chunk of XY (L) memory aligned on a modulo boundary.
+263+  						 *  This function should be called inside of a premalloc module
+264+  						 *  entry point. After the OS successfully finishes heap allocations, the pointer
+265+  						 *  contains the address of the requested memory.
+266+  						 *
+267+  						 *  @param[in] pointer (i0)
+268+  						 *             pointer to an X memory pointer in X memory
+269+  						 *
+270+  						 *  @param[in] size (x0)
+271+  						 *             number of words to allocate. <b>SIZE MUST BE A POWER OF 2.</b>
+272+  						 *             Address of allocated memory is guaranteed to be
+273+  						 *             an even multiple of the next power of 2 >= size.
+274+  						 *             Assembly programmers only: note that the malloc request modifies register x0.
+275+  						 *             Therefore, if malloc requests are performed back to back (such as within a loop) please remember to restore x0 between requests.
+276+  						 *
+277+  						 *  Registers used (assembly programmers only):
+278+  						 *    i1,i6,i7,a0,a3,b3,x0
+279+  						 *
+280+  						 *  <b>VERY IMPORTANT:</b> this routine, cl_mallocModL, clobbers I7, the C stack pointer.
+281+  						 *  Although this routine's C wrapper preserves I7, the C developer must be sure
+282+  						 *  to preserve I7 if his or her program bypasses the wrapper and calls cl_mallocModL
+283+  						 *  directly.
+284+  						 *
+285+  						 * <b>Note:</b> The use of cl_mallocModL in a .mwproj or .pwproj may require adjustment of DSP Composer properties.
+286+  						 * For example, if the maximum cl_mallocModL size is 1024 and the module or primitive is used in a CS48LXX project,
+287+  						 * Set File->Properties->Maximum Aligned Heap Required = 1024 in composer.
+288+  						 * This sets the heap base on a 1024 boundary. Heap base is not an issue for a .uwproj using cl_mallocModL.
+289+  						 *
+290+  						 *  @ingroup os_interface
+291+  						 */
+292+  	 0000				  .extern cl_mallocModL
+293+  						
+294+  						/**
+295+  						 * @brief Sends an unsolicited message to the host.
+296+  						 *
+297+  						 * @param[in] pPayload (i7) pointer to the first word in the message body, in X memory.
+298+  						 *
+299+  						 * @param[in] pPayload (i6) size of the message, in words.
+300+  						 *
+301+  						 * @return (a3) returns nonzero for success and 0 for failure.
+302+  						 *
+303+  						 *  Modifies: i5, b3, nm7, nm5
+304+  						 *
+305+  						 * @ingroup os_interface
+306+  						 */
+307+  	 0000				 .extern cl_send_unsol_msg
+308+  						
+309+  						/**
+310+  						* @brief function used to set or clear a GPO bit
+311+  						*
+312+  						* This function will work on CS48L10, CS47XXX, and CS485XX but not CS4953X, CS497XX nor CS498XX. (single core only)
+313+  						*
+314+  						* Note that the host must set bits 12 and 13 of the OS MCV at Kickstart. Example: ucmd 8140000000003000
+315+  						*
+316+  						* Note also, that the GPIO index must be turned on and direction set to out.
+317+  						*
+318+  						* Example for GPIO 16
+319+  						*
+320+  						* Enable (ucmd 8140003D00010000)
+321+  						*
+322+  						* Set Direction=Out (ucmd 8140003C00010000)
+323+  						*
+324+  						* Note that ucmd 814HHHHH hhhhhhhh is a "poke-OR"
+325+  						*
+326+  						* @param[in] gpo_state (a0). gpo_state=1 to set the GPO bit. gpi_state=0 to clear the GPO bit.
+327+  						*
+328+  						* @param[in] gpo_mask (a1). Bitmask to determine which GPO bit to set or clear. Bitmask = (1 << gpo_index)
+329+  						* For example: for GPO 16, which is the LED on the CS47XXX daughter card marked "GPO16," use (0x1<<16) == 0x00010000
+330+  						*
+331+  						* modifies registers a0,a1,b0,b1
+332+  						*
+333+  						* @ingroup os_interface
+334+  						*/
+335+  	 0000				   .extern cl_poke_gpo
+336+  						
+337+  						/**
+338+  						* @brief query the status of a GPI bit
+339+  						*
+340+  						* This function will work on CS48L10, CS47XXX, and CS485XX but not CS4953X, CS497XX nor CS498XX. (single core only)
+341+  						*
+342+  						* Note that the host must set bits 12 and 13 of the OS MCV at Kickstart. Example: ucmd 8140000000003000
+343+  						*
+344+  						* Note also, that the GPIO index must be turned on and direction set to in.
+345+  						*
+346+  						* Example for GPIO 3:
+347+  						*
+348+  						*   Enable (ucmd 8140003D00000008)
+349+  						*
+350+  						*   Set Direction=in (ucmd 8180003Cfffffff7)
+351+  						*
+352+  						* Note that 814HHHHH hhhhhhhh is a "poke-OR" and 818HHHHH hhhhhhhh is a poke-AND
+353+  						*
+354+  						* @param[in] gpi_mask (a0). Mask used to determine which GPI to query. For example: for GPI 3,
+355+  						*   which is the pushbutton on the CS47XXX daughter card marked "s2," use (1<<3) == 0x00000008
+356+  						*
+357+  						* @return (a0) returns the state of the GPI. 
+358+  						*
+359+  						* modifies registers a0,a1,b0,b1
+360+  						*
+361+  						* @ingroup os_interface
+362+  						*/
+363+  	 0000				  .extern cl_peek_gpi
+364+  						
+365+  						/**
+366+  						* @brief Register a callback function, to be called when a gpi changes state.
+367+  						*
+368+  						*  @param[in] function_ptr (i0) =  this function MUST save/restore all modified registers
+369+  						*  User callback function may assume that a 32 bit value, with bits set for any gpi
+370+  						*  pins that caused the callback function to be called, will be available in a0h.
+371+  						*
+372+  						*  @param[in] gpio_mask (a0) = bit mask for which GPIO will be monitored for interrupt.
+373+  						*  Bit 0 corresponds to GPIO0, bit 1 corresponds to GPIO1 and so on.
+374+  						*
+375+  						*  @param[in] intlvl_setting(a1) When this is 1, level-based interrupts are set for pins
+376+  						*  corresponding to gpio_mask. When this is 0, edge-based interrupts are set for pins
+377+  						*  corresponding to gpio_mask.  Note: If intlvl_setting is set to 1, then the library isr code will wait until the irq line
+378+  						*  goes back to it's non-active state before clearing the IRQ_STICKY bits and exiting the
+379+  						*  isr.  If this period is too long, the user is advised to use edge-based interrupts instead.
+380+  						*
+381+  						*  @param[in] inthilo_setting(b0) When this is 1, level-based interrupts are active high
+382+  						*  and edge-based interrupts are positive edge for pins corresponding to gpio_mask.
+383+  						*  When this is 0, level based interrupts are active low and edge-based interrupts are
+384+  						*  negative edge for pins corresponding to gpio_mask.
+385+  						*
+386+  						*  @return (a0) == 1 (success)
+387+  						*
+388+  						* Modifies: a2, a3, x3
+389+  						*
+390+  						*  @ingroup os_interface
+391+  						*/
+392+  	 0000				  .extern cl_os_register_gpi_handler
+393+  						
+394+  						/*=================================================================*/
+395+  						
+396+  						/**
+397+  						* @brief I2C write command, non-blocking
+398+  						*
+399+  						* This function works on CS48L10 and CS47XXX, but not CS485XX, CS4953X, CS497XX nor CS498XX.
+400+  						*
+401+  						* @param[in] i2c_command_word (x2)
+402+  						*        Bits  6:0  -- Slave address
+403+  						*        Bits 19:8 -- Clock divider value
+404+  						*        Bits 22:20 -- Bytes per message
+405+  						*
+406+  						* @param[in] count_of_message_words (i6)
+407+  						*
+408+  						* @param[in] pxWriteMsg_Fifo (i0) NOTE: bytes 0x00YYYYYY are used if count==3, 0x0000YYYY if count==2, and 0x000000YY if count==1.
+409+  						*
+410+  						* @return (b1) error_status. On CS47LXX, {0=No error, 1=Time out error}
+411+  						*                            On CS48LXX, {0x0000 0000= No Error,
+412+  						*                            0x0000 0001= Illegal I2C transaction issued
+413+  						*                            0x0000 0002= IIC NO ACK error
+414+  						*                            0x0000 0004= Time out}
+415+  						*
+416+  						* <b>IMPORTANT: For CS48L2X, CS47L3X, use C platform library instead of DSP Library for I2C operations. </b>
+417+  						* Notes: Correct usage model is to issue blocking calls for one time communication
+418+  						* as in post-kickstart stage (i2c functions cannot be used at pre-kickstart) and non-blocking calls for periodic transactions as in
+419+  						* module block or timer routines.
+420+  						*
+421+  						*  \code
+422+  						*  //Example: send the equivalent of iic_cfg -a 0xa0 -w 00 00 EC, until it succeeds, within the block routine.
+423+  						*   if (success==0)
+424+  						*  {
+425+  						*     g_cmd_word=cl_I2C_Command_Word(0x50,0xF80,3);
+426+  						*     g_msgbuf=0x000000EC; //with bytes per message of 0x3, bytes 0x00YYYYYY are used
+427+  						*     retval=cl_I2C_Nonblocking_WriteMsg(g_cmd_word,3,&g_msgbuf);
+428+  						*     if (retval==0){
+429+  						*	    success=1;
+430+  						*     }
+431+  						*  }
+432+  						*  \endcode
+433+  						*
+434+  						* @ingroup os_interface
+435+  						*/
+436+  	 0000				  .extern cl_I2C_Nonblocking_WriteMsg
+437+  						
+438+  						/**
+439+  						* @brief I2C read command, non-blocking
+440+  						*
+441+  						* This function works on CS48L10 and CS47XXX, but not CS485XX, CS4953X, CS497XX nor CS498XX.
+442+  						*
+443+  						* @param[in] i2c_command_word (x2)
+444+  						*        Bits  6:0  -- Slave address
+445+  						*        Bits 19:8 -- Clock divider value
+446+  						*        Bits 22:20 -- Bytes per message
+447+  						*
+448+  						* @param[in] count_of_message_words (i6)
+449+  						*
+450+  						* @param[in] pxReadMsg_Fifo (i0)
+451+  						*
+452+  						* @return (b1) error_status. On CS47LXX, {0=No error, 1=Time out error}
+453+  						*                            On CS48LXX, {0x0000 0000= No Error,
+454+  						*                            0x0000 0001= Illegal I2C transaction issued
+455+  						*                            0x0000 0002= IIC NO ACK error
+456+  						*                            0x0000 0004= Time out}
+457+  						*
+458+  						* <b>IMPORTANT: For CS48L2X, CS47L3X, use C platform library instead of DSP Library for I2C operations. </b>
+459+  						* Notes: Correct usage model is to issue blocking calls for one time communication
+460+  						* as in post-kickstart stage (i2c functions cannot be used at pre-kickstart) and non-blocking calls for periodic transactions as in
+461+  						* module block or timer routines.
+462+  						*
+463+  						* @ingroup os_interface
+464+  						*/
+465+  	 0000				  .extern cl_I2C_Nonblocking_ReadMsg
+466+  						
+467+  						/**
+468+  						* @brief I2C read command, blocking
+469+  						*
+470+  						* This function works on CS48L10 and CS47XXX, but not CS485XX, CS4953X, CS497XX nor CS498XX.
+471+  						*
+472+  						* @param[in] i2c_command_word (x2)
+473+  						*        Bits  6:0  -- Slave address
+474+  						*        Bits 19:8 -- Clock divider value
+475+  						*        Bits 22:20 -- Bytes per message
+476+  						*
+477+  						* @param[in] count_of_message_words (i6)
+478+  						*
+479+  						* @param[in] time_out_ms (x3) time out in milliseconds
+480+  						*
+481+  						* @param[in] pxReadMsg_Fifo (i0)
+482+  						*
+483+  						* @return (b1) error_status. On CS47LXX, {0=No error, 1=Time out error}
+484+  						*                            On CS48LXX, {0x0000 0000= No Error,
+485+  						*                            0x0000 0001= Illegal I2C transaction issued
+486+  						*                            0x0000 0002= IIC NO ACK error
+487+  						*                            0x0000 0004= Time out}
+488+  						*
+489+  						* <b>IMPORTANT: For CS48L2X, CS47L3X, use C platform library instead of DSP Library for I2C operations. </b>
+490+  						* Notes: Correct usage model is to issue blocking calls for one time communication
+491+  						* as in post-kickstart stage (i2c functions cannot be used at pre-kickstart) and non-blocking calls for periodic transactions as in
+492+  						* module block or timer routines.
+493+  						*
+494+  						* @ingroup os_interface
+495+  						*/
+496+  	 0000				  .extern cl_I2C_ReadMsg
+497+  						
+498+  						/**
+499+  						* @brief I2C write command, blocking.
+500+  						*
+501+  						* This function works on CS48L10 and CS47XXX, but not CS485XX, CS4953X, CS497XX nor CS498XX.
+502+  						*
+503+  						* @param[in] i2c_command_word (x2)
+504+  						*        Bits  6:0  -- Slave address
+505+  						*        Bits 19:8 -- Clock divider value
+506+  						*        Bits 22:20 -- Bytes per message. NOTE: for 3, bytes 0x00YYYYYY are used. For 2, bytes 0x0000YYYY are used and for 1, bytes 0x000000YY are used.
+507+  						*
+508+  						* @param[in] count_of_message_words (i6)
+509+  						*
+510+  						* @param[in] time_out_ms (x3) time out in milliseconds
+511+  						*
+512+  						* @param[in] pxWriteMsg_Fifo (i0)
+513+  						*
+514+  						* @return (b1) error_status. On CS47LXX, {0=No error, 1=Time out error}
+515+  						*                            On CS48LXX, {0x0000 0000= No Error,
+516+  						*                            0x0000 0001= Illegal I2C transaction issued
+517+  						*                            0x0000 0002= IIC NO ACK error
+518+  						*                            0x0000 0004= Time out}
+519+  						*
+520+  						* <b>IMPORTANT: For CS48L2X, CS47L3X, use C platform library instead of DSP Library for I2C operations. </b>
+521+  						* Notes: Correct usage model is to issue blocking calls for one time communication
+522+  						* as in post-kickstart stage (i2c functions cannot be used at pre-kickstart) and non-blocking calls for periodic transactions as in
+523+  						* module block or timer routines.
+524+  						*
+525+  						* \code
+526+  						*   //example: send the equivalent of iic_cfg -a 0xa0 -w 00 00 AC
+527+  						*   int g_cmd_word=cl_I2C_Command_Word(0x50,0xF80,3);
+528+  						*   int g_msgbuf=0x000000ac; //note that with bytes per message==3, bytes 0x00YYYYYY are used.
+529+  						*	cl_I2C_WriteMsg(g_cmd_word,3,100,&g_msgbuf);
+530+  						* \endcode
+531+  						*
+532+  						* @ingroup os_interface
+533+  						*/
+534+  	 0000				  .extern cl_I2C_WriteMsg
+535+  						
+536+  						
+537+  						/**
+538+  						* @brief Create an I2C command word to be used in cl_I2C_ReadMsg,
+539+  						* cl_I2C_WriteMsg, cl_I2C_Nonblocking_ReadMsg, cl_I2C_Nonblocking_WriteMsg
+540+  						*
+541+  						* @param[in] i2c_address (a0) the 7-bit address of the i2c device.
+542+  						*
+543+  						* @param[in] i2c_clock_divider (a1) divide the Cirrus DSP's core clock (HCLK/(8*(divider+1)) )
+544+  						*
+545+  						* @param[in] bytes_per_message (b0) count in bytes, for the payload.
+546+  						*
+547+  						* @return (x2) formatted IIC Command word
+548+  						*        Bits  6:0  -- 7-bit Slave address: If the intended address is 0xA0, the seven bit address is 0x50.
+549+  						*        Bits 19:8 -- Clock divider value
+550+  						*        Bits 22:20 -- Bytes per message: NOTE: for 3, bytes 0x00YYYYYY are used. For 2, bytes 0x0000YYYY are used and for 1, bytes 0x000000YY are used.
+551+  						*
+552+  						* assembly programmers only: caller must set mr_sr=(4)
+553+  						*
+554+  						* <b>IMPORTANT: For CS48L2X, CS47L3X, use C platform library instead of DSP Library for I2C operations. </b>
+555+  						*
+556+  						* @ingroup os_interface
+557+  						*/
+558+  	 0000				  .extern cl_I2C_Command_Word
+559+  						
+560+  						/**
+561+  						* @brief: function to send stop on the IIC line
+562+  						* and reset the OS_IIC_Msg_Busy and Error status to 0
+563+  						*
+564+  						* @return none
+565+  						*
+566+  						* <b>IMPORTANT: For CS48L2X, CS47L3X, use C platform library instead of DSP Library for I2C operations. </b>
+567+  						*
+568+  						* @ingroup os_interface
+569+  						*/
+570+  	 0000				  .extern cl_I2C_Abort_Message
+571+  						
+572+  						/*=================================================================*/
+573+  						
+574+  						/**
+575+  						 * @brief Clears the nm0-nm7 registers.
+576+  						 *
+577+  						 * Sets these registers to 0, and sets mr_sr=0x4, when called from C.
+578+  						 *
+579+  						 * @param (none)
+580+  						 *
+581+  						 * @return (none)
+582+  						 *
+583+  						 * modifies resources: nm0-nm7 (and sets mr_sr=4 when called from C)
+584+  						 *
+585+  						 * @ingroup os_interface
+586+  						 */
+587+  	 0000				  .extern cl_clearNM0_7
+588+  						
+589+  						/*=================================================================*/
+590+  						
+591+  						/** @def BRICK_SIZE
+592+  						 * size of one block of audio data.
+593+  						 * @ingroup os_interface
+594+  						 */
+595+  							.if !defined(BRICK_SIZE)
+596+  	 0010				BRICK_SIZE .equ 16
+597+  							.endif		
+598+  						
+599+  						
+600+  						/** @def NUMBER_OF_IO_CHANNELS
+601+  						 * number of internal PCM channels.
+602+  						 * @ingroup os_interface
+603+  						 */
+604+  							.if !defined(MAX_HARDWARE_DSP_CHANNELS_FOR_ANY_CIRRUS_PLATFORM)
+605+  	 0010				MAX_HARDWARE_DSP_CHANNELS_FOR_ANY_CIRRUS_PLATFORM .equ 16
+606+  							.endif
+607+  						
+608+  						/** Input output buffers
+609+  						 * a set of pointers to the current brick buffer, one per channel.
+610+  						 * data size: 1
+611+  						 * memory zone X
+612+  						 * @ingroup os_interface
+613+  						 */
+614+  						
+615+  	 0000					.extern ___X_BY_IOBUFFER_PTRS
+616+  						
+617+  						/** Variable that has input mode for all processing blocks.
+618+  						 * Change mode if you add or remove channels (for the benefit of down-stream modules)
+619+  						 * data size: 1
+620+  						 * memory zone X
+621+  						 * @ingroup os_interface
+622+  						 */
+623+  						
+624+  	 0000					.extern ___X_VX_PPM_INPUTMODE
+625+  						/** Variable that has input channels for all processing blocks.
+626+  						 * Change mask if you add or remove channels (for the benefit of down-stream modules)
+627+  						 * data size: 1
+628+  						 * memory zone X
+629+  						 * @ingroup os_interface
+630+  						 */
+631+  							
+632+  	 0000					.extern ___X_VX_PPM_INPUT_CHANNELS
+633+  						
+634+  						
+635+  						/** Variable that has output mode for all processing blocks.
+636+  						 * Change mode if you add or remove channels (for the benefit of down-stream modules)
+637+  						 * data size: 1
+638+  						 * memory zone X
+639+  						 * @ingroup os_interface
+640+  						 */
+641+  							
+642+  	 0000					.extern ___X_VX_PPM_OUTPUTMODE
+643+  						
+644+  						/** Variable that has output channels mask for all processing blocks.
+645+  						 * Change mask if you add or remove channels (for the benefit of down-stream modules)
+646+  						 * data size: 1
+647+  						 * memory zone X
+648+  						 * @ingroup os_interface
+649+  						 */
+650+  						
+651+  	 0000					.extern ___X_VX_PPM_OUTPUT_CHANNELS
+652+  						/** Variable that indicates audio underflow in the DSP
+653+  						 * data size: 1
+654+  						 * memory zone X
+655+  						 * @ingroup os_interface
+656+  						 */
+657+  												
+658+  	 0000					.extern ___X_VX_UNDERFLOW
+659+  						
+660+  						
+661+  						
+662+  						
+663+  						
+664+  						
+665+  						/** __X_VX_PPM_INPUT_CHANNELS and __X_VX_PPM_OUTPUT_CHANNELS are bitfield representations of the
+666+  						 * Input and Output Modes. Valid_Channels is initially a copy of __X_VX_PPM_INPUT_CHANNELS, but
+667+  						 * is modified by Modules as channels are added or removed. These variables are set by the OS
+668+  						 * and exist only as part of the MPM/PPM Frame Data.
+669+  						 *  __X_VX_PPM_VALID_CHANNELS specifies which of the 16 channels contain valid data and should be
+670+  						 * operated on by a Module. Each bit in __X_VX_PPM_VALID_CHANNELS corresponds to a single channel,
+671+  						 * with a 1 signifying valid data and a 0 signifying no data. __X_VX_PPM_VALID_CHANNELS must be
+672+  						 * modified by a Module when it adds or removes channels. Consider a virtualizer that transforms 5.1
+673+  						 * channels into a single stereo pair. Upon entering the virtualizer Module, __X_VX_PPM_VALID_CHANNELS
+674+  						 * might contain the value 0x009F (10011111b): a total of 6 bits set to one corresponding to the standard
+675+  						 * L, C, R, Ls, Rs and LFE channels. The Module performs the virtualization, sets __X_VX_PPM_VALID_CHANNELS
+676+  						 * to 0x0005 (00000101b: two bits corresponding to L and R) and clears the 16-samples in the C, Ls, Rs,
+677+  						 * and LFE channel buffers. Subsequent Modules would then operate only on the new set of valid channels.
+678+  						 */
+679+  						
+680+  						/** Variable that has input channels mask for the first processing block (decoder).
+681+  						 * This variable is controlled by OS and shoild not be changed.
+682+  						 * @ingroup os_interface
+683+  						 */
+684+  						
+685+  						/** Bit map used to determine what channels are valid coming in current processing block.
+686+  						 * Change this map if you add or remove channels (for the benefit of down-stream modules)
+687+  						 * @ingroup os_interface
+688+  						 */
+689+  						
+690+  	 0000					.extern ___X_VX_PPM_VALID_CHANNELS
+691+  						
+692+  						
+693+  						/** Current sample rate
+694+  						 * data size: 1
+695+  						 * memory zone X
+696+  						
+697+  						 * @ingroup os_interface
+698+  						 */
+699+  	 0000				 .extern ___X_VX_PPM_SAMPLERATE
+700+  							
+701+  						/** @brief Flag to initiate malloc operations.
+702+  						 * Set X_VX_NEXTFRM_REINIT_REQ to a non-zero value to initiate a fresh malloc of the
+703+  						 * entire system at the next frame transition. Setting X_VX_NEXTFRM_REINIT_REQ triggers a
+704+  						 * premalloc + postmalloc at the next frame transition. Setting of this flag is not required for
+705+  						 * the malloc on startup. A module can set the X_VX_NEXTFRM_REINIT_REQ at any time.
+706+  						 *
+707+  						 * Notes and typical usage scenario:
+708+  						 * Typically every module's post-kick start routine will set X_VX_NextFrm_Reinit_Req to 1
+709+  						 * and a module specific malloc done flag to 0.
+710+  						 * Post-kick routines are called from the OS once each time when the control goes
+711+  						 * to App_Restart before dropping down in a continuous background call loop.
+712+  						 *
+713+  						 * The OS does the following, in order, when responding to a X_VX_NEXTFRM_REINIT_REQ request:
+714+  						 *  call pre-malloc entry point for each module
+715+  						 *  do mallocations
+716+  						 *  call post-malloc entry point for each module
+717+  						 *  clear X_VX_NextFrm_Renint_Req variable (set it to 0)
+718+  						 *
+719+  						 * An individual module can set X_VX_NextFrm_Reinit_Req at any point (e.g. block,background,frame) if the
+720+  						 * module detects a change in parameters that need to be addressed with change in mallocations.
+721+  						 * OS will only act upon the request at the next frame boundary.
+722+  						 *
+723+  						 * Related notes:
+724+  						 * a reinit request will trigger pre and post malloc, but not postkick.  Postkick is called when a
+725+  						 * stream level change occurs, and soft reset is required, as such, modules must be careful that all
+726+  						 * the necessary requests for heap are done in premalloc and not in postkick
+727+  						 *
+728+  						 * @ingroup os_interface
+729+  						 */
+730+  	 0000					.extern ___X_VX_NEXTFRM_REINIT_REQ
+731+  						
+732+  						/** Flag to detect heap reinitialization.
+733+  						 * Check this flag for a non-zero value, which indicates that re-malloc has occured.
+734+  						 * module.
+735+  						 * data size: 1
+736+  						 * memory zone X
+737+  						 * @ingroup os_vars
+738+  						 */
+739+  						
+740+  	 0000					.extern ___X_VX_REINIT
+741+  						
+742+  						/** Number of audio samples presented per brick (block) entry point to modules running in the post processing modules (PPM) overlay.
+743+  						 * data size: 1
+744+  						 * memory zone Y
+745+  						 * @ingroup os_vars
+746+  						 */
+747+  	 0000					.extern	___X_VY_BRICK_SIZE
+748+  						
+749+  						/** @defgroup tempbufs Temporary Buffers
+750+  						* Temporary buffers which can be used within block routines.
+751+  						*
+752+  						*  Contents of temp buffers are not preserved between block routine calls.
+753+  						*
+754+  						*  Note that X_BL_* buffers are the same data space identified by
+755+  						*           * X_BX_* and
+756+  						*           * X_BY_* buffers.
+757+  						*
+758+  						*  @ingroup os_interface
+759+  						*/
+760+  						
+761+  						
+762+  						/** a temporary buffer in XY memory of size 256.
+763+  						 *  Available for the duration of one foreground entry point.
+764+  						 * @ingroup tempbufs
+765+  						 */
+766+  	 0000					.extern ___X_BL_TEMPBUFF
+767+  						/** a temporary buffer in Y memory of size 256. 
+768+  						 *  Available for the duration of one foreground entry point.
+769+  						 * @ingroup tempbufs
+770+  						 */
+771+  	 0000					.extern ___X_BY_TEMPBUFF
+772+  						/** a temporary buffer in X memory of size 256. 
+773+  						 *  Available for the duration of one foreground entry point.
+774+  						 * @ingroup tempbufs
+775+  						 */
+776+  	 0000					.extern ___X_BX_TEMPBUFF
+777+  						
+778+  						/** a temporary buffer of size 16 (temp buffer is number 0 of buffers[1..15]) in XY memory.
+779+  						 *  Available for the duration of one foreground entry point.
+780+  						 * @ingroup tempbufs
+781+  						 */
+782+  	 0000				    .extern ___X_BL_TEMPBUFF0
+783+  						
+784+  						/** a temporary buffer of size 16 (temp buffer is number 0 of buffers[0..15]) in Y memory.
+785+  						 *  Available for the duration of one foreground entry point.
+786+  						 * @ingroup tempbufs
+787+  						 */
+788+  	 0000				    .extern ___X_BY_TEMPBUFF0
+789+  						/** a temporary buffer of size 16 (temp buffer is number 0 of buffers[0..15]) in X memory.
+790+  						 *  Available for the duration of one foreground entry point.
+791+  						 * @ingroup tempbufs
+792+  						 */
+793+  	 0000				    .extern ___X_BX_TEMPBUFF0
+794+  						
+795+  						/** a temporary buffer of size 16 (temp buffer is number 1 of buffers[1..15]) in XY memory.
+796+  						 *  Available for the duration of one foreground entry point.
+797+  						 * @ingroup tempbufs
+798+  						 */
+799+  	 0000				    .extern ___X_BL_TEMPBUFF1
+800+  						/** a temporary buffer of size 16 (temp buffer is number 1 of buffers[0..15]) in Y memory.
+801+  						 *  Available for the duration of one foreground entry point.
+802+  						 * @ingroup tempbufs
+803+  						 */
+804+  	 0000				    .extern ___X_BY_TEMPBUFF1
+805+  						/** a temporary buffer of size 16 (temp buffer is number 1 of buffers[0..15]) in X memory.
+806+  						 *  Available for the duration of one foreground entry point.
+807+  						 * @ingroup tempbufs
+808+  						 */
+809+  	 0000				    .extern ___X_BX_TEMPBUFF1
+810+  						
+811+  						/** a temporary buffer of size 16 (temp buffer is number 2 of buffers[1..15]) in XY memory.
+812+  						 *  Available for the duration of one foreground entry point.
+813+  						 * @ingroup tempbufs
+814+  						 */
+815+  	 0000				    .extern ___X_BL_TEMPBUFF2
+816+  						/** a temporary buffer of size 16 (temp buffer is number 2 of buffers[0..15]) in Y memory.
+817+  						 *  Available for the duration of one foreground entry point.
+818+  						 * @ingroup tempbufs
+819+  						 */
+820+  	 0000				    .extern ___X_BY_TEMPBUFF2
+821+  						/** a temporary buffer of size 16 (temp buffer is number 2 of buffers[0..15]) in X memory.
+822+  						 *  Available for the duration of one foreground entry point.
+823+  						 * @ingroup tempbufs
+824+  						 */
+825+  	 0000				    .extern ___X_BX_TEMPBUFF2
+826+  						
+827+  						/** a temporary buffer of size 16 (temp buffer is number 3 of buffers[1..15]) in XY memory.
+828+  						 *  Available for the duration of one foreground entry point.
+829+  						 * @ingroup tempbufs
+830+  						 */
+831+  	 0000				    .extern ___X_BL_TEMPBUFF3
+832+  						/** a temporary buffer of size 16 (temp buffer is number 3 of buffers[0..15]) in Y memory.
+833+  						 *  Available for the duration of one foreground entry point.
+834+  						 * @ingroup tempbufs
+835+  						 */
+836+  	 0000				    .extern ___X_BY_TEMPBUFF3
+837+  						/** a temporary buffer of size 16 (temp buffer is number 3 of buffers[0..15]) in X memory.
+838+  						 *  Available for the duration of one foreground entry point.
+839+  						 * @ingroup tempbufs
+840+  						 */
+841+  	 0000				    .extern ___X_BX_TEMPBUFF3
+842+  						
+843+  						/** a temporary buffer of size 16 (temp buffer is number 4 of buffers[1..15]) in XY memory.
+844+  						 *  Available for the duration of one foreground entry point.
+845+  						 * @ingroup tempbufs
+846+  						 */
+847+  	 0000				    .extern ___X_BL_TEMPBUFF4
+848+  						/** a temporary buffer of size 16 (temp buffer is number 4 of buffers[0..15]) in Y memory.
+849+  						 *  Available for the duration of one foreground entry point.
+850+  						 * @ingroup tempbufs
+851+  						 */
+852+  	 0000				    .extern ___X_BY_TEMPBUFF4
+853+  						/** a temporary buffer of size 16 (temp buffer is number 4 of buffers[0..15]) in X memory.
+854+  						 *  Available for the duration of one foreground entry point.
+855+  						 * @ingroup tempbufs
+856+  						 */
+857+  	 0000				    .extern ___X_BX_TEMPBUFF4
+858+  						
+859+  						/** a temporary buffer of size 16 (temp buffer is number 5 of buffers[1..15]) in XY memory.
+860+  						 *  Available for the duration of one foreground entry point.
+861+  						 * @ingroup tempbufs
+862+  						 */
+863+  	 0000				    .extern ___X_BL_TEMPBUFF5
+864+  						/** a temporary buffer of size 16 (temp buffer is number 5 of buffers[0..15]) in Y memory.
+865+  						 *  Available for the duration of one foreground entry point.
+866+  						 * @ingroup tempbufs
+867+  						 */
+868+  	 0000				    .extern ___X_BY_TEMPBUFF5
+869+  						/** a temporary buffer of size 16 (temp buffer is number 5 of buffers[0..15]) in X memory.
+870+  						 *  Available for the duration of one foreground entry point.
+871+  						 * @ingroup tempbufs
+872+  						 */
+873+  	 0000				    .extern ___X_BX_TEMPBUFF5
+874+  						
+875+  						/** a temporary buffer of size 16 (temp buffer is number 6 of buffers[1..15]) in XY memory.
+876+  						 *  Available for the duration of one foreground entry point.
+877+  						 * @ingroup tempbufs
+878+  						 */
+879+  						
+880+  	 0000				    .extern ___X_BL_TEMPBUFF6
+881+  						/** a temporary buffer of size 16 (temp buffer is number 6 of buffers[0..15]) in Y memory.
+882+  						 *  Available for the duration of one foreground entry point.
+883+  						 * @ingroup tempbufs
+884+  						 */
+885+  	 0000				    .extern ___X_BY_TEMPBUFF6
+886+  						/** a temporary buffer of size 16 (temp buffer is number 6 of buffers[0..15]) in X memory.
+887+  						 *  Available for the duration of one foreground entry point.
+888+  						 * @ingroup tempbufs
+889+  						 */
+890+  	 0000				    .extern ___X_BX_TEMPBUFF6
+891+  						
+892+  						/** a temporary buffer of size 16 (temp buffer is number 7 of buffers[1..15]) in XY memory.
+893+  						 *  Available for the duration of one foreground entry point.
+894+  						 * @ingroup tempbufs
+895+  						 */
+896+  	 0000				    .extern __X_BL_TEMPBUFF7
+897+  						/** a temporary buffer of size 16 (temp buffer is number 7 of buffers[0..15]) in Y memory.
+898+  						 *  Available for the duration of one foreground entry point.
+899+  						 * @ingroup tempbufs
+900+  						 */
+901+  	 0000				    .extern ___X_BY_TEMPBUFF7
+902+  						/** a temporary buffer of size 16 (temp buffer is number 7 of buffers[0..15]) in X memory.
+903+  						 *  Available for the duration of one foreground entry point.
+904+  						 * @ingroup tempbufs
+905+  						 */
+906+  	 0000				    .extern ___X_BX_TEMPBUFF7
+907+  						
+908+  						/** a temporary buffer of size 16 (temp buffer is number 8 of buffers[1..15]) in XY memory.
+909+  						 *  Available for the duration of one foreground entry point.
+910+  						 * @ingroup tempbufs
+911+  						 */
+912+  	 0000				    .extern ___X_BL_TEMPBUFF8
+913+  						/** a temporary buffer of size 16 (temp buffer is number 8 of buffers[0..15]) in Y memory.
+914+  						 *  Available for the duration of one foreground entry point.
+915+  						 * @ingroup tempbufs
+916+  						 */
+917+  	 0000				    .extern ___X_BY_TEMPBUFF8
+918+  						/** a temporary buffer of size 16 (temp buffer is number 8 of buffers[0..15]) in X memory.
+919+  						 *  Available for the duration of one foreground entry point.
+920+  						 * @ingroup tempbufs
+921+  						 */
+922+  	 0000				    .extern ___X_BX_TEMPBUFF8
+923+  						
+924+  						/** a temporary buffer of size 16 (temp buffer is number 9 of buffers[1..15]) in XY memory.
+925+  						 *  Available for the duration of one foreground entry point.
+926+  						 * @ingroup tempbufs
+927+  						 */
+928+  	 0000				    .extern ___X_BL_TEMPBUFF9
+929+  						/** a temporary buffer of size 16 (temp buffer is number 9 of buffers[0..15]) in Y memory.
+930+  						 *  Available for the duration of one foreground entry point.
+931+  						 * @ingroup tempbufs
+932+  						 */
+933+  	 0000				    .extern ___X_BY_TEMPBUFF9
+934+  						/** a temporary buffer of size 16 (temp buffer is number 9 of buffers[0..15]) in X memory.
+935+  						 *  Available for the duration of one foreground entry point.
+936+  						 * @ingroup tempbufs
+937+  						 */
+938+  	 0000				    .extern ___X_BX_TEMPBUFF9
+939+  						
+940+  						/** a temporary buffer of size 16 (temp buffer is number 10 of buffers[1..15]) in XY memory.
+941+  						 *  Available for the duration of one foreground entry point.
+942+  						 * @ingroup tempbufs
+943+  						 */
+944+  	 0000				    .extern ___X_BL_TEMPBUFF10
+945+  						/** a temporary buffer of size 16 (temp buffer is number 10 of buffers[0..15]) in Y memory.
+946+  						 *  Available for the duration of one foreground entry point.
+947+  						 * @ingroup tempbufs
+948+  						 */
+949+  	 0000				    .extern ___X_BY_TEMPBUFF10
+950+  						/** a temporary buffer of size 16 (temp buffer is number 10 of buffers[0..15]) in X memory.
+951+  						 *  Available for the duration of one foreground entry point.
+952+  						 * @ingroup tempbufs
+953+  						 */
+954+  	 0000				    .extern ___X_BX_TEMPBUFF10
+955+  						
+956+  						/** a temporary buffer of size 16 (temp buffer is number 11 of buffers[1..15]) in XY memory.
+957+  						 *  Available for the duration of one foreground entry point.
+958+  						 * @ingroup tempbufs
+959+  						 */
+960+  	 0000				    .extern ___X_BL_TEMPBUFF11
+961+  						/** a temporary buffer of size 16 (temp buffer is number 11 of buffers[0..15]) in Y memory.
+962+  						 *  Available for the duration of one foreground entry point.
+963+  						 * @ingroup tempbufs
+964+  						 */
+965+  	 0000				    .extern ___X_BY_TEMPBUFF11
+966+  						/** a temporary buffer of size 16 (temp buffer is number 11 of buffers[0..15]) in X memory.
+967+  						 *  Available for the duration of one foreground entry point.
+968+  						 * @ingroup tempbufs
+969+  						 */
+970+  	 0000				    .extern ___X_BX_TEMPBUFF11
+971+  						
+972+  						/** a temporary buffer of size 16 (temp buffer is number 12 of buffers[1..15]) in XY memory.
+973+  						 *  Available for the duration of one foreground entry point.
+974+  						 * @ingroup tempbufs
+975+  						 */
+976+  	 0000				    .extern ___X_BL_TEMPBUFF12
+977+  						/** a temporary buffer of size 16 (temp buffer is number 12 of buffers[0..15]) in Y memory.
+978+  						 *  Available for the duration of one foreground entry point.
+979+  						 * @ingroup tempbufs
+980+  						 */
+981+  	 0000				    .extern ___X_BY_TEMPBUFF12
+982+  						/** a temporary buffer of size 16 (temp buffer is number 12 of buffers[0..15]) in X memory.
+983+  						 *  Available for the duration of one foreground entry point.
+984+  						 * @ingroup tempbufs
+985+  						 */
+986+  	 0000				    .extern ___X_BX_TEMPBUFF12
+987+  						
+988+  						/** a temporary buffer of size 16 (temp buffer is number 13 of buffers[1..15]) in XY memory.
+989+  						 *  Available for the duration of one foreground entry point.
+990+  						 * @ingroup tempbufs
+991+  						 */
+992+  	 0000				    .extern ___X_BL_TEMPBUFF13
+993+  						/** a temporary buffer of size 16 (temp buffer is number 13 of buffers[0..15]) in Y memory.
+994+  						 *  Available for the duration of one foreground entry point.
+995+  						 * @ingroup tempbufs
+996+  						 */
+997+  	 0000				    .extern ___X_BY_TEMPBUFF13
+998+  						/** a temporary buffer of size 16 (temp buffer is number 13 of buffers[0..15]) in X memory.
+999+  						 *  Available for the duration of one foreground entry point.
+1000+ 						 * @ingroup tempbufs
+1001+ 						 */
+1002+ 	 0000				    .extern ___X_BX_TEMPBUFF13
+1003+ 						
+1004+ 						/** a temporary buffer of size 16 (temp buffer is number 14 of buffers[1..15]) in XY memory.
+1005+ 						 *  Available for the duration of one foreground entry point.
+1006+ 						 * @ingroup tempbufs
+1007+ 						 */
+1008+ 	 0000				    .extern ___X_BL_TEMPBUFF14
+1009+ 						/** a temporary buffer of size 16 (temp buffer is number 14 of buffers[0..15]) in Y memory.
+1010+ 						 *  Available for the duration of one foreground entry point.
+1011+ 						 * @ingroup tempbufs
+1012+ 						 */
+1013+ 	 0000				    .extern ___X_BY_TEMPBUFF14
+1014+ 						/** a temporary buffer of size 16 (temp buffer is number 14 of buffers[0..15]) in X memory.
+1015+ 						 *  Available for the duration of one foreground entry point.
+1016+ 						 * @ingroup tempbufs
+1017+ 						 */
+1018+ 	 0000				    .extern ___X_BX_TEMPBUFF14
+1019+ 						
+1020+ 						/** a temporary buffer of size 16 (temp buffer is number 15 of buffers[1..15]) in XY memory.
+1021+ 						 *  Available for the duration of one foreground entry point.
+1022+ 						 * @ingroup tempbufs
+1023+ 						 */
+1024+ 	 0000					.extern ___X_BL_TEMPBUFF15
+1025+ 						/** a temporary buffer of size 16 (temp buffer is number 15 of buffers[0..15]) in Y memory.
+1026+ 						 *  Available for the duration of one foreground entry point.
+1027+ 						 * @ingroup tempbufs
+1028+ 						 */
+1029+ 	 0000					.extern ___X_BY_TEMPBUFF15
+1030+ 						/** a temporary buffer of size 16 (temp buffer is number 15 of buffers[0..15]) in X memory.
+1031+ 						 *  Available for the duration of one foreground entry point.
+1032+ 						 * @ingroup tempbufs
+1033+ 						 */
+1034+ 	 0000					.extern ___X_BX_TEMPBUFF15
+1035+ 						
+1036+ 						/*======================================================================*/
+1037+ 							
+1038+ 						  /**
+1039+ 						  * @brief Check the busy state of the I2C bus.
+1040+ 						  *
+1041+ 						  * @return (a0) the busy state of the i2c bus. 0==not busy. 1==busy.
+1042+ 						  *
+1043+ 						  *  @ingroup os_interface
+1044+ 						  */
+1045+ 	 0000				  .extern cl_get_i2c_msg_busy
+1046+ 						
+1047+ 						  /**
+1048+ 						  * @brief Check the error code for the most recent I2C command issued.
+1049+ 						  *
+1050+ 						  * @return (a0) 0x0000 0000     No Error
+1051+ 						  *              0x0000 0001     Illegal IIC Transaction issued. Trying to do IIC Write / Read
+1052+ 						  *                                 when SCP is not configured for IIC master and not coming from
+1053+ 						  *                                 master boot
+1054+ 						  *              0x0000 0002     IIC NO ACK Error
+1055+ 						  *              0x0000 0004     Time-out error (in case of blocking IIC calls)
+1056+ 						  *
+1057+ 						  *  @ingroup os_interface
+1058+ 						  */
+1059+ 	 0000				  .extern cl_get_i2c_msg_error
+1060+ 						
+1061+ 						  /**
+1062+ 						  * @brief Check the I2C pending writes count
+1063+ 						  *
+1064+ 						  * @return (a0) I2C Message pending reads count
+1065+ 						  *
+1066+ 						  *  @ingroup os_interface
+1067+ 						  */
+1068+ 	 0000				  .extern cl_get_i2c_msg_pending_writes
+1069+ 						
+1070+ 						  /**
+1071+ 						  * @brief Check the I2C pending reads count
+1072+ 						  *
+1073+ 						  * @return (a0) I2C Message pending reads count
+1074+ 						  *
+1075+ 						  *  @ingroup os_interface
+1076+ 						  */
+1077+ 	 0000				  .extern cl_get_i2c_msg_pending_reads
+1078+ 						
+1079+ 						  /**
+1080+ 						  * @brief Check the I2C Message FIFO pointer
+1081+ 						  *
+1082+ 						  * @return (a0) the I2C Message FIFO pointer
+1083+ 						  *
+1084+ 						  * assembly programmers only: Modifies register a0, and the "a" status register.
+1085+ 						  *
+1086+ 						  *  @ingroup os_interface
+1087+ 						  */
+1088+ 	 0000				  .extern cl_get_i2c_msg_fifo_ptr
+1089+ 						
+1090+ 						  /**
+1091+ 						  * @brief Check the I2C message current command word
+1092+ 						  *
+1093+ 						  * @return (a0) the I2C message current command word
+1094+ 						  *
+1095+ 						  *  @ingroup os_interface
+1096+ 						  */
+1097+ 	 0000				  .extern cl_get_i2c_cmd_word
+1098+ 						
+1099+ 						
+1100+ 						  .endif
+1101+  >> end of include file: C:/CirrusDSP/include/dsplib/os_asm.h
+1101+  >> continuing with file: C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model4_FINAL/example_module/src/example_module_main.a
+8     						.include "example_module_mcv.h"
+8      >> open include file: C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model4_FINAL/example_module/gen/inc/example_module_mcv.h
+1+    						/*
+2+    						 * This file is automatically generated by CLIDE
+3+    						 *
+4+    						 * MCV (Module Control Vector)
+5+    						 */
+6+    						.include "dsplib/meter_asm.h" 
+6+     >> open include file: C:/CirrusDSP/include/dsplib/meter_asm.h
+1+    							.if !defined(_meter_h_)
+2+    	 0000				_meter_h_
+3+    						
+4+    						METER_T .struct
+5+    						RMS .dw 0			#fract(1.31)
+6+    						RMS_HOLD .dw 0		#fract(1.31)
+7+    						PEAK .dw 0			#fract(1.31)
+8+    						PEAK_HOLD .dw 0		#fract(1.31)
+9+    							.endstruct
+10+   						
+11+   						(null)11+    >> end of include file: C:/CirrusDSP/include/dsplib/meter_asm.h
+11+    >> continuing with file: C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model4_FINAL/example_module/gen/inc/example_module_mcv.h
+7+    						.include "dsplib/response_asm.h"
+7+     >> open include file: C:/CirrusDSP/include/dsplib/response_asm.h
+1+    							.if !defined(_response_h_)
+2+    	 0000				_response_h_
+3+    						
+4+    						BIQUAD_T .struct
+5+    						COEF_A1 .dw 0			#fract(2.30)
+6+    						COEF_A2 .dw 0			#fract(2.30)
+7+    						COEF_B0 .dw 1			#fract(3.29)
+8+    						COEF_B1 .dw 0			#fract(3.29)
+9+    						COEF_B2 .dw 0			#fract(3.29)
+10+   							.endstruct
+11+   						
+12+   						RESPONSE_T .struct
+13+   						PRE .dw 0			#fract(7.25)
+14+   						POST .dw 0			#fract(7.25)
+15+   							.rept %i = 0,2
+16+   						BIQUAD_%i BIQUAD_T		#struct
+17+    >> start of macro: .rept
+1+    						BIQUAD_0 BIQUAD_T		#struct
+2+    						BIQUAD_1 BIQUAD_T		#struct
+3+    						BIQUAD_2 BIQUAD_T		#struct
+4+    						
+17+   							.endm
+18+   							.endstruct
+19+   							
+20+   							.endif21+   						(null)21+    >> end of include file: C:/CirrusDSP/include/dsplib/response_asm.h
+21+    >> continuing with file: C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model4_FINAL/example_module/gen/inc/example_module_mcv.h
+8+    						
+9+    	 0001				isDefined	 .equ 	 1
+10+   						
+11+   						MCV_T	.struct
+12+   						enable .dw 0	 # bool	non-zero to enable this function
+13+   						input_gain .dw 0	 #fract(1.31)
+14+   						headroom_gain .dw 0	 #fract(1.31)
+15+   							.endstruct
+16+   						
+17+   						
+18+   	 0000				STRUCTURE_INITIALIZATION_STRNG .equ "0x1, 0x00000000, 0x00000000"
+19+    >> end of include file: C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model4_FINAL/example_module/gen/inc/example_module_mcv.h
+19+    >> continuing with file: C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model4_FINAL/example_module/src/example_module_main.a
+9     							
+10    	 0000					.public _tremolo_postGain
+11    	 0000					.public _LR_postGain
+12    	 0000					.public _limiterThreshold
+13    	 0000					.extern _processing
+14    	 0000					.public example_module_MCV
+15    						  
+16    						  
+17    						X_DATA_SECTION	.xdata_ovly
+17     >> start of macro: .xdata_ovly
+1+    									seg_single X_DATA_SECTION, "X_OVLY", X
+1+     >> start of macro: seg_single
+1+    						  .if ( "X_DATA_SECTION" != "" ) & defined( ___SegStart_X_X_DATA_SECTION )
+2+    						X_DATA_SECTION    segment
+3+    						  .else
+4+    						X_DATA_SECTION    segment "X_OVLY"
+5+    							.if "X_DATA_SECTION" != ""
+6+    	 0000				___SegStart_X_X_DATA_SECTION
+7+    							.endif
+8+    						  .endif
+9+    							#RememberSegmentType
+10+    >> end of macro: seg_single
+2+     >> end of macro: .xdata_ovly
+18    						
+19    	 0000				_tremolo_postGain	.dw	(0.794328) 	// -2dB postgain for Ls and Rs channels
+	 0000	 65AC8A37	 
+20    	 0001				_LR_postGain		.dw (0.501187)	// -6dB postgain for L and R channels
+	 0001	 4026E547	 
+21    	 0002				_limiterThreshold 	.dw (0.999)
+	 0002	 7FDF3B64	 
+22    						
+23    						
+24    	 0003				default_input_gain		.dw (0.501187)		// -6dB, default input gain
+	 0003	 4026E547	 
+25    	 0004				default_headroom_gain	.dw (0.707946)		// -3dB, default headroom gain
+	 0004	 5A9DF97B	 
+26    						
+27    	 0005				limit_value_gains		.dw (0.999)			// 0dB upper limit for input and headroom gain
+	 0005	 7FDF3B64	 
+28    						  
+29    						####################### MCV #########################
+30    						# The module control vector is a set of Y data variables
+31    						# that can be accessed through host communication.
+32    						#
+33    						example_module_Y_Segment	.ydata_ovly
+33     >> start of macro: .ydata_ovly
+1+    									seg_single example_module_Y_Segment, "Y_OVLY", Y
+1+     >> start of macro: seg_single
+1+    						  .if ( "example_module_Y_Segment" != "" ) & defined( ___SegStart_Y_example_module_Y_Segment )
+2+    						example_module_Y_Segment    segment
+3+    						  .else
+4+    						example_module_Y_Segment    segment "Y_OVLY"
+5+    							.if "example_module_Y_Segment" != ""
+6+    	 0000				___SegStart_Y_example_module_Y_Segment
+7+    							.endif
+8+    						  .endif
+9+    							#RememberSegmentType
+10+    >> end of macro: seg_single
+2+     >> end of macro: .ydata_ovly
+34    	 0000					.public example_module_HOST_MCV
+35    	 0000				(null)	 0000	 00000001	 
+35    	 0001				(null)	 0001	 00000000	 
+35    	 0002				(null)	 0002	 00000000	 
+35    						example_module_HOST_MCV MCV_T(.streval(STRUCTURE_INITIALIZATION_STRNG))
+36    						
+37    						#-------------------- end of MCV ---------------------
+38    						
+39    						# Copy of MCV in Xmem
+40    						example_module_X_Segment	.xdata_ovly
+40     >> start of macro: .xdata_ovly
+1+    									seg_single example_module_X_Segment, "X_OVLY", X
+1+     >> start of macro: seg_single
+1+    						  .if ( "example_module_X_Segment" != "" ) & defined( ___SegStart_X_example_module_X_Segment )
+2+    						example_module_X_Segment    segment
+3+    						  .else
+4+    						example_module_X_Segment    segment "X_OVLY"
+5+    							.if "example_module_X_Segment" != ""
+6+    	 0000				___SegStart_X_example_module_X_Segment
+7+    							.endif
+8+    						  .endif
+9+    							#RememberSegmentType
+10+    >> end of macro: seg_single
+2+     >> end of macro: .xdata_ovly
+41    	 0000				(null)	 0000	 00000000	 
+41    	 0001				(null)	 0001	 00000000	 
+41    	 0002				(null)	 0002	 00000000	 
+41    						example_module_MCV	MCV_T		# This is a copy of MCV used by algorithm
+42    						
+43    	 0003				example_module_MCV_end
+44    						
+45    							.code_ovly
+45     >> start of macro: .code_ovly
+1+    									seg_single , "CODE_OVLY", CODE
+1+     >> start of macro: seg_single
+1+    						  .if ( "" != "" ) & defined( ___SegStart_CODE_ )
+2+    						    segment
+3+    						  .else
+4+    						    segment "CODE_OVLY"
+5+    							.if "" != ""
+6+    						___SegStart_CODE_
+7+    							.endif
+8+    						  .endif
+9+    							#RememberSegmentType
+10+    >> end of macro: seg_single
+2+     >> end of macro: .code_ovly
+46    						##################################################################################
+47    						## Called from the Brick or Foreground ISR whenever there 
+48    						## is one or more bricks of unprocessed PCM in the IO Buffer.
+49    						##
+50    						## This function can process only one brick of any channel, but all channels are available
+51    						##
+52    						## This function is inherently an in-place processor -- the input data and output
+53    						## data are in the same IO buffer.
+54    						##
+55    						## There is an array of I/O buffer pointers, located at YMEM addresses ___X_BY_IOBUFFER_PTRS
+56    						## These pointers will point at block N for all channels when this function is 
+57    						## called.
+58    						#################################################################################
+59    	 0000					.public X_S_example_module_Brick
+60    	 0000				X_S_example_module_Brick:
+61    							
+62    	 0000	 88040000		a0 = xmem[example_module_MCV.enable]
+63    	 0001	 00004E80		a0 & a0 
+64    							
+65    	 0002	 84080006		if (a == 0) jmp X_S_example_module_Brick_Done
+66    								# call gainProcessing
+67    	 0003	 B0840000			i0 = ymem[___X_BY_IOBUFFER_PTRS]
+68    	 0004	 B1840000			i1 = ymem[___X_BY_IOBUFFER_PTRS]
+69    	 0005	 80880000			call _processing
+70    						
+71    						# end of brick function
+72    	 0006				X_S_example_module_Brick_Done:
+73    	 0006	 81880000	  ret
+74    						
+75    						###############################################################################
+76    						## Called from the Brick or Foreground ISR
+77    						## This function gets called on frame boundaries (integer multiples of sample-blocks)
+78    						##   Example 1:  AAC Frame-size is 1024 samples
+79    						##   Example 2:  Our PCM frame-size was chosen to be 256 samples
+80    						##
+81    						## Use this as another place to act on MCV changes.  This is called more often than
+82    						## the Timer functions, but is only called when the DAO clocks are active (only an issue 
+83    						## with Decoder chips)
+84    						###############################################################################
+85    	 0000					.public X_S_example_module_Frame
+86    	 0007				X_S_example_module_Frame:
+87    						#   <your code here>
+88    	 0007				X_S_example_module_Frame_done:
+89    	 0007	 81880000	  ret           
+90    						
+91    						
+92    						###############################################################################
+93    						## Called from the Brick or Foreground ISR
+94    						## Called only when the Timer flag is set (gets set by the Timer ISR)
+95    						## Use this to act on MCV changes when the block and frame functions are not being called,
+96    						## e.g. when there is no input audio signal.
+97    						###############################################################################
+98    	 0000					.public X_S_example_module_Timer
+99    	 0008				X_S_example_module_Timer:
+100   						#   <your code here>
+101   	 0008				X_S_example_module_Timer_done:
+102   	 0008	 81880000	  ret
+103   						
+104   						###############################################################################
+105   						## Called from an infinite-loop in the main body of the OS code
+106   						## Can be interrupted, so exercise caution when using global vars that are 
+107   						## used in the foreground ISR
+108   						###############################################################################
+109   	 0000					.public X_S_example_module_Background
+110   	 0009				X_S_example_module_Background:
+111   						
+112   						# SAMPLE CODE:
+113   						#	MCV used as a shadow copy on host MCV
+114   						#   This code will copy module_test_HOST_MCV to module_test_MCV
+115   	 0009	 B04A0000		i0 = (example_module_HOST_MCV)
+116   	 000A	 B14A0000		i1 = (example_module_MCV)
+117   	 000B	 B44A0001		nm0 = (1)
+118   	 000C	 B54A0001		nm1 = (1)
+119   	 000D	 8030000F		do(sizeof(MCV_T)),>
+120   	 000E	 88940030			a0 = ymem[i0]; i0 += n
+121   	 000F	 88540031	%		xmem[i1] = a0; i1 += n
+122   						
+123   						#   <your code here>
+124   	 0010				X_S_example_module_Background_Done:
+125   	 0010	 81880000	  ret
+126   						
+127   						##################################################################################
+128   						## Called from the Brick or Foreground ISR
+129   						## Used for requesting memory from the heap
+130   						## Called immediately after the frame functions are called and immediately prior 
+131   						## to the PostMalloc functions.
+132   						##
+133   						## This function is only called if one or more modules set the X_VX_NextFrm_Reinit_Req 
+134   						## flag (in the Frame function).
+135   						## When this happens, all modules' PreMalloc functions get called so that each module 
+136   						## has the chance to ask for heap memory.
+137   						## 
+138   						## If this function gets called, the OS has already freed all of the heap, and all heap-using modules
+139   						## MUST request heap again.
+140   						##
+141   						## Examples of Heap Requests:
+142   						## 
+143   						#####  Example 1:  Request 512 words from XMEM
+144   						#####  i0 = (VX_Buffer_0_Ptr) ### Os place the address of the malloced RAM in this var in XRAM
+145   						#####  uhalfword(x0) = (0x200)
+146   						#####  call cl_mallocX
+147   						
+148   						#####  Example 2:  Request 768 words from YMEM
+149   						#####  i0 = (VX_Buffer_1_Ptr) ### Os place the address of the malloced RAM in this var in XRAM
+150   						#####  uhalfword(x0) = (0x300)
+151   						#####  call cl_mallocY
+152   						
+153   						#####  Example 3:  Request 512 of words from XMEM aligned to a modulo boundary
+154   						#####  i0 = (VX_Buffer_2_Ptr) ### Os place the address of the malloced RAM in this var in XRAM
+155   						#####  uhalfword(x0) = (0x200)
+156   						#####  call cl_mallocModX
+157   						
+158   						#####  Example 4:  Request 64 words from LMEM aligned to a modulo boundary
+159   						#####  i0 = (VX_Buffer_3_Ptr) ### Os place the address of the malloced RAM in this var in XRAM
+160   						#####  uhalfword(x0) = (64)
+161   						#####  call cl_mallocModL
+162   						
+163   						### There are 6 types of malloc requests: X, Y, L modulo and non-modulo
+164   						### Mallocation is all or nothing.  If there is not enough available heap to accomodate
+165   						### the entire set of requests, the systems halts.
+166   						
+167   						### If the Malloc succeeds, the OS calls the Post Malloc functions.
+168   						#################################################################################
+169   	 0000					.public X_S_example_module_PreMalloc
+170   	 0011				X_S_example_module_PreMalloc:
+171   						#   <your code here>
+172   	 0011				X_S_example_module_PreMalloc_Done:
+173   	 0011	 81880000	  ret
+174   						
+175   						##################################################################################
+176   						## Called from the Brick or Foreground ISR
+177   						## Called if the mallocations requested by the modules' Pre-Mallocs succeeds
+178   						## This gives the module designer a chance to act upon the newly acquired buffers
+179   						## if so desired.  For example, a malloced example_module-filter history-buffer should be 
+180   						## cleared here.
+181   						##
+182   						## This function is also a good place to set a malloc-success flag for the benefit
+183   						## of the Block function.  That is, the Block function should never try to operate on
+184   						## a buffer that has not yet been malloced
+185   						#################################################################################
+186   	 0000					.public X_S_example_module_PostMalloc
+187   	 0012				X_S_example_module_PostMalloc:
+188   						#   <your code here>
+189   	 0012				X_S_example_module_PostMalloc_Done:
+190   	 0012	 81880000	  ret
+191   						
+192   						###############################################################################
+193   						## Unconditional initializations (i.e., vars whose values don't depend on MCV)
+194   						## This function gets called before the KickStart message is received and acted-on
+195   						## Called only when the OS re-boots
+196   						###############################################################################
+197   	 0000					.public X_S_example_module_PreKickstart
+198   	 0013				X_S_example_module_PreKickstart:
+199   						#   <your code here>
+200   	 0013				X_S_example_module_PreKickstart_done:
+201   						  
+202   	 0013	 81880000	  ret
+203   						
+204   						
+205   						###############################################################################
+206   						## Unconditional initializations (i.e., vars whose values don't depend on MCV)
+207   						##    OR
+208   						## Conditional initializations (i.e., vars whose values depend on MCV)
+209   						##
+210   						## This function gets called immediately after the KickStart message is received
+211   						## by the OS and acted-on (i.e., prior to any other Framework Entry-point).
+212   						##
+213   						## This function also gets called upon App-Restart (which happens after recovering 
+214   						## from an audio under-flow).
+215   						##
+216   						## This function gets called before any block-processing functions are called.
+217   						##
+218   						## An example of the kind of initialization that must happen here would be any 
+219   						## filter state that must be cleared prior to starting audio again. 
+220   						###############################################################################
+221   	 0000					.public X_S_example_module_PostKickstart
+222   	 0014				X_S_example_module_PostKickstart:
+223   						
+224   							// Initialize input gain ( you can initialize to -6dB or to upper limit 0dB)
+225   	 0014	 88040005		a0 = xmem[limit_value_gains]
+226   	 0015	 88C40001		ymem[example_module_HOST_MCV.input_gain] = a0
+227   	 0016	 88440001		xmem[example_module_MCV.input_gain] = a0
+228   							
+229   							// Initialize headroom gain ( you can initialize to -3dB or to upper limit 0dB)
+230   	 0017	 88040005		a0 = xmem[limit_value_gains]
+231   	 0018	 88C40002		ymem[example_module_HOST_MCV.headroom_gain] = a0
+232   	 0019	 88440002		xmem[example_module_MCV.headroom_gain] = a0
+233   							
+234   							// Initialize enable on 1
+235   	 001A	 804A0001		uhalfword(x0) = (0x0001)
+236   	 001B	 80C40000		ymem[example_module_HOST_MCV.enable] = x0
+237   	 001C	 80440000		xmem[example_module_MCV.enable] = x0
+238   							
+239   						
+240   	 001D				X_S_example_module_PostKickstart_done:
+241   						                     
+242   	 001D	 81880000	  ret
+243   						(null)
+				 SYMBOL TABLE 
+
+    Name                                                                                    Type                  Value 
+
+BRICK_SIZE                                                                      			  Unused Number				      16 (10H)
+MAX_HARDWARE_DSP_CHANNELS_FOR_ANY_CIRRUS_PLATFORM                               			  Unused Number				      16 (10H)
+STRUCTURE_INITIALIZATION_STRNG                                                  					 String		   '0x1, 0x00000000, 0x00000000' 
+X_DATA_SECTION                                                                  			  Unused Relocatable        X_DATA_SECTION:0000H
+X_S_example_module_Background                                                   			  Public Relocatable       example_module_main_GEN_0000:0009H
+X_S_example_module_Background_Done                                              			  Unused Relocatable        example_module_main_GEN_0000:0010H
+X_S_example_module_Brick                                                        			  Public Relocatable       example_module_main_GEN_0000:0000H
+X_S_example_module_Brick_Done                                                   			         Relocatable         example_module_main_GEN_0000:0006H
+X_S_example_module_Frame                                                        			  Public Relocatable       example_module_main_GEN_0000:0007H
+X_S_example_module_Frame_done                                                   			  Unused Relocatable        example_module_main_GEN_0000:0007H
+X_S_example_module_PostKickstart                                                			  Public Relocatable       example_module_main_GEN_0000:0014H
+X_S_example_module_PostKickstart_done                                           			  Unused Relocatable        example_module_main_GEN_0000:001DH
+X_S_example_module_PostMalloc                                                   			  Public Relocatable       example_module_main_GEN_0000:0012H
+X_S_example_module_PostMalloc_Done                                              			  Unused Relocatable        example_module_main_GEN_0000:0012H
+X_S_example_module_PreKickstart                                                 			  Public Relocatable       example_module_main_GEN_0000:0013H
+X_S_example_module_PreKickstart_done                                            			  Unused Relocatable        example_module_main_GEN_0000:0013H
+X_S_example_module_PreMalloc                                                    			  Public Relocatable       example_module_main_GEN_0000:0011H
+X_S_example_module_PreMalloc_Done                                               			  Unused Relocatable        example_module_main_GEN_0000:0011H
+X_S_example_module_Timer                                                        			  Public Relocatable       example_module_main_GEN_0000:0008H
+X_S_example_module_Timer_done                                                   			  Unused Relocatable        example_module_main_GEN_0000:0008H
+_COMMON_INC_PATH_                                                               					 Define                 "C:/CirrusDSP/crystal32/common/inc/"
+_DSP_                                                                           			  Unused Variable		        0 (0H)
+_LOCAL_INC_PATH_                                                                					 Define                 "inc/"
+_LOCAL_SRC_PATH_                                                                					 Define                 "src/"
+_LR_postGain                                                                    			  Public Relocatable       X_DATA_SECTION:0001H
+_ROUTER_INC_PATH_                                                               					 Define                 "rom_inc/"
+__CASM_VER__                                                                    			  Unused Variable		        0 (701H)
+__X_BL_TEMPBUFF7                                                                					 External   
+___SegStart_X_X_DATA_SECTION                                                    			  Unused Relocatable        X_DATA_SECTION:0000H
+___SegStart_X_example_module_X_Segment                                          			  Unused Relocatable        example_module_X_Segment:0000H
+___SegStart_Y_example_module_Y_Segment                                          			  Unused Relocatable        example_module_Y_Segment:0000H
+___X_BL_TEMPBUFF                                                                					 External   
+___X_BL_TEMPBUFF0                                                               					 External   
+___X_BL_TEMPBUFF1                                                               					 External   
+___X_BL_TEMPBUFF10                                                              					 External   
+___X_BL_TEMPBUFF11                                                              					 External   
+___X_BL_TEMPBUFF12                                                              					 External   
+___X_BL_TEMPBUFF13                                                              					 External   
+___X_BL_TEMPBUFF14                                                              					 External   
+___X_BL_TEMPBUFF15                                                              					 External   
+___X_BL_TEMPBUFF2                                                               					 External   
+___X_BL_TEMPBUFF3                                                               					 External   
+___X_BL_TEMPBUFF4                                                               					 External   
+___X_BL_TEMPBUFF5                                                               					 External   
+___X_BL_TEMPBUFF6                                                               					 External   
+___X_BL_TEMPBUFF8                                                               					 External   
+___X_BL_TEMPBUFF9                                                               					 External   
+___X_BX_TEMPBUFF                                                                					 External   
+___X_BX_TEMPBUFF0                                                               					 External   
+___X_BX_TEMPBUFF1                                                               					 External   
+___X_BX_TEMPBUFF10                                                              					 External   
+___X_BX_TEMPBUFF11                                                              					 External   
+___X_BX_TEMPBUFF12                                                              					 External   
+___X_BX_TEMPBUFF13                                                              					 External   
+___X_BX_TEMPBUFF14                                                              					 External   
+___X_BX_TEMPBUFF15                                                              					 External   
+___X_BX_TEMPBUFF2                                                               					 External   
+___X_BX_TEMPBUFF3                                                               					 External   
+___X_BX_TEMPBUFF4                                                               					 External   
+___X_BX_TEMPBUFF5                                                               					 External   
+___X_BX_TEMPBUFF6                                                               					 External   
+___X_BX_TEMPBUFF7                                                               					 External   
+___X_BX_TEMPBUFF8                                                               					 External   
+___X_BX_TEMPBUFF9                                                               					 External   
+___X_BY_IOBUFFER_PTRS                                                           					 External   
+___X_BY_TEMPBUFF                                                                					 External   
+___X_BY_TEMPBUFF0                                                               					 External   
+___X_BY_TEMPBUFF1                                                               					 External   
+___X_BY_TEMPBUFF10                                                              					 External   
+___X_BY_TEMPBUFF11                                                              					 External   
+___X_BY_TEMPBUFF12                                                              					 External   
+___X_BY_TEMPBUFF13                                                              					 External   
+___X_BY_TEMPBUFF14                                                              					 External   
+___X_BY_TEMPBUFF15                                                              					 External   
+___X_BY_TEMPBUFF2                                                               					 External   
+___X_BY_TEMPBUFF3                                                               					 External   
+___X_BY_TEMPBUFF4                                                               					 External   
+___X_BY_TEMPBUFF5                                                               					 External   
+___X_BY_TEMPBUFF6                                                               					 External   
+___X_BY_TEMPBUFF7                                                               					 External   
+___X_BY_TEMPBUFF8                                                               					 External   
+___X_BY_TEMPBUFF9                                                               					 External   
+___X_VX_NEXTFRM_REINIT_REQ                                                      					 External   
+___X_VX_PPM_INPUTMODE                                                           					 External   
+___X_VX_PPM_INPUT_CHANNELS                                                      					 External   
+___X_VX_PPM_OUTPUTMODE                                                          					 External   
+___X_VX_PPM_OUTPUT_CHANNELS                                                     					 External   
+___X_VX_PPM_SAMPLERATE                                                          					 External   
+___X_VX_PPM_VALID_CHANNELS                                                      					 External   
+___X_VX_REINIT                                                                  					 External   
+___X_VX_UNDERFLOW                                                               					 External   
+___X_VY_BRICK_SIZE                                                              					 External   
+_cl_get_mcv_pointer                                                             					 External   
+_cl_mcv_peek                                                                    					 External   
+_cl_mcv_poke                                                                    					 External   
+_framework_interface_asm_h_                                                     			  Unused Relocatable        __INIT:0000H
+_limiterThreshold                                                               			  Public Relocatable       X_DATA_SECTION:0002H
+_meter_h_                                                                       			  Unused Relocatable        __INIT:0000H
+_processing                                                                     					 External   
+_response_h_                                                                    			  Unused Relocatable        __INIT:0000H
+_tremolo_postGain                                                               			  Public Relocatable       X_DATA_SECTION:0000H
+cl_I2C_Abort_Message                                                            					 External   
+cl_I2C_Command_Word                                                             					 External   
+cl_I2C_Nonblocking_ReadMsg                                                      					 External   
+cl_I2C_Nonblocking_WriteMsg                                                     					 External   
+cl_I2C_ReadMsg                                                                  					 External   
+cl_I2C_WriteMsg                                                                 					 External   
+cl_clearNM0_7                                                                   					 External   
+cl_get_i2c_cmd_word                                                             					 External   
+cl_get_i2c_msg_busy                                                             					 External   
+cl_get_i2c_msg_error                                                            					 External   
+cl_get_i2c_msg_fifo_ptr                                                         					 External   
+cl_get_i2c_msg_pending_reads                                                    					 External   
+cl_get_i2c_msg_pending_writes                                                   					 External   
+cl_mallocL                                                                      					 External   
+cl_mallocModL                                                                   					 External   
+cl_mallocModX                                                                   					 External   
+cl_mallocModY                                                                   					 External   
+cl_mallocX                                                                      					 External   
+cl_mallocY                                                                      					 External   
+cl_os_register_gpi_handler                                                      					 External   
+cl_peek_gpi                                                                     					 External   
+cl_poke_gpo                                                                     					 External   
+cl_send_unsol_msg                                                               					 External   
+default_headroom_gain                                                           			  Unused Relocatable        X_DATA_SECTION:0004H
+default_input_gain                                                              			  Unused Relocatable        X_DATA_SECTION:0003H
+example_module_HOST_MCV.enable                                                  			  Unused Relocatable        example_module_Y_Segment:0000H
+example_module_HOST_MCV.headroom_gain                                           			  Unused Relocatable        example_module_Y_Segment:0002H
+example_module_HOST_MCV.input_gain                                              			  Unused Relocatable        example_module_Y_Segment:0001H
+example_module_MCV.enable                                                       			  Unused Relocatable        example_module_X_Segment:0000H
+example_module_MCV.headroom_gain                                                			  Unused Relocatable        example_module_X_Segment:0002H
+example_module_MCV.input_gain                                                   			  Unused Relocatable        example_module_X_Segment:0001H
+example_module_MCV_end                                                          			  Unused Relocatable        example_module_X_Segment:0003H
+example_module_X_Segment                                                        			  Unused Relocatable        example_module_X_Segment:0000H
+example_module_Y_Segment                                                        			  Unused Relocatable        example_module_Y_Segment:0000H
+isDefined                                                                       			  Unused Number				      1 (1H)
+limit_value_gains                                                               			         Relocatable         X_DATA_SECTION:0005H
+
+	       SEGMENTS:
+
+Size			  Name										 Class
+0000H	 __INIT                                  			 CODE                                    
+0006H	 X_DATA_SECTION                          			 X_OVLY                                  
+0003H	 example_module_Y_Segment                			 Y_OVLY                                  
+0003H	 example_module_X_Segment                			 X_OVLY                                  
+001EH	 example_module_main_GEN_0000            			 CODE_OVLY                               

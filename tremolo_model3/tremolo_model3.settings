@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+<clideViews>
+<clideView viewId="clide.debug.ui.memoryView">
+<memoryTab columnCount="8" core="DSP_A" memoryZone="L" tabAddress="1"/>
+</clideView>
+<clideView viewId="clide.debug.ui.registersView">
+<registerView regViewCoreName="DSP_A">
+<regViewMementoCore scrollPercent="0.0">
+<layoutType horizontal="0" register_details="1"/>
+<expandedPath item_0="DSP_A"/>
+</regViewMementoCore>
+</registerView>
+</clideView>
+</clideViews>
+<perspective id="CLIDE.DebugPerspective"/>
+<workbench_editors>
+<editor file_path="/tremolo_m3/src/main.c"/>
+<editor file_path="/tremolo_m3/inc/common.h"/>
+<editor file_path="/tremolo_m3/src/processing.a"/>
+<editor file_path="/tremolo_m3/src/sin_gen.a"/>
+<editor file_path="/tremolo_m3/src/tremolo.a"/>
+<editor file_path="/tremolo_m3/.suldproj"/>
+</workbench_editors>
+<views/>
+<watchExpressions/>
+<launcherConfiguration/>
+<projectSettings/>
+</settings>

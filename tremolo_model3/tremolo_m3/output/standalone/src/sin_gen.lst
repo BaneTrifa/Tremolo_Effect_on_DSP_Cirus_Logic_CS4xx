@@ -1,0 +1,675 @@
+1     	 0000				_SIN_GEN_ASM
+2     						
+3     							.if defined (_SIN_GEN_ASM)
+4     						
+5     	 0000					.public _generate_sine
+6     							
+7     						X_SECTION   .xdata_ovly
+7      >> start of macro: .xdata_ovly
+1+    									seg_single X_SECTION, "X_OVLY", X
+1+     >> start of macro: seg_single
+1+    						  .if ( "X_SECTION" != "" ) & defined( ___SegStart_X_X_SECTION )
+2+    						X_SECTION    segment
+3+    						  .else
+4+    						X_SECTION    segment "X_OVLY"
+5+    							.if "X_SECTION" != ""
+6+    	 0000				___SegStart_X_X_SECTION
+7+    							.endif
+8+    						  .endif
+9+    							#RememberSegmentType
+10+    >> end of macro: seg_single
+2+     >> end of macro: .xdata_ovly
+8     						
+9     	 0000				PI			.dw 0.78539816339725	// PI scaled by 4 (2 bits)
+	 0000	 6487ED51	 
+10    	 0001				PI_2		.dw 0.78539816339725	// PI/2 scaled by 2 (1 bit)
+	 0001	 6487ED51	 
+11    	 0002				PI_3_2		.dw 0.5890486225479375	// 3PI/2 scaled by 8 (3 bit)
+	 0002	 4B65F1FD	 
+12    						
+13    	 0003				sin_table	.dw 0.000000, 0.006136, 0.012272, 0.018407, 0.024541, 0.030675, 0.036807, 0.042938, 0.049068, 0.055195, 0.061321, 0.067444
+	 0003	 00000000	 
+	 0004	 00C91080	 
+	 0005	 019220FF	 
+	 0006	 025B291C	 
+	 0007	 032428D4	 
+	 0008	 03ED288D	 
+	 0009	 04B6177F	 
+	 000A	 057EFE0D	 
+	 000B	 0647DC38	 
+	 000C	 0710A138	 
+	 000D	 07D95DD5	 
+	 000E	 08A20147	 
+14    	 000F				sin_table1	.dw	0.073565, 0.079682, 0.085797, 0.091909, 0.098017, 0.104122, 0.110222, 0.116319, 0.122411, 0.128498, 0.134581
+	 000F	 096A93F3	 
+	 0010	 0A330510	 
+	 0011	 0AFB6567	 
+	 0012	 0BC3AC93	 
+	 0013	 0C8BD231	 
+	 0014	 0D53DEA4	 
+	 0015	 0E1BC127	 
+	 0016	 0EE38A7E	 
+	 0017	 0FAB29E5	 
+	 0018	 10729F5A	 
+	 0019	 1139F341	 
+15    	 001A				sin_table2	.dw 0.140658, 0.146730, 0.152797, 0.158858, 0.164913, 0.170962, 0.177004, 0.183040, 0.189069, 0.195090, 0.201105
+	 001A	 120114D3	 
+	 001B	 12C80C74	 
+	 001C	 138EDA23	 
+	 001D	 1455757D	 
+	 001E	 151BDE83	 
+	 001F	 15E21533	 
+	 0020	 16A8112C	 
+	 0021	 176DDACF	 
+	 0022	 183369BA	 
+	 0023	 18F8B589	 
+	 0024	 19BDCF03	 
+16    	 0025				sin_table3	.dw 0.207111, 0.213110, 0.219101, 0.225084, 0.231058, 0.237024, 0.242980, 0.248928, 0.254866, 0.260794, 0.266713
+	 0025	 1A829CFE	 
+	 0026	 1B473040	 
+	 0027	 1C0B8067	 
+	 0028	 1CCF8D71	 
+	 0029	 1D934EFD	 
+	 002A	 1E56CD6C	 
+	 002B	 1F19F7F9	 
+	 002C	 1FDCDF6A	 
+	 002D	 209F72F7	 
+	 002E	 2161B2A2	 
+	 002F	 2223A6CE	 
+17    	 0030				sin_table4	.dw 0.272621, 0.278520, 0.284408, 0.290285, 0.296151, 0.302006, 0.307850, 0.313682, 0.319502, 0.325310, 0.331106
+	 0030	 22E53EB4	 
+	 0031	 23A68B1A	 
+	 0032	 24677B39	 
+	 0033	 25280F13	 
+	 0034	 25E846A6	 
+	 0035	 26A821F3	 
+	 0036	 2767A0F9	 
+	 0037	 2826BB56	 
+	 0038	 28E57109	 
+	 0039	 29A3C212	 
+	 003A	 2A61AE71	 
+18    	 003B				sin_table5	.dw 0.336890, 0.342661, 0.348419, 0.354164, 0.359895, 0.365613, 0.371317, 0.377007, 0.382683, 0.388345, 0.393992
+	 003B	 2B1F3626	 
+	 003C	 2BDC50CE	 
+	 003D	 2C98FE69	 
+	 003E	 2D553EF7	 
+	 003F	 2E110A13	 
+	 0040	 2ECC6823	 
+	 0041	 2F8750C2	 
+	 0042	 3041C3F0	 
+	 0043	 30FBC1AD	 
+	 0044	 31B549F9	 
+	 0045	 326E5471	 
+19    	 0046				sin_table6	.dw 0.399624, 0.405241, 0.410843, 0.416430, 0.422000, 0.427555, 0.433094, 0.438616, 0.444122, 0.449611, 0.455084
+	 0046	 3326E115	 
+	 0047	 33DEEFE5	 
+	 0048	 349680E0	 
+	 0049	 354D9408	 
+	 004A	 36041893	 
+	 004B	 36BA1F4B	 
+	 004C	 376F9FCB	 
+	 004D	 382491B0	 
+	 004E	 38D8FD5D	 
+	 004F	 398CDA6E	 
+	 0050	 3A403148	 
+20    	 0051				sin_table7	.dw 0.460539, 0.465976, 0.471397, 0.476799, 0.482184, 0.487550, 0.492898, 0.498228, 0.503538, 0.508830, 0.514103
+	 0051	 3AF2F124	 
+	 0052	 3BA51A00	 
+	 0053	 3C56BCA5	 
+	 0054	 3D07BFE8	 
+	 0055	 3DB8348F	 
+	 0056	 3E6809D5	 
+	 0057	 3F17481B	 
+	 0058	 3FC5EF63	 
+	 0059	 4073EEE5	 
+	 005A	 41215769	 
+	 005B	 41CE208A	 
+21    	 005C				sin_table8	.dw 0.519356, 0.524590, 0.529804, 0.534998, 0.540171, 0.545325, 0.550458, 0.555570, 0.560662, 0.565732, 0.570781
+	 005C	 427A41E5	 
+	 005D	 4325C3DF	 
+	 005E	 43D09E13	 
+	 005F	 447AD081	 
+	 0060	 452452C6	 
+	 0061	 45CD35A8	 
+	 0062	 46756862	 
+	 0063	 471CEAF2	 
+	 0064	 47C3C5BD	 
+	 0065	 4869E7FB	 
+	 0066	 490F5A10	 
+22    	 0067				sin_table9	.dw 0.575808, 0.580814, 0.585798, 0.590760, 0.595699, 0.600616, 0.605511, 0.610383, 0.615232, 0.620057, 0.624859
+	 0067	 49B41398	 
+	 0068	 4A581CF8	 
+	 0069	 4AFB6DCA	 
+	 006A	 4B9E0610	 
+	 006B	 4C3FDD66	 
+	 006C	 4CE0FC2F	 
+	 006D	 4D81626B	 
+	 006E	 4E2107B8	 
+	 006F	 4EBFEC14	 
+	 0070	 4F5E071C	 
+	 0071	 4FFB6135	 
+23    	 0072				sin_table10	.dw 0.629638, 0.634393, 0.639124, 0.643832, 0.648514, 0.653173, 0.657807, 0.662416, 0.667000, 0.671559, 0.676093
+	 0072	 5097FA5D	 
+	 0073	 5133CA32	 
+	 0074	 51CED0B3	 
+	 0075	 52691644	 
+	 0076	 530281BA	 
+	 0077	 539B2C41	 
+	 0078	 54330510	 
+	 0079	 54CA0C28	 
+	 007A	 55604189	 
+	 007B	 55F5A533	 
+	 007C	 568A3726	 
+24    	 007D				sin_table11	.dw 0.680601, 0.685084, 0.689541, 0.693971, 0.698376, 0.702755, 0.707107, 0.711432, 0.715731, 0.720003, 0.724247
+	 007D	 571DEEFE	 
+	 007E	 57B0D520	 
+	 007F	 5842E126	 
+	 0080	 58D40AAF	 
+	 0081	 59646280	 
+	 0082	 59F3E037	 
+	 0083	 5A827B70	 
+	 0084	 5B10342B	 
+	 0085	 5B9D12CB	 
+	 0086	 5C290EED	 
+	 0087	 5CB4202E	 
+25    	 0088				sin_table12	.dw 0.728464, 0.732654, 0.736817, 0.740951, 0.745058, 0.749136, 0.753187, 0.757209, 0.761202, 0.765167, 0.769103
+	 0088	 5D3E4EF0	 
+	 0089	 5DC79B35	 
+	 008A	 5E5004FB	 
+	 008B	 5ED77B7C	 
+	 008C	 5F5E0F80	 
+	 008D	 5FE3B03E	 
+	 008E	 60686E7E	 
+	 008F	 60EC397A	 
+	 0090	 616F1130	 
+	 0091	 61F0FE04	 
+	 0092	 6271F794	 
+26    	 0093				sin_table13	.dw 0.773010, 0.776888, 0.780737, 0.784557, 0.788346, 0.792107, 0.795837, 0.799537, 0.803208, 0.806848, 0.810457
+	 0093	 62F1FDDF	 
+	 0094	 637110E4	 
+	 0095	 63EF30A5	 
+	 0096	 646C5D20	 
+	 0097	 64E88590	 
+	 0098	 6563C31E	 
+	 0099	 65DDFCA0	 
+	 009A	 66573A79	 
+	 009B	 66CF850E	 
+	 009C	 6746CB96	 
+	 009D	 67BD0E13	 
+27    	 009E				sin_table14	.dw 0.814036, 0.817585, 0.821103, 0.824589, 0.828045, 0.831470, 0.834863, 0.838225, 0.841555, 0.844854, 0.848120
+	 009E	 683254E7	 
+	 009F	 68A6A012	 
+	 00A0	 6919E732	 
+	 00A1	 698C21E2	 
+	 00A2	 69FD60E9	 
+	 00A3	 6A6D9BE5	 
+	 00A4	 6ADCCA71	 
+	 00A5	 6B4AF4F1	 
+	 00A6	 6BB81301	 
+	 00A7	 6C242D06	 
+	 00A8	 6C8F3238	 
+28    	 00A9				sin_table15	.dw 0.851355, 0.854558, 0.857729, 0.860867, 0.863973, 0.867046, 0.870087, 0.873095, 0.876070, 0.879012, 0.881921
+	 00A9	 6CF9335D	 
+	 00AA	 6D622813	 
+	 00AB	 6DCA105A	 
+	 00AC	 6E30E3CE	 
+	 00AD	 6E96AAD2	 
+	 00AE	 6EFB5D03	 
+	 00AF	 6F5F02C5	 
+	 00B0	 6FC193B4	 
+	 00B1	 70230FD0	 
+	 00B2	 70837718	 
+	 00B3	 70E2C98E	 
+29    	 00B4				sin_table16	.dw 0.884797, 0.887640, 0.890449, 0.893224, 0.895966, 0.898674, 0.901349, 0.903989, 0.906596, 0.909168, 0.911706
+	 00B4	 71410731	 
+	 00B5	 719E3001	 
+	 00B6	 71FA3B9B	 
+	 00B7	 725529FE	 
+	 00B8	 72AF038E	 
+	 00B9	 7307BFE8	 
+	 00BA	 735F676F	 
+	 00BB	 73B5E95B	 
+	 00BC	 740B5675	 
+	 00BD	 745F9DF5	 
+	 00BE	 74B2C83F	 
+30    	 00BF				sin_table17	.dw 0.914210, 0.916679, 0.919114, 0.921514, 0.923880, 0.926210, 0.928506, 0.930767, 0.932993, 0.935184, 0.937339
+	 00BF	 7504D552	 
+	 00C0	 7555BCCB	 
+	 00C1	 75A5870E	 
+	 00C2	 75F42BB6	 
+	 00C3	 7641B329	 
+	 00C4	 768E0C9E	 
+	 00C5	 76D948DC	 
+	 00C6	 77235F81	 
+	 00C7	 776C508B	 
+	 00C8	 77B41BFC	 
+	 00C9	 77FAB96F	 
+31    	 00CA				sin_table18	.dw 0.939459, 0.941544, 0.943593, 0.945607, 0.947586, 0.949528, 0.951435, 0.953306, 0.955141, 0.956940, 0.958703
+	 00CA	 78403148	 
+	 00CB	 78848388	 
+	 00CC	 78C7A7CA	 
+	 00CD	 7909A672	 
+	 00CE	 794A7F80	 
+	 00CF	 798A222D	 
+	 00D0	 79C89F41	 
+	 00D1	 7A05EE57	 
+	 00D2	 7A420F6F	 
+	 00D3	 7A7D028A	 
+	 00D4	 7AB6C7A8	 
+32    	 00D5				sin_table19	.dw 0.960431, 0.962121, 0.963776, 0.965394, 0.966976, 0.968522, 0.970031, 0.971504, 0.972940, 0.974339, 0.975702
+	 00D5	 7AEF672C	 
+	 00D6	 7B26C7EB	 
+	 00D7	 7B5D0310	 
+	 00D8	 7B9207D5	 
+	 00D9	 7BC5DE9C	 
+	 00DA	 7BF88766	 
+	 00DB	 7C29F9CF	 
+	 00DC	 7C5A3E3A	 
+	 00DD	 7C894C44	 
+	 00DE	 7CB723EE	 
+	 00DF	 7CE3CD9A	 
+33    	 00E0				sin_table20	.dw 0.977028, 0.978317, 0.979570, 0.980785, 0.981964, 0.983105, 0.984210, 0.985278, 0.986308, 0.987301, 0.988258
+	 00E0	 7D0F40E6	 
+	 00E1	 7D397DD0	 
+	 00E2	 7D628CBD	 
+	 00E3	 7D8A5CE6	 
+	 00E4	 7DB0FF11	 
+	 00E5	 7DD66278	 
+	 00E6	 7DFA97E1	 
+	 00E7	 7E1D96EA	 
+	 00E8	 7E3F572E	 
+	 00E9	 7E5FE111	 
+	 00EA	 7E7F3CF7	 
+34    	 00EB				sin_table21	.dw 0.989177, 0.990058, 0.990903, 0.991710, 0.992480, 0.993212, 0.993907, 0.994565, 0.995185, 0.995767, 0.996313
+	 00EB	 7E9D5A18	 
+	 00EC	 7EBA3876	 
+	 00ED	 7ED5E8D5	 
+	 00EE	 7EF05A71	 
+	 00EF	 7F0995AB	 
+	 00F0	 7F219221	 
+	 00F1	 7F385836	 
+	 00F2	 7F4DE7EA	 
+	 00F3	 7F6238DA	 
+	 00F4	 7F754B06	 
+	 00F5	 7F872F34	 
+35    	 00F6				sin_table22	.dw 0.996820, 0.997290, 0.997723, 0.998118, 0.998476, 0.998795, 0.999078, 0.999322, 0.999529, 0.999699, 0.999831, 0.999995, 0.999999	
+	 00F6	 7F97CC3A	 
+	 00F7	 7FA732DF	 
+	 00F8	 7FB56324	 
+	 00F9	 7FC254A4	 
+	 00FA	 7FCE0FC3	 
+	 00FB	 7FD883BA	 
+	 00FC	 7FE1C9B4	 
+	 00FD	 7FE9C886	 
+	 00FE	 7FF090F7	 
+	 00FF	 7FF62307	 
+	 0100	 7FFA7653	 
+	 0101	 7FFFD60F	 
+	 0102	 7FFFF79D	 
+36    							
+37    							.code_ovly 
+37     >> start of macro: .code_ovly
+1+    									seg_single , "CODE_OVLY", CODE
+1+     >> start of macro: seg_single
+1+    						  .if ( "" != "" ) & defined( ___SegStart_CODE_ )
+2+    						    segment
+3+    						  .else
+4+    						    segment "CODE_OVLY"
+5+    							.if "" != ""
+6+    						___SegStart_CODE_
+7+    							.endif
+8+    						  .endif
+9+    							#RememberSegmentType
+10+    >> end of macro: seg_single
+2+     >> end of macro: .code_ovly
+38    						     
+39    						     # a0 parameter angle radians
+40    						     # return value: a0 (sine value for the argument of the function, sine(a0) )
+41    	 0000				_generate_sine:	// DO NOT MODIFY x0, x1, i2 and i3
+42    						
+43    							// push i5 to stack
+44    	 0000	 B9540017		xmem[i7] = i5; i7 += 1
+45    						
+46    						 	// Scaling constant 162, Calculating constant 162:	PI/2 : 255 = rad : const   =>   const = (rad * 255) / (PI/2) = rad * 162
+47    							//accum_const = (DSPaccum)162;
+48    							//accum_const >>= 8;
+49    							//fract_const = accum_const;
+50    	 0001	 827A5100		x2 = (0x5100)	// 162 scaled by 256 (8 bits)
+51    							
+52    							// FIRST QUADRANT
+53    							//accum_pi_2 = (DSPaccum)PI_2;
+54    	 0002	 89040001		a1 = xmem[PI_2]	// load PI/2 scaled by 2
+55    	 0003	 00004E01		a1 = a1 << 1	// rescale PI/2
+56    							
+57    							//if (rad <= accum_pi_2)	check if a0 is in first quadrant
+58    	 0004	 00004F08		a0 - a1
+59    	 0005	 85480021		if (a > 0) jmp>notFirstQuadrant	// if not jump on notFirstQuadrant
+60    							// Scaling radian
+61    							//	rad >>= 1;
+62    	 0006	 00004E40		a0 = a0 >> 1
+63    							//	fract_rad = rad;
+64    	 0007	 48417FFF		x1 = a0
+65    							
+66    							
+67    							//	accum_result = fract_rad * fract_const;
+68    	 0008	 00002120		a0 = x1 * x2	// multiply radian by constant to get index
+69    							//	accum_result <<= 9; resacling
+70    							//	index = accum_result;
+71    	 0009	 00004F80		a0 = a0 << 8	// resacle index by 9
+72    	 000A	 00004E00		a0 = a0 << 1
+73    							
+74    	 000B	 8C7A0000		b0 = (0)
+75    	 000C	 00004424		b0 = b0 + a0	// index in fixed point type (e.g 55.23)
+76    							
+77    							// Creating index from a0
+78    	 000D	 8D7A0000		b1 = (0)		// set b1 on 0
+79    	 000E	 BA4A0000		i6 = (0)		// index in int type, in i6 we need to store index in int type (e.g 55)
+80    	 000F	 887A0000		a0 = (0)		// clean a0
+81    	 0010	 885A8000		ufixed16(a0) = (0x8000)	// const 1.0
+82    							
+83    	 0011				%increment_loop: // increment index i6 and variable b1 until b1 > b0. Doing this, when we finish increment_loop, in i6 will be index of our element enlarged by 1
+84    	 0011	 00004F0C		b0 - b1
+85    	 0012	 86880016		if (b < 0) jmp>indexxGenerated // if b0 <= b1
+86    	 0013	 000044A5			b1 = b1 + a0	
+87    	 0014	 020E7FFF			i6 += 1  	
+88    	 0015	 80080011			jmp<increment_loop
+89    						
+90    	 0016				%indexxGenerated:
+91    						
+92    	 0016	 02167FFF		i6 -= 1	// decrement i6 to get right index in sine table 
+93    	 0017	 B94A0003		i5 = (sin_table)  // base address of sine table
+94    						
+95    							// check if index is zero. If true skip incrementing base address
+96    	 0018	 087A7FFF		a0 = i6
+97    	 0019	 00004E80		a0 & a0
+98    	 001A	 8408001D		if (a == 0) jmp>index_is_zero
+99    							
+100   							// increment base address i6 times
+101   	 001B	 8601001C		do(i6),>loop
+102   	 001C	 020D7FFF	%loop: i5 += 1
+103   						
+104   	 001D				%index_is_zero:	
+105   						
+106   	 001D	 88140005		a0 = xmem[i5]	// read sine value from index i5
+107   						
+108   							// pop i5 from stack
+109   	 001E	 02177FFF		i7 -= 1
+110   	 001F	 B9140007		i5 = xmem[i7]
+111   							
+112   							// return a0
+113   	 0020	 81880000		ret
+114   							//	return sin_table[index];
+115   							//}
+116   							
+117   	 0021				%notFirstQuadrant:	
+118   						
+119   							// SECOND QUADRANT
+120   							//accum_pi = (DSPaccum)PI;
+121   	 0021	 89040000		a1 = xmem[PI]	// load PI scaled by 2
+122   	 0022	 00004E01		a1 = a1 << 1	// rescale PI
+123   	 0023	 00004E01		a1 = a1 << 1
+124   							
+125   							// if (rad <= accum_pi)	check if a0 is in second quadrant
+126   	 0024	 00004F08		a0 - a1
+127   	 0025	 85480041		if (a > 0) jmp>notSecondQuadrant	// if not jump on notSecondQuadrant
+128   							
+129   							//	rad = accum_pi - rad;
+130   	 0026	 000044C0		a0 = a1 - a0	// Transfer radian from second to first quadrant
+131   							
+132   							//	Scaling radian
+133   							//	rad >>= 1;
+134   	 0027	 00004E40		a0 = a0 >> 1
+135   							//	fract_rad = rad;
+136   	 0028	 48417FFF		x1 = a0
+137   						
+138   							//	accum_result = fract_rad * fract_const;
+139   	 0029	 00002120		a0 = x1 * x2	// multiply radian by constant to get index
+140   							//	accum_result <<= 9; resacling
+141   							// index = accum_result
+142   	 002A	 00004F80		a0 = a0 << 8	// resacle index by 9
+143   	 002B	 00004E00		a0 = a0 << 1
+144   							
+145   	 002C	 8C7A0000		b0 = (0)
+146   	 002D	 00004424		b0 = b0 + a0	// index in fixed point type (e.g 55.23)
+147   							
+148   							// Creating index from b0
+149   	 002E	 8D7A0000		b1 = (0)		// set b1 on 0
+150   	 002F	 BA4A0000		i6 = (0)		// index in int type, in i6 we need to store index in int type (e.g 55)
+151   	 0030	 887A0000		a0 = (0)		// clean a0
+152   	 0031	 885A8000		ufixed16(a0) = (0x8000)	// const 1.0
+153   							
+154   	 0032				%increment_loop: // increment index i6 and variable b1 until b1 > b0. Doing this, when we finish increment_loop, in i6 will be index of our element enlarged by 1
+155   	 0032	 00004F0C		b0 - b1
+156   	 0033	 86880037		if (b < 0) jmp>indexxGenerated // if b0 <= b1
+157   	 0034	 000044A5			b1 = b1 + a0	
+158   	 0035	 020E7FFF			i6 += 1  
+159   	 0036	 80080032			jmp<increment_loop
+160   						
+161   	 0037				%indexxGenerated:
+162   						
+163   	 0037	 02167FFF		i6 -= 1	// decrement i6 to get right index in sine table 
+164   	 0038	 B94A0003		i5 = (sin_table)  // base address of sine table
+165   							
+166   							// check if index is zero. If true skip loop
+167   	 0039	 00004E80		a0 & a0
+168   	 003A	 8408003D		if (a == 0) jmp>index_is_zero
+169   						
+170   							// increment base address i6 times
+171   	 003B	 8601003C		do(i6),>loop
+172   	 003C	 020D7FFF	%loop: i5 += 1
+173   						
+174   	 003D				%index_is_zero:
+175   						
+176   	 003D	 88140005		a0 = xmem[i5]	// read sine value from index i5
+177   						
+178   							// pop i5 from stack
+179   	 003E	 02177FFF		i7 -= 1
+180   	 003F	 B9140007		i5 = xmem[i7]
+181   							
+182   							// return a0
+183   	 0040	 81880000		ret
+184   							//	return sin_table[index];
+185   							//}
+186   							
+187   	 0041				%notSecondQuadrant:
+188   							// THIRD QUADRANT
+189   							//accum_3Pi_2 = (DSPaccum)PI_3_2;
+190   	 0041	 89040002		a1 = xmem[PI_3_2]	// load 3PI/2 scaled by 8
+191   	 0042	 00004E01		a1 = a1 << 1 	// rescale 3PI/2
+192   	 0043	 00004E01		a1 = a1 << 1
+193   	 0044	 00004E01		a1 = a1 << 1
+194   						
+195   							// if (rad <= accum_3Pi_2)
+196   	 0045	 00004F08		a0 - a1
+197   	 0046	 85480066		if (a > 0) jmp>notThirdQuadrant	// check if a0 is in third quadrant, if not jump on notThirdQuadrant
+198   							
+199   							// laod PI and resacled it
+200   	 0047	 89040000		a1 = xmem[PI]	
+201   	 0048	 00004E01		a1 = a1 << 1
+202   	 0049	 00004E01		a1 = a1 << 1
+203   							
+204   							//	rad = rad = rad - accum_pi;
+205   	 004A	 00004448		a0 = a0 - a1	// Transfer radian from second to first quadrant
+206   							
+207   							//	Scaling radian
+208   							//	rad >>= 1;
+209   	 004B	 00004E40		a0 = a0 >> 1
+210   							//	fract_rad = rad;
+211   	 004C	 48417FFF		x1 = a0
+212   						
+213   							//	accum_result = fract_rad * fract_const;
+214   	 004D	 00002120		a0 = x1 * x2	// multiply radian by constant to get index
+215   							//	accum_result <<= 9; resacling
+216   							// index = accum_result
+217   	 004E	 00004F80		a0 = a0 << 8	// resacle index by 9
+218   	 004F	 00004E00		a0 = a0 << 1
+219   							
+220   	 0050	 8C7A0000		b0 = (0)
+221   	 0051	 00004424		b0 = b0 + a0	// index in fixed point type (e.g 55.23)
+222   							
+223   							// Creating index from a0
+224   	 0052	 8D7A0000		b1 = (0)		// set b1 on 0
+225   	 0053	 BA4A0000		i6 = (0)		// index in int type, in i6 we need to store index in int type (e.g 55)
+226   	 0054	 887A0000		a0 = (0)		// clean a0
+227   	 0055	 885A8000		ufixed16(a0) = (0x8000)	// const 1.0
+228   							
+229   	 0056				%increment_loop:	// increment index i6 and variable b1 until b1 > b0. Doing this, when we finish increment_loop, in i6 will be index of our element enlarged by 1
+230   	 0056	 00004F0C		b0 - b1
+231   	 0057	 8688005B		if (b < 0) jmp>indexxGenerated // if b0 <= b1
+232   	 0058	 000044A5			b1 = b1 + a0	
+233   	 0059	 020E7FFF			i6 += 1 
+234   	 005A	 80080056			jmp<increment_loop
+235   						
+236   	 005B				%indexxGenerated:
+237   						
+238   	 005B	 02167FFF		i6 -= 1	// decrement i6 to get right index in sine table 
+239   	 005C	 B94A0003		i5 = (sin_table)  // base address
+240   							
+241   							// check if index is zero. If true skip loop
+242   	 005D	 00004E80		a0 & a0
+243   	 005E	 84080061		if (a == 0) jmp>index_is_zero
+244   						
+245   							// increment base address i6 times
+246   	 005F	 86010060		do(i6),>loop
+247   	 0060	 020D7FFF	%loop: i5 += 1
+248   						
+249   	 0061				%index_is_zero:
+250   						
+251   	 0061	 88140005		a0 = xmem[i5]	// read sine value from index i5 and negate the value
+252   	 0062	 00004C80		a0 = -a0
+253   						
+254   							// pop i5 from stack
+255   	 0063	 02177FFF		i7 -= 1
+256   	 0064	 B9140007		i5 = xmem[i7]
+257   							
+258   							// return a0
+259   	 0065	 81880000		ret
+260   							//	return sin_table[index];
+261   							//}
+262   						
+263   						
+264   	 0066				%notThirdQuadrant:
+265   						
+266   							// FOURTH QUADRANT
+267   							//accum_Pi = (DSPaccum)PI;
+268   							//accum_Pi <<= 2	to get 2PI
+269   	 0066	 89040000		a1 = xmem[PI]
+270   	 0067	 00004E01		a1 = a1 << 1	// 2 shift to rescale value and 1 shift for multiplication by 2
+271   	 0068	 00004E01		a1 = a1 << 1
+272   	 0069	 00004E01		a1 = a1 << 1
+273   						
+274   							// rad = accum_pi - rad;
+275   	 006A	 000044C0		a0 = a1 - a0	// Transfer radian from second to first quadrant
+276   						
+277   							//	Scaling radian
+278   							//	rad >>= 1;
+279   	 006B	 00004E40		a0 = a0 >> 1
+280   							//	fract_rad = rad;
+281   	 006C	 48417FFF		x1 = a0
+282   						
+283   							//	accum_result = fract_rad * fract_const;
+284   	 006D	 00002120		a0 = x1 * x2	// multiply radian by constant to get index
+285   							//	accum_result <<= 9; resacling
+286   							// index = accum_result
+287   	 006E	 00004F80		a0 = a0 << 8	// resacle index by 9
+288   	 006F	 00004E00		a0 = a0 << 1
+289   							
+290   	 0070	 8C7A0000		b0 = (0)
+291   	 0071	 00004424		b0 = b0 + a0	// index in fixed point type (e.g 55.23)
+292   							
+293   							// Creating index from a0
+294   	 0072	 8D7A0000		b1 = (0)		// set b1 on 0
+295   	 0073	 BA4A0000		i6 = (0)		// index in int type, in i6 we need to store index in int type (e.g 55)
+296   	 0074	 887A0000		a0 = (0)		// clean a0
+297   	 0075	 885A8000		ufixed16(a0) = (0x8000)	// const 1.0
+298   							
+299   	 0076				%increment_loop: // increment index i6 and variable b1 until b1 > b0. Doing this, when we finish increment_loop, in i6 will be index of our element enlarged by 1
+300   	 0076	 00004F0C		b0 - b1
+301   	 0077	 8688007B		if (b < 0) jmp>indexxGenerated // if b0 <= b1
+302   	 0078	 000044A5			b1 = b1 + a0	
+303   	 0079	 020E7FFF			i6 += 1  
+304   	 007A	 80080076			jmp<increment_loop
+305   						
+306   	 007B				%indexxGenerated:
+307   						
+308   	 007B	 02167FFF		i6 -= 1	// decrement i6 to get right index in sine table 
+309   	 007C	 B94A0003		i5 = (sin_table)  // base address
+310   							
+311   							// check if index is zero. If true skip loop
+312   	 007D	 00004E80		a0 & a0
+313   	 007E	 84080081		if (a == 0) jmp>index_is_zero
+314   						
+315   							// increment base address i6 times
+316   	 007F	 86010080		do(i6),>loop
+317   	 0080	 020D7FFF	%loop: i5 += 1
+318   						
+319   	 0081				%index_is_zero:
+320   						
+321   	 0081	 88140005		a0 = xmem[i5]	// read sine value from index i5 and negate the value
+322   	 0082	 00004C80		a0 = -a0
+323   						
+324   							// pop i5 from stack
+325   	 0083	 02177FFF		i7 -= 1
+326   	 0084	 B9140007		i5 = xmem[i7]
+327   							
+328   							// return a0
+329   	 0085	 81880000		ret
+330   							//	return sin_table[index];
+331   							//}
+332   							
+333   							
+334   							.endif
+				 SYMBOL TABLE 
+
+    Name                                                                                    Type                  Value 
+
+PI                                                                              			         Relocatable         X_SECTION:0000H
+PI_2                                                                            			         Relocatable         X_SECTION:0001H
+PI_3_2                                                                          			         Relocatable         X_SECTION:0002H
+X_SECTION                                                                       			  Unused Relocatable        X_SECTION:0000H
+_COMMON_INC_PATH_                                                               					 Define                 "C:/CirrusDSP/crystal32/common/inc/"
+_DSP_                                                                           					 Define                 "a"
+_LOCAL_INC_PATH_                                                                					 Define                 "inc/"
+_LOCAL_SRC_PATH_                                                                					 Define                 "src/"
+_MUI_VERSION_                                                                   					 Define                 "020000"
+_OVLY_                                                                          					 Define                 "standalone"
+_OVLY_REVISION_                                                                 					 Define                 "020000"
+_ROUTER_INC_PATH_                                                               					 Define                 "rom_inc/"
+_SIN_GEN_ASM                                                                    			  Unused Relocatable        __INIT:0000H
+_SLOT_                                                                          					 Define                 "0"
+_TARGET_FAMILY_                                                                 					 Define                 "crystal32"
+_TOOLS_VERSION_                                                                 					 Define                 "0x0701"
+_VERSION_                                                                       					 Define                 "00"
+__CASM_VER__                                                                    			  Unused Variable		        0 (701H)
+___SegStart_X_X_SECTION                                                         			  Unused Relocatable        X_SECTION:0000H
+_generate_sine                                                                  			  Public Relocatable       sin_gen_GEN_0000:0000H
+sin_table                                                                       			         Relocatable         X_SECTION:0003H
+sin_table1                                                                      			  Unused Relocatable        X_SECTION:000FH
+sin_table10                                                                     			  Unused Relocatable        X_SECTION:0072H
+sin_table11                                                                     			  Unused Relocatable        X_SECTION:007DH
+sin_table12                                                                     			  Unused Relocatable        X_SECTION:0088H
+sin_table13                                                                     			  Unused Relocatable        X_SECTION:0093H
+sin_table14                                                                     			  Unused Relocatable        X_SECTION:009EH
+sin_table15                                                                     			  Unused Relocatable        X_SECTION:00A9H
+sin_table16                                                                     			  Unused Relocatable        X_SECTION:00B4H
+sin_table17                                                                     			  Unused Relocatable        X_SECTION:00BFH
+sin_table18                                                                     			  Unused Relocatable        X_SECTION:00CAH
+sin_table19                                                                     			  Unused Relocatable        X_SECTION:00D5H
+sin_table2                                                                      			  Unused Relocatable        X_SECTION:001AH
+sin_table20                                                                     			  Unused Relocatable        X_SECTION:00E0H
+sin_table21                                                                     			  Unused Relocatable        X_SECTION:00EBH
+sin_table22                                                                     			  Unused Relocatable        X_SECTION:00F6H
+sin_table3                                                                      			  Unused Relocatable        X_SECTION:0025H
+sin_table4                                                                      			  Unused Relocatable        X_SECTION:0030H
+sin_table5                                                                      			  Unused Relocatable        X_SECTION:003BH
+sin_table6                                                                      			  Unused Relocatable        X_SECTION:0046H
+sin_table7                                                                      			  Unused Relocatable        X_SECTION:0051H
+sin_table8                                                                      			  Unused Relocatable        X_SECTION:005CH
+sin_table9                                                                      			  Unused Relocatable        X_SECTION:0067H
+
+	       SEGMENTS:
+
+Size			  Name										 Class
+0000H	 __INIT                                  			 CODE                                    
+0103H	 X_SECTION                               			 X_OVLY                                  
+0086H	 sin_gen_GEN_0000                        			 CODE_OVLY                               

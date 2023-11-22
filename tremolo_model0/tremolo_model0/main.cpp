@@ -71,13 +71,12 @@ double saturation(double in)
 
 void processing(double pIn[][BLOCK_SIZE], double pOut[][BLOCK_SIZE])
 {
-	// first stage, apply input gain
+	// first stage, apply input gain on L and R channels
 	for (int i = 0; i < BLOCK_SIZE; i++)
 	{
 		pIn[LEFT_CH][i] *= input_gain;
 		pIn[RIGHT_CH][i] *= input_gain;
 	}
-
 
 	// Second stage, apply tremolo on Ls and Rs
 	processBlock(pIn[LEFT_CH], pOut[LS_CH], &tremolo_parameters_L, BLOCK_SIZE);
@@ -215,7 +214,7 @@ int main(int argc, char* argv[])
 				}
 			}
 
-			if(enable) // enable is off (do passthrough only)
+			if(enable) // enable is off (do passthrough only), else do processing
 			{
 				processing(sampleBuffer, sampleBuffer);
 			}

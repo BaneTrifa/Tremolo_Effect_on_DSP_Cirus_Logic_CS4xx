@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<application boardClass="SIMULATOR" chipTarget="" chipFamily="crystal32">
+    <SDKVersion>7_1_7</SDKVersion>
+    <CLIDEVersion>7_1_8</CLIDEVersion>
+    <concurrencies>
+        <concurrency snapshot="basic.groovy">
+            <name>cc1</name>
+            <memMap core="" config="" memoryMap="V01"/>
+            <overlays>
+                <entry name="application">
+                    <area timeStamp="1665668856136">
+                        <name>application</name>
+                        <uldName>example_ovly</uldName>
+                        <version>latest</version>
+                    </area>
+                </entry>
+                <entry name="os">
+                    <area timeStamp="0">
+                        <name>os</name>
+                        <uldName>os</uldName>
+                        <version>latest</version>
+                    </area>
+                </entry>
+            </overlays>
+        </concurrency>
+    </concurrencies>
+</application>

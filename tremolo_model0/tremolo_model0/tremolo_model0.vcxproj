@@ -20,10 +20,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="sine_table.cpp" />
     <ClCompile Include="tremolo.cpp" />
     <ClCompile Include="WAVheader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="sin_table.h" />
     <ClInclude Include="tremolo.h" />
     <ClInclude Include="WAVheader.h" />
   </ItemGroup>

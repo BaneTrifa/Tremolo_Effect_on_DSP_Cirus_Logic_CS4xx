@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+<clideViews>
+<clideView viewId="clide.debug.ui.memoryView">
+<memoryTab columnCount="8" core="DSP_A" memoryZone="X" tabAddress="4365"/>
+</clideView>
+<clideView viewId="clide.debug.ui.registersView">
+<registerView regViewCoreName="DSP_A">
+<regViewMementoCore scrollPercent="0.0" selectedItem="/DSP_A/Data registers/x0">
+<layoutType horizontal="0" register_details="1"/>
+<expandedPath item_0="DSP_A"/>
+<expandedPath item_0="DSP_A" item_1="Data registers"/>
+<expandedPath item_0="DSP_A" item_1="Accum registers"/>
+<expandedPath item_0="DSP_A" item_1="Index registers"/>
+</regViewMementoCore>
+</registerView>
+</clideView>
+</clideViews>
+<perspective id="CLIDE.DebugPerspective"/>
+<workbench_editors>
+<editor file_path="/example_module/src/tremolo.a"/>
+<editor file_path="/example_module/src/example_module_main.a"/>
+<editor file_path="/example_module/src/sine_generator.a"/>
+<editor file_path="/example_module/src/processing.a"/>
+</workbench_editors>
+<views/>
+<watchExpressions/>
+<launcherConfiguration/>
+<projectSettings/>
+</settings>

@@ -1,0 +1,767 @@
+1     	 0000					.public _sin_table
+2     	 0000					.public _gen_sin
+3     	 0000					.extern __rshift_laccum
+4     	 0000					.extern __laccum_to_int
+5     	 0000					.extern __lshift_laccum
+6     							.xdata_ovly
+6      >> start of macro: .xdata_ovly
+1+    									seg_single , "X_OVLY", X
+1+     >> start of macro: seg_single
+1+    						  .if ( "" != "" ) & defined( ___SegStart_X_ )
+2+    						    segment
+3+    						  .else
+4+    						    segment "X_OVLY"
+5+    							.if "" != ""
+6+    						___SegStart_X_
+7+    							.endif
+8+    						  .endif
+9+    							#RememberSegmentType
+10+    >> end of macro: seg_single
+2+     >> end of macro: .xdata_ovly
+7     	 0000				__extractedConst_0_1
+8     	 0000					.dw  (0x0)
+	 0000	 00000000	 
+9     	 0001					.dw  (0xc90fdaa2)
+	 0001	 C90FDAA2	 
+10    	 0002					.dw  (0x2130f000)
+	 0002	 2130F000	 
+11    							.xdata_ovly
+11     >> start of macro: .xdata_ovly
+1+    									seg_single , "X_OVLY", X
+1+     >> start of macro: seg_single
+1+    						  .if ( "" != "" ) & defined( ___SegStart_X_ )
+2+    						    segment
+3+    						  .else
+4+    						    segment "X_OVLY"
+5+    							.if "" != ""
+6+    						___SegStart_X_
+7+    							.endif
+8+    						  .endif
+9+    							#RememberSegmentType
+10+    >> end of macro: seg_single
+2+     >> end of macro: .xdata_ovly
+12    	 0000				__extractedConst_1_1
+13    	 0000					.dw  (0x1)
+	 0000	 00000001	 
+14    	 0001					.dw  (0x921fb544)
+	 0001	 921FB544	 
+15    	 0002					.dw  (0x4261e000)
+	 0002	 4261E000	 
+16    							.xdata_ovly
+16     >> start of macro: .xdata_ovly
+1+    									seg_single , "X_OVLY", X
+1+     >> start of macro: seg_single
+1+    						  .if ( "" != "" ) & defined( ___SegStart_X_ )
+2+    						    segment
+3+    						  .else
+4+    						    segment "X_OVLY"
+5+    							.if "" != ""
+6+    						___SegStart_X_
+7+    							.endif
+8+    						  .endif
+9+    							#RememberSegmentType
+10+    >> end of macro: seg_single
+2+     >> end of macro: .xdata_ovly
+17    	 0000				__extractedConst_2_1
+18    	 0000					.dw  (0x2)
+	 0000	 00000002	 
+19    	 0001					.dw  (0x5b2f8fe6)
+	 0001	 5B2F8FE6	 
+20    	 0002					.dw  (0x6392e000)
+	 0002	 6392E000	 
+21    							.xdata_ovly
+21     >> start of macro: .xdata_ovly
+1+    									seg_single , "X_OVLY", X
+1+     >> start of macro: seg_single
+1+    						  .if ( "" != "" ) & defined( ___SegStart_X_ )
+2+    						    segment
+3+    						  .else
+4+    						    segment "X_OVLY"
+5+    							.if "" != ""
+6+    						___SegStart_X_
+7+    							.endif
+8+    						  .endif
+9+    							#RememberSegmentType
+10+    >> end of macro: seg_single
+2+     >> end of macro: .xdata_ovly
+22    	 0000				_sin_table
+23    	 0000					.dw  (0x0)
+	 0000	 00000000	 
+24    	 0001					.dw  (0xc9107f)
+	 0001	 00C9107F	 
+25    	 0002					.dw  (0x19220ff)
+	 0002	 019220FF	 
+26    	 0003					.dw  (0x25b291b)
+	 0003	 025B291B	 
+27    	 0004					.dw  (0x32428d4)
+	 0004	 032428D4	 
+28    	 0005					.dw  (0x3ed288c)
+	 0005	 03ED288C	 
+29    	 0006					.dw  (0x4b6177e)
+	 0006	 04B6177E	 
+30    	 0007					.dw  (0x57efe0c)
+	 0007	 057EFE0C	 
+31    	 0008					.dw  (0x647dc37)
+	 0008	 0647DC37	 
+32    	 0009					.dw  (0x710a137)
+	 0009	 0710A137	 
+33    	 000A					.dw  (0x7d95dd4)
+	 000A	 07D95DD4	 
+34    	 000B					.dw  (0x8a20147)
+	 000B	 08A20147	 
+35    	 000C					.dw  (0x96a93f2)
+	 000C	 096A93F2	 
+36    	 000D					.dw  (0xa330510)
+	 000D	 0A330510	 
+37    	 000E					.dw  (0xafb6566)
+	 000E	 0AFB6566	 
+38    	 000F					.dw  (0xbc3ac92)
+	 000F	 0BC3AC92	 
+39    	 0010					.dw  (0xc8bd230)
+	 0010	 0C8BD230	 
+40    	 0011					.dw  (0xd53dea4)
+	 0011	 0D53DEA4	 
+41    	 0012					.dw  (0xe1bc126)
+	 0012	 0E1BC126	 
+42    	 0013					.dw  (0xee38a7e)
+	 0013	 0EE38A7E	 
+43    	 0014					.dw  (0xfab29e4)
+	 0014	 0FAB29E4	 
+44    	 0015					.dw  (0x10729f59)
+	 0015	 10729F59	 
+45    	 0016					.dw  (0x1139f340)
+	 0016	 1139F340	 
+46    	 0017					.dw  (0x120114d2)
+	 0017	 120114D2	 
+47    	 0018					.dw  (0x12c80c73)
+	 0018	 12C80C73	 
+48    	 0019					.dw  (0x138eda22)
+	 0019	 138EDA22	 
+49    	 001A					.dw  (0x1455757d)
+	 001A	 1455757D	 
+50    	 001B					.dw  (0x151bde82)
+	 001B	 151BDE82	 
+51    	 001C					.dw  (0x15e21533)
+	 001C	 15E21533	 
+52    	 001D					.dw  (0x16a8112b)
+	 001D	 16A8112B	 
+53    	 001E					.dw  (0x176ddace)
+	 001E	 176DDACE	 
+54    	 001F					.dw  (0x183369b9)
+	 001F	 183369B9	 
+55    	 0020					.dw  (0x18f8b588)
+	 0020	 18F8B588	 
+56    	 0021					.dw  (0x19bdcf03)
+	 0021	 19BDCF03	 
+57    	 0022					.dw  (0x1a829cfd)
+	 0022	 1A829CFD	 
+58    	 0023					.dw  (0x1b473040)
+	 0023	 1B473040	 
+59    	 0024					.dw  (0x1c0b8066)
+	 0024	 1C0B8066	 
+60    	 0025					.dw  (0x1ccf8d71)
+	 0025	 1CCF8D71	 
+61    	 0026					.dw  (0x1d934efc)
+	 0026	 1D934EFC	 
+62    	 0027					.dw  (0x1e56cd6c)
+	 0027	 1E56CD6C	 
+63    	 0028					.dw  (0x1f19f7f8)
+	 0028	 1F19F7F8	 
+64    	 0029					.dw  (0x1fdcdf69)
+	 0029	 1FDCDF69	 
+65    	 002A					.dw  (0x209f72f7)
+	 002A	 209F72F7	 
+66    	 002B					.dw  (0x2161b2a2)
+	 002B	 2161B2A2	 
+67    	 002C					.dw  (0x2223a6ce)
+	 002C	 2223A6CE	 
+68    	 002D					.dw  (0x22e53eb3)
+	 002D	 22E53EB3	 
+69    	 002E					.dw  (0x23a68b19)
+	 002E	 23A68B19	 
+70    	 002F					.dw  (0x24677b39)
+	 002F	 24677B39	 
+71    	 0030					.dw  (0x25280f12)
+	 0030	 25280F12	 
+72    	 0031					.dw  (0x25e846a5)
+	 0031	 25E846A5	 
+73    	 0032					.dw  (0x26a821f2)
+	 0032	 26A821F2	 
+74    	 0033					.dw  (0x2767a0f9)
+	 0033	 2767A0F9	 
+75    	 0034					.dw  (0x2826bb55)
+	 0034	 2826BB55	 
+76    	 0035					.dw  (0x28e57108)
+	 0035	 28E57108	 
+77    	 0036					.dw  (0x29a3c211)
+	 0036	 29A3C211	 
+78    	 0037					.dw  (0x2a61ae70)
+	 0037	 2A61AE70	 
+79    	 0038					.dw  (0x2b1f3626)
+	 0038	 2B1F3626	 
+80    	 0039					.dw  (0x2bdc50ce)
+	 0039	 2BDC50CE	 
+81    	 003A					.dw  (0x2c98fe69)
+	 003A	 2C98FE69	 
+82    	 003B					.dw  (0x2d553ef6)
+	 003B	 2D553EF6	 
+83    	 003C					.dw  (0x2e110a13)
+	 003C	 2E110A13	 
+84    	 003D					.dw  (0x2ecc6822)
+	 003D	 2ECC6822	 
+85    	 003E					.dw  (0x2f8750c1)
+	 003E	 2F8750C1	 
+86    	 003F					.dw  (0x3041c3ef)
+	 003F	 3041C3EF	 
+87    	 0040					.dw  (0x30fbc1ac)
+	 0040	 30FBC1AC	 
+88    	 0041					.dw  (0x31b549f9)
+	 0041	 31B549F9	 
+89    	 0042					.dw  (0x326e5471)
+	 0042	 326E5471	 
+90    	 0043					.dw  (0x3326e115)
+	 0043	 3326E115	 
+91    	 0044					.dw  (0x33deefe4)
+	 0044	 33DEEFE4	 
+92    	 0045					.dw  (0x349680e0)
+	 0045	 349680E0	 
+93    	 0046					.dw  (0x354d9407)
+	 0046	 354D9407	 
+94    	 0047					.dw  (0x36041893)
+	 0047	 36041893	 
+95    	 0048					.dw  (0x36ba1f4b)
+	 0048	 36BA1F4B	 
+96    	 0049					.dw  (0x376f9fcb)
+	 0049	 376F9FCB	 
+97    	 004A					.dw  (0x382491af)
+	 004A	 382491AF	 
+98    	 004B					.dw  (0x38d8fd5c)
+	 004B	 38D8FD5C	 
+99    	 004C					.dw  (0x398cda6e)
+	 004C	 398CDA6E	 
+100   	 004D					.dw  (0x3a403148)
+	 004D	 3A403148	 
+101   	 004E					.dw  (0x3af2f123)
+	 004E	 3AF2F123	 
+102   	 004F					.dw  (0x3ba51a00)
+	 004F	 3BA51A00	 
+103   	 0050					.dw  (0x3c56bca5)
+	 0050	 3C56BCA5	 
+104   	 0051					.dw  (0x3d07bfe7)
+	 0051	 3D07BFE7	 
+105   	 0052					.dw  (0x3db8348f)
+	 0052	 3DB8348F	 
+106   	 0053					.dw  (0x3e6809d4)
+	 0053	 3E6809D4	 
+107   	 0054					.dw  (0x3f17481b)
+	 0054	 3F17481B	 
+108   	 0055					.dw  (0x3fc5ef62)
+	 0055	 3FC5EF62	 
+109   	 0056					.dw  (0x4073eee5)
+	 0056	 4073EEE5	 
+110   	 0057					.dw  (0x41215768)
+	 0057	 41215768	 
+111   	 0058					.dw  (0x41ce2089)
+	 0058	 41CE2089	 
+112   	 0059					.dw  (0x427a41e5)
+	 0059	 427A41E5	 
+113   	 005A					.dw  (0x4325c3de)
+	 005A	 4325C3DE	 
+114   	 005B					.dw  (0x43d09e12)
+	 005B	 43D09E12	 
+115   	 005C					.dw  (0x447ad080)
+	 005C	 447AD080	 
+116   	 005D					.dw  (0x452452c5)
+	 005D	 452452C5	 
+117   	 005E					.dw  (0x45cd35a8)
+	 005E	 45CD35A8	 
+118   	 005F					.dw  (0x46756861)
+	 005F	 46756861	 
+119   	 0060					.dw  (0x471ceaf2)
+	 0060	 471CEAF2	 
+120   	 0061					.dw  (0x47c3c5bd)
+	 0061	 47C3C5BD	 
+121   	 0062					.dw  (0x4869e7fb)
+	 0062	 4869E7FB	 
+122   	 0063					.dw  (0x490f5a10)
+	 0063	 490F5A10	 
+123   	 0064					.dw  (0x49b41398)
+	 0064	 49B41398	 
+124   	 0065					.dw  (0x4a581cf7)
+	 0065	 4A581CF7	 
+125   	 0066					.dw  (0x4afb6dca)
+	 0066	 4AFB6DCA	 
+126   	 0067					.dw  (0x4b9e060f)
+	 0067	 4B9E060F	 
+127   	 0068					.dw  (0x4c3fdd65)
+	 0068	 4C3FDD65	 
+128   	 0069					.dw  (0x4ce0fc2e)
+	 0069	 4CE0FC2E	 
+129   	 006A					.dw  (0x4d81626b)
+	 006A	 4D81626B	 
+130   	 006B					.dw  (0x4e2107b7)
+	 006B	 4E2107B7	 
+131   	 006C					.dw  (0x4ebfec13)
+	 006C	 4EBFEC13	 
+132   	 006D					.dw  (0x4f5e071c)
+	 006D	 4F5E071C	 
+133   	 006E					.dw  (0x4ffb6134)
+	 006E	 4FFB6134	 
+134   	 006F					.dw  (0x5097fa5d)
+	 006F	 5097FA5D	 
+135   	 0070					.dw  (0x5133ca31)
+	 0070	 5133CA31	 
+136   	 0071					.dw  (0x51ced0b3)
+	 0071	 51CED0B3	 
+137   	 0072					.dw  (0x52691644)
+	 0072	 52691644	 
+138   	 0073					.dw  (0x530281ba)
+	 0073	 530281BA	 
+139   	 0074					.dw  (0x539b2c40)
+	 0074	 539B2C40	 
+140   	 0075					.dw  (0x54330510)
+	 0075	 54330510	 
+141   	 0076					.dw  (0x54ca0c28)
+	 0076	 54CA0C28	 
+142   	 0077					.dw  (0x55604189)
+	 0077	 55604189	 
+143   	 0078					.dw  (0x55f5a533)
+	 0078	 55F5A533	 
+144   	 0079					.dw  (0x568a3726)
+	 0079	 568A3726	 
+145   	 007A					.dw  (0x571deefe)
+	 007A	 571DEEFE	 
+146   	 007B					.dw  (0x57b0d51f)
+	 007B	 57B0D51F	 
+147   	 007C					.dw  (0x5842e126)
+	 007C	 5842E126	 
+148   	 007D					.dw  (0x58d40aae)
+	 007D	 58D40AAE	 
+149   	 007E					.dw  (0x59646280)
+	 007E	 59646280	 
+150   	 007F					.dw  (0x59f3e037)
+	 007F	 59F3E037	 
+151   	 0080					.dw  (0x5a827b6f)
+	 0080	 5A827B6F	 
+152   	 0081					.dw  (0x5b10342a)
+	 0081	 5B10342A	 
+153   	 0082					.dw  (0x5b9d12ca)
+	 0082	 5B9D12CA	 
+154   	 0083					.dw  (0x5c290eed)
+	 0083	 5C290EED	 
+155   	 0084					.dw  (0x5cb4202d)
+	 0084	 5CB4202D	 
+156   	 0085					.dw  (0x5d3e4ef0)
+	 0085	 5D3E4EF0	 
+157   	 0086					.dw  (0x5dc79b34)
+	 0086	 5DC79B34	 
+158   	 0087					.dw  (0x5e5004fb)
+	 0087	 5E5004FB	 
+159   	 0088					.dw  (0x5ed77b7c)
+	 0088	 5ED77B7C	 
+160   	 0089					.dw  (0x5f5e0f7f)
+	 0089	 5F5E0F7F	 
+161   	 008A					.dw  (0x5fe3b03e)
+	 008A	 5FE3B03E	 
+162   	 008B					.dw  (0x60686e7e)
+	 008B	 60686E7E	 
+163   	 008C					.dw  (0x60ec3979)
+	 008C	 60EC3979	 
+164   	 008D					.dw  (0x616f112f)
+	 008D	 616F112F	 
+165   	 008E					.dw  (0x61f0fe04)
+	 008E	 61F0FE04	 
+166   	 008F					.dw  (0x6271f794)
+	 008F	 6271F794	 
+167   	 0090					.dw  (0x62f1fdde)
+	 0090	 62F1FDDE	 
+168   	 0091					.dw  (0x637110e4)
+	 0091	 637110E4	 
+169   	 0092					.dw  (0x63ef30a4)
+	 0092	 63EF30A4	 
+170   	 0093					.dw  (0x646c5d20)
+	 0093	 646C5D20	 
+171   	 0094					.dw  (0x64e8858f)
+	 0094	 64E8858F	 
+172   	 0095					.dw  (0x6563c31d)
+	 0095	 6563C31D	 
+173   	 0096					.dw  (0x65ddfc9f)
+	 0096	 65DDFC9F	 
+174   	 0097					.dw  (0x66573a79)
+	 0097	 66573A79	 
+175   	 0098					.dw  (0x66cf850d)
+	 0098	 66CF850D	 
+176   	 0099					.dw  (0x6746cb96)
+	 0099	 6746CB96	 
+177   	 009A					.dw  (0x67bd0e12)
+	 009A	 67BD0E12	 
+178   	 009B					.dw  (0x683254e6)
+	 009B	 683254E6	 
+179   	 009C					.dw  (0x68a6a012)
+	 009C	 68A6A012	 
+180   	 009D					.dw  (0x6919e731)
+	 009D	 6919E731	 
+181   	 009E					.dw  (0x698c21e1)
+	 009E	 698C21E1	 
+182   	 009F					.dw  (0x69fd60e9)
+	 009F	 69FD60E9	 
+183   	 00A0					.dw  (0x6a6d9be4)
+	 00A0	 6A6D9BE4	 
+184   	 00A1					.dw  (0x6adcca70)
+	 00A1	 6ADCCA70	 
+185   	 00A2					.dw  (0x6b4af4f0)
+	 00A2	 6B4AF4F0	 
+186   	 00A3					.dw  (0x6bb81301)
+	 00A3	 6BB81301	 
+187   	 00A4					.dw  (0x6c242d05)
+	 00A4	 6C242D05	 
+188   	 00A5					.dw  (0x6c8f3237)
+	 00A5	 6C8F3237	 
+189   	 00A6					.dw  (0x6cf9335d)
+	 00A6	 6CF9335D	 
+190   	 00A7					.dw  (0x6d622813)
+	 00A7	 6D622813	 
+191   	 00A8					.dw  (0x6dca1059)
+	 00A8	 6DCA1059	 
+192   	 00A9					.dw  (0x6e30e3cd)
+	 00A9	 6E30E3CD	 
+193   	 00AA					.dw  (0x6e96aad1)
+	 00AA	 6E96AAD1	 
+194   	 00AB					.dw  (0x6efb5d03)
+	 00AB	 6EFB5D03	 
+195   	 00AC					.dw  (0x6f5f02c4)
+	 00AC	 6F5F02C4	 
+196   	 00AD					.dw  (0x6fc193b3)
+	 00AD	 6FC193B3	 
+197   	 00AE					.dw  (0x70230fcf)
+	 00AE	 70230FCF	 
+198   	 00AF					.dw  (0x70837718)
+	 00AF	 70837718	 
+199   	 00B0					.dw  (0x70e2c98e)
+	 00B0	 70E2C98E	 
+200   	 00B1					.dw  (0x71410731)
+	 00B1	 71410731	 
+201   	 00B2					.dw  (0x719e3001)
+	 00B2	 719E3001	 
+202   	 00B3					.dw  (0x71fa3b9a)
+	 00B3	 71FA3B9A	 
+203   	 00B4					.dw  (0x725529fe)
+	 00B4	 725529FE	 
+204   	 00B5					.dw  (0x72af038e)
+	 00B5	 72AF038E	 
+205   	 00B6					.dw  (0x7307bfe7)
+	 00B6	 7307BFE7	 
+206   	 00B7					.dw  (0x735f676e)
+	 00B7	 735F676E	 
+207   	 00B8					.dw  (0x73b5e95b)
+	 00B8	 73B5E95B	 
+208   	 00B9					.dw  (0x740b5675)
+	 00B9	 740B5675	 
+209   	 00BA					.dw  (0x745f9df5)
+	 00BA	 745F9DF5	 
+210   	 00BB					.dw  (0x74b2c83e)
+	 00BB	 74B2C83E	 
+211   	 00BC					.dw  (0x7504d551)
+	 00BC	 7504D551	 
+212   	 00BD					.dw  (0x7555bcca)
+	 00BD	 7555BCCA	 
+213   	 00BE					.dw  (0x75a5870d)
+	 00BE	 75A5870D	 
+214   	 00BF					.dw  (0x75f42bb6)
+	 00BF	 75F42BB6	 
+215   	 00C0					.dw  (0x7641b328)
+	 00C0	 7641B328	 
+216   	 00C1					.dw  (0x768e0c9d)
+	 00C1	 768E0C9D	 
+217   	 00C2					.dw  (0x76d948dc)
+	 00C2	 76D948DC	 
+218   	 00C3					.dw  (0x77235f80)
+	 00C3	 77235F80	 
+219   	 00C4					.dw  (0x776c508b)
+	 00C4	 776C508B	 
+220   	 00C5					.dw  (0x77b41bfb)
+	 00C5	 77B41BFB	 
+221   	 00C6					.dw  (0x77fab96f)
+	 00C6	 77FAB96F	 
+222   	 00C7					.dw  (0x78403148)
+	 00C7	 78403148	 
+223   	 00C8					.dw  (0x78848387)
+	 00C8	 78848387	 
+224   	 00C9					.dw  (0x78c7a7c9)
+	 00C9	 78C7A7C9	 
+225   	 00CA					.dw  (0x7909a671)
+	 00CA	 7909A671	 
+226   	 00CB					.dw  (0x794a7f80)
+	 00CB	 794A7F80	 
+227   	 00CC					.dw  (0x798a222d)
+	 00CC	 798A222D	 
+228   	 00CD					.dw  (0x79c89f40)
+	 00CD	 79C89F40	 
+229   	 00CE					.dw  (0x7a05ee56)
+	 00CE	 7A05EE56	 
+230   	 00CF					.dw  (0x7a420f6f)
+	 00CF	 7A420F6F	 
+231   	 00D0					.dw  (0x7a7d028a)
+	 00D0	 7A7D028A	 
+232   	 00D1					.dw  (0x7ab6c7a7)
+	 00D1	 7AB6C7A7	 
+233   	 00D2					.dw  (0x7aef672b)
+	 00D2	 7AEF672B	 
+234   	 00D3					.dw  (0x7b26c7ea)
+	 00D3	 7B26C7EA	 
+235   	 00D4					.dw  (0x7b5d0310)
+	 00D4	 7B5D0310	 
+236   	 00D5					.dw  (0x7b9207d4)
+	 00D5	 7B9207D4	 
+237   	 00D6					.dw  (0x7bc5de9c)
+	 00D6	 7BC5DE9C	 
+238   	 00D7					.dw  (0x7bf88765)
+	 00D7	 7BF88765	 
+239   	 00D8					.dw  (0x7c29f9ce)
+	 00D8	 7C29F9CE	 
+240   	 00D9					.dw  (0x7c5a3e39)
+	 00D9	 7C5A3E39	 
+241   	 00DA					.dw  (0x7c894c44)
+	 00DA	 7C894C44	 
+242   	 00DB					.dw  (0x7cb723ee)
+	 00DB	 7CB723EE	 
+243   	 00DC					.dw  (0x7ce3cd9a)
+	 00DC	 7CE3CD9A	 
+244   	 00DD					.dw  (0x7d0f40e5)
+	 00DD	 7D0F40E5	 
+245   	 00DE					.dw  (0x7d397dd0)
+	 00DE	 7D397DD0	 
+246   	 00DF					.dw  (0x7d628cbd)
+	 00DF	 7D628CBD	 
+247   	 00E0					.dw  (0x7d8a5ce5)
+	 00E0	 7D8A5CE5	 
+248   	 00E1					.dw  (0x7db0ff10)
+	 00E1	 7DB0FF10	 
+249   	 00E2					.dw  (0x7dd66277)
+	 00E2	 7DD66277	 
+250   	 00E3					.dw  (0x7dfa97e1)
+	 00E3	 7DFA97E1	 
+251   	 00E4					.dw  (0x7e1d96e9)
+	 00E4	 7E1D96E9	 
+252   	 00E5					.dw  (0x7e3f572d)
+	 00E5	 7E3F572D	 
+253   	 00E6					.dw  (0x7e5fe111)
+	 00E6	 7E5FE111	 
+254   	 00E7					.dw  (0x7e7f3cf7)
+	 00E7	 7E7F3CF7	 
+255   	 00E8					.dw  (0x7e9d5a18)
+	 00E8	 7E9D5A18	 
+256   	 00E9					.dw  (0x7eba3875)
+	 00E9	 7EBA3875	 
+257   	 00EA					.dw  (0x7ed5e8d5)
+	 00EA	 7ED5E8D5	 
+258   	 00EB					.dw  (0x7ef05a70)
+	 00EB	 7EF05A70	 
+259   	 00EC					.dw  (0x7f0995aa)
+	 00EC	 7F0995AA	 
+260   	 00ED					.dw  (0x7f219220)
+	 00ED	 7F219220	 
+261   	 00EE					.dw  (0x7f385836)
+	 00EE	 7F385836	 
+262   	 00EF					.dw  (0x7f4de7ea)
+	 00EF	 7F4DE7EA	 
+263   	 00F0					.dw  (0x7f6238da)
+	 00F0	 7F6238DA	 
+264   	 00F1					.dw  (0x7f754b05)
+	 00F1	 7F754B05	 
+265   	 00F2					.dw  (0x7f872f33)
+	 00F2	 7F872F33	 
+266   	 00F3					.dw  (0x7f97cc39)
+	 00F3	 7F97CC39	 
+267   	 00F4					.dw  (0x7fa732df)
+	 00F4	 7FA732DF	 
+268   	 00F5					.dw  (0x7fb56323)
+	 00F5	 7FB56323	 
+269   	 00F6					.dw  (0x7fc254a3)
+	 00F6	 7FC254A3	 
+270   	 00F7					.dw  (0x7fce0fc2)
+	 00F7	 7FCE0FC2	 
+271   	 00F8					.dw  (0x7fd883ba)
+	 00F8	 7FD883BA	 
+272   	 00F9					.dw  (0x7fe1c9b4)
+	 00F9	 7FE1C9B4	 
+273   	 00FA					.dw  (0x7fe9c886)
+	 00FA	 7FE9C886	 
+274   	 00FB					.dw  (0x7ff090f7)
+	 00FB	 7FF090F7	 
+275   	 00FC					.dw  (0x7ff62307)
+	 00FC	 7FF62307	 
+276   	 00FD					.dw  (0x7ffa7653)
+	 00FD	 7FFA7653	 
+277   	 00FE					.dw  (0x7fffd60e)
+	 00FE	 7FFFD60E	 
+278   	 00FF					.dw  (0x7ffff79c)
+	 00FF	 7FFFF79C	 
+279   							.code_ovly
+279    >> start of macro: .code_ovly
+1+    									seg_single , "CODE_OVLY", CODE
+1+     >> start of macro: seg_single
+1+    						  .if ( "" != "" ) & defined( ___SegStart_CODE_ )
+2+    						    segment
+3+    						  .else
+4+    						    segment "CODE_OVLY"
+5+    							.if "" != ""
+6+    						___SegStart_CODE_
+7+    							.endif
+8+    						  .endif
+9+    							#RememberSegmentType
+10+    >> end of macro: seg_single
+2+     >> end of macro: .code_ovly
+280   						
+281   						
+282   						
+283   	 0000				_gen_sin:			/* LN: 31 | CYCLE: 0 | RULES: () */ 
+284   	 0000	 A2540017		xmem[i7] = a2g; i7 += 1			# LN: 31, 31 | 
+285   	 0001	 9A540017		xmem[i7] = a2h; i7 += 1			# LN: 31, 31 | 
+286   	 0002	 92540017		xmem[i7] = a2l; i7 += 1			# LN: 31, 31 | 
+287   	 0003	 A6540017		xmem[i7] = b2g; i7 += 1			# LN: 31, 31 | 
+288   	 0004	 9E540017		xmem[i7] = b2h; i7 += 1			# LN: 31, 31 | 
+289   	 0005	 96540007		xmem[i7] = b2l			# LN: 31 | 
+290   	 0006	 00004C25		b1 =+ a0			# LN: 31 | 
+291   	 0007	 00004DC1		a1 = 0			# LN: 44 | 
+292   	 0008	 A14A0051		a1g = (0x51)			# LN: 44 | 
+293   	 0009	 8A4A0008		uhalfword(a2) = (0x8)			# LN: 44 | 
+294   	 000A	 00005C08		a0 =+ a1; b0 =+ b1			# LN: 44, 52 | 
+295   	 000B	 00004C11		a1 =+ a2			# LN: 44 | 
+296   	 000C	 80880000		call (__rshift_laccum)			# LN: 44 | 
+297   	 000D	 A6040000		b2g = xmem[__extractedConst_0_1 + 0]			# LN: 52 | 
+298   	 000E	 9E040001		b2h = xmem[__extractedConst_0_1 + 1]			# LN: 52 | 
+299   	 000F	 96040002		b2l = xmem[__extractedConst_0_1 + 2]			# LN: 52 | 
+300   	 0010	 00004E44		b0 = b0 >> 1			# LN: 52 | 
+301   	 0011	 00004C02		a2 =+ a0			# LN: 44 | 
+302   	 0012	 00004E46		b2 = b2 >> 1			# LN: 52 | 
+303   	 0013	 00004C10		a0 =+ a2			# LN: 44 | 
+304   	 0014	 48404F14		x0 = a0; b0 - b2			# LN: 45, 52 | 
+305   	 0015	 87480021		if (b > 0) jmp (else_0)			# LN: 52 | 
+306   	 0016	 00004E45		b1 = b1 >> 1			# LN: 55 | 
+307   	 0017	 4D417FFF		x1 = b1			# LN: 56 | 
+308   	 0018	 00002020		a0 = x1 * x0			# LN: 58 | 
+309   	 0019	 00004F80		a0 = a0 << 8			# LN: 59 | 
+310   	 001A	 00004E00		a0 = a0 << 1			# LN: 59 | 
+311   	 001B	 80880000		call (__laccum_to_int)			# LN: 60 | 
+312   	 001C	 48707FFF		i0 = a0			# LN: 62 | 
+313   	 001D	 00007FFF		nop #empty cycle
+314   	 001E	 80050000		i0 = i0 + (_sin_table + 0)			# LN: 62 | 
+315   	 001F	 88140000		a0 = xmem[i0]			# LN: 62 | 
+316   	 0020	 80080062		jmp (__epilogue_104)			# LN: 62 | 
+317   	 0021				else_0:			/* LN: 52 | CYCLE: 0 | RULES: () */ 
+318   	 0021	 A1040000		a1g = xmem[__extractedConst_1_1 + 0]			# LN: 64 | 
+319   	 0022	 99040001		a1h = xmem[__extractedConst_1_1 + 1]			# LN: 64 | 
+320   	 0023	 91040002		a1l = xmem[__extractedConst_1_1 + 2]			# LN: 64 | 
+321   	 0024	 00005C28		a0 =+ b1; b0 =+ a1			# LN: 64, 64 | 
+322   	 0025	 00005E40		a0 = a0 >> 1; b0 = b0 >> 1			# LN: 64, 64 | 
+323   	 0026	 00004F20		a0 - b0			# LN: 64 | 
+324   	 0027	 85480037		if (a > 0) jmp (else_1)			# LN: 64 | 
+325   	 0028	 A0040000		a0g = xmem[__extractedConst_1_1 + 0]			# LN: 66 | 
+326   	 0029	 98040001		a0h = xmem[__extractedConst_1_1 + 1]			# LN: 66 | 
+327   	 002A	 90040002		a0l = xmem[__extractedConst_1_1 + 2]			# LN: 66 | 
+328   	 002B	 00004468		a0 = a0 - b1			# LN: 66 | 
+329   	 002C	 00004E40		a0 = a0 >> 1			# LN: 68 | 
+330   	 002D	 48417FFF		x1 = a0			# LN: 69 | 
+331   	 002E	 00002020		a0 = x1 * x0			# LN: 71 | 
+332   	 002F	 00004F80		a0 = a0 << 8			# LN: 72 | 
+333   	 0030	 00004E00		a0 = a0 << 1			# LN: 72 | 
+334   	 0031	 80880000		call (__laccum_to_int)			# LN: 73 | 
+335   	 0032	 48707FFF		i0 = a0			# LN: 75 | 
+336   	 0033	 00007FFF		nop #empty cycle
+337   	 0034	 80050000		i0 = i0 + (_sin_table + 0)			# LN: 75 | 
+338   	 0035	 88140000		a0 = xmem[i0]			# LN: 75 | 
+339   	 0036	 80080062		jmp (__epilogue_104)			# LN: 75 | 
+340   	 0037				else_1:			/* LN: 64 | CYCLE: 0 | RULES: () */ 
+341   	 0037	 A1040000		a1g = xmem[__extractedConst_2_1 + 0]			# LN: 77 | 
+342   	 0038	 99040001		a1h = xmem[__extractedConst_2_1 + 1]			# LN: 77 | 
+343   	 0039	 91040002		a1l = xmem[__extractedConst_2_1 + 2]			# LN: 77 | 
+344   	 003A	 00005C28		a0 =+ b1; b0 =+ a1			# LN: 77, 77 | 
+345   	 003B	 00005E40		a0 = a0 >> 1; b0 = b0 >> 1			# LN: 77, 77 | 
+346   	 003C	 00004F20		a0 - b0			# LN: 77 | 
+347   	 003D	 8548004F		if (a > 0) jmp (else_2)			# LN: 77 | 
+348   	 003E	 A0040000		a0g = xmem[__extractedConst_1_1 + 0]			# LN: 79 | 
+349   	 003F	 98040001		a0h = xmem[__extractedConst_1_1 + 1]			# LN: 79 | 
+350   	 0040	 90040002		a0l = xmem[__extractedConst_1_1 + 2]			# LN: 79 | 
+351   	 0041	 00004468		a0 = a0 - b1			# LN: 79 | 
+352   	 0042	 00004C80		a0 =- a0			# LN: 79 | 
+353   	 0043	 00004E40		a0 = a0 >> 1			# LN: 81 | 
+354   	 0044	 48417FFF		x1 = a0			# LN: 82 | 
+355   	 0045	 00002020		a0 = x1 * x0			# LN: 84 | 
+356   	 0046	 00004F80		a0 = a0 << 8			# LN: 85 | 
+357   	 0047	 00004E00		a0 = a0 << 1			# LN: 85 | 
+358   	 0048	 80880000		call (__laccum_to_int)			# LN: 86 | 
+359   	 0049	 48707FFF		i0 = a0			# LN: 88 | 
+360   	 004A	 00007FFF		nop #empty cycle
+361   	 004B	 80050000		i0 = i0 + (_sin_table + 0)			# LN: 88 | 
+362   	 004C	 88140000		a0 = xmem[i0]			# LN: 88 | 
+363   	 004D	 00004C80		a0 =- a0			# LN: 88 | 
+364   	 004E	 80080062		jmp (__epilogue_104)			# LN: 88 | 
+365   	 004F				else_2:			/* LN: 77 | CYCLE: 0 | RULES: () */ 
+366   	 004F	 885A921F		ufixed16(a0) = (0x921f)			# LN: 92 | 
+367   	 0050	 980AB544		lo16(a0) = (0xb544)			# LN: 92 | 
+368   	 0051	 907A4261		a0l = (0x4261)			# LN: 92 | 
+369   	 0052	 900AE000		lo16(a0l) = (0xe000)			# LN: 92 | 
+370   	 0053	 A04A0001		a0g = (0x1)			# LN: 92 | 
+371   	 0054	 894A0001		uhalfword(a1) = (0x1)			# LN: 92 | 
+372   	 0055	 80880000		call (__lshift_laccum)			# LN: 92 | 
+373   	 0056	 00004468		a0 = a0 - b1			# LN: 93 | 
+374   	 0057	 00004E40		a0 = a0 >> 1			# LN: 95 | 
+375   	 0058	 48417FFF		x1 = a0			# LN: 96 | 
+376   	 0059	 00002020		a0 = x1 * x0			# LN: 98 | 
+377   	 005A	 00004F80		a0 = a0 << 8			# LN: 99 | 
+378   	 005B	 00004E00		a0 = a0 << 1			# LN: 99 | 
+379   	 005C	 80880000		call (__laccum_to_int)			# LN: 100 | 
+380   	 005D	 48707FFF		i0 = a0			# LN: 102 | 
+381   	 005E	 00007FFF		nop #empty cycle
+382   	 005F	 80050000		i0 = i0 + (_sin_table + 0)			# LN: 102 | 
+383   	 0060	 88140000		a0 = xmem[i0]			# LN: 102 | 
+384   	 0061	 00004C80		a0 =- a0			# LN: 102 | 
+385   	 0062				__epilogue_104:			/* LN: 105 | CYCLE: 0 | RULES: () */ 
+386   	 0062	 96140027		b2l = xmem[i7]; i7 -= 1			# LN: 105, 105 | 
+387   	 0063	 9E140027		b2h = xmem[i7]; i7 -= 1			# LN: 105, 105 | 
+388   	 0064	 A6140027		b2g = xmem[i7]; i7 -= 1			# LN: 105, 105 | 
+389   	 0065	 92140027		a2l = xmem[i7]; i7 -= 1			# LN: 105, 105 | 
+390   	 0066	 9A140027		a2h = xmem[i7]; i7 -= 1			# LN: 105, 105 | 
+391   	 0067	 A2140007		a2g = xmem[i7]			# LN: 105 | 
+392   	 0068	 81880000		ret			# LN: 105 | 
+393   						(null)
+				 SYMBOL TABLE 
+
+    Name                                                                                    Type                  Value 
+
+_COMMON_INC_PATH_                                                               					 Define                 "C:/CirrusDSP/crystal32/common/inc/"
+_DSP_                                                                           					 Define                 "a"
+_LOCAL_INC_PATH_                                                                					 Define                 "inc/"
+_LOCAL_SRC_PATH_                                                                					 Define                 "src/"
+_MUI_VERSION_                                                                   					 Define                 "020000"
+_OVLY_                                                                          					 Define                 "standalone"
+_OVLY_REVISION_                                                                 					 Define                 "020000"
+_ROUTER_INC_PATH_                                                               					 Define                 "rom_inc/"
+_SLOT_                                                                          					 Define                 "0"
+_TARGET_FAMILY_                                                                 					 Define                 "crystal32"
+_TOOLS_VERSION_                                                                 					 Define                 "0x0701"
+_VERSION_                                                                       					 Define                 "00"
+__CASM_VER__                                                                    			  Unused Variable		        0 (701H)
+__epilogue_104                                                                  			         Relocatable         sine_table_GEN_0004:0062H
+__extractedConst_0_1                                                            			         Relocatable         sine_table_GEN_0000:0000H
+__extractedConst_1_1                                                            			         Relocatable         sine_table_GEN_0001:0000H
+__extractedConst_2_1                                                            			         Relocatable         sine_table_GEN_0002:0000H
+__laccum_to_int                                                                 					 External   
+__lshift_laccum                                                                 					 External   
+__rshift_laccum                                                                 					 External   
+_gen_sin                                                                        			  Public Relocatable       sine_table_GEN_0004:0000H
+_sin_table                                                                      			  Public Relocatable       sine_table_GEN_0003:0000H
+else_0                                                                          			         Relocatable         sine_table_GEN_0004:0021H
+else_1                                                                          			         Relocatable         sine_table_GEN_0004:0037H
+else_2                                                                          			         Relocatable         sine_table_GEN_0004:004FH
+
+	       SEGMENTS:
+
+Size			  Name										 Class
+0000H	 __INIT                                  			 CODE                                    
+0003H	 sine_table_GEN_0000                     			 X_OVLY                                  
+0003H	 sine_table_GEN_0001                     			 X_OVLY                                  
+0003H	 sine_table_GEN_0002                     			 X_OVLY                                  
+0100H	 sine_table_GEN_0003                     			 X_OVLY                                  
+0069H	 sine_table_GEN_0004                     			 CODE_OVLY                               

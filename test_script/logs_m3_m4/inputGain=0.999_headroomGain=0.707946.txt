@@ -1,0 +1,26 @@
+C:\Users\tbran\Desktop\TestStreams_m3>PCMCompare.exe Multi_Tone_m2_0.999_0.707946.wav Multi_Tone_m3_0.999_0.707946.wav
+    Recorded file is 7024880 samples shorter than the reference file!
+    Test error! Recorded file is 7024880 samples shorter than the reference file!
+      No differences encountered!
+      No differences encountered!
+
+C:\Users\tbran\Desktop\TestStreams_m3>PCMCompare.exe Amp_Sweep_m2_0.999_0.707946.wav AmpSweep_m3_0.999_0.707946.wav
+    Recorded file is 7028386 samples shorter than the reference file!
+    Test error! Recorded file is 7028386 samples shorter than the reference file!
+      No differences encountered!
+      No differences encountered!
+
+C:\Users\tbran\Desktop\TestStreams_m3>PCMCompare.exe WhiteNoise_m2_0.999_0.707946.wav WhiteNoise_m3_0.999_0.707946.wav
+    Recorded file is 4624400 samples shorter than the reference file!
+    Test error! Recorded file is 4624400 samples shorter than the reference file!
+    Max difference is 1 (1 bits, -144.49dB)
+    Max difference is 1 (1 bits, -144.49dB)
+    175600 samples compared
+   -----------------------------------------------------------
+    Dif(bits) |    Samples    |   PERCENT  |   First dif
+   -----------------------------------------------------------
+         1    |         52    |    0.03%   |  0x00002570
+   -----------------------------------------------------------
+      Error   |         52    |    0.03%
+
+C:\Users\tbran\Desktop\TestStreams_m3>

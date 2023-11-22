@@ -1,0 +1,7 @@
+C:\Users\tbran\Desktop\TestStream_m4>PCMCompare.exe WhiteNoise_m3_0.999_0.999.wav WhiteNoise_m4_0.999_0.999.wav
+    Recorded file is 37920 samples shorter than the reference file!
+    Test error! Recorded file is 37920 samples shorter than the reference file!
+      No differences encountered!
+      No differences encountered!
+
+C:\Users\tbran\Desktop\TestStream_m4>

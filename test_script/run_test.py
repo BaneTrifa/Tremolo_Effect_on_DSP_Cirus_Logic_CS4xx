@@ -13,7 +13,7 @@ executables_root = os.path.join(os.path.dirname(__file__), "bin")
 compare_tool = os.path.join(os.path.dirname(__file__), "Tools", "PCMCompare.exe")
 
 # name of models for testing == ["model0", "model1", "model2"]
-num_of_models = 2
+num_of_models = 3
 models = [f'model{x}' for x in range(num_of_models)]
 
 
@@ -34,7 +34,7 @@ def get_inputs():
     #             inputs.append(os.path.join(root, file))
 
     # inputs == ["/path/to/input_streams/funky_sample.wav", "/path/to/input_streams/WhiteNoise.wav"]
-    inputs = [os.path.join(input_streams_root, x) for x in ['Amp_Sweep.wav', 'WhiteNoise.wav', 'Multi_Tone.wav']]
+    inputs = [os.path.join(input_streams_root, x) for x in ['WhiteNoise.wav', 'Amp_Sweep.wav', 'Multi_Tone.wav']]
 
     return inputs
 
@@ -43,7 +43,7 @@ def get_inputs():
 def get_params():
 
     params = [
-        [0, 1],					            # enable
+        [1, 0],					            # enable
         [0, 1, 2, 3],                       # output mode
         ["0.999", "0", "0.501187"],	        # input gain
         ["0.999", "0", "0.707946"]          # headroom gain
@@ -60,7 +60,7 @@ def get_params():
 test_outputs = os.path.join(os.path.dirname(__file__), "test_outputs")
 
 # logs = "/path/to/script/logs"
-logs = os.path.join(os.path.dirname(__file__), "logs")
+logs = os.path.join(os.path.dirname(__file__), "logs_m0_m1_m2")
 
 # invalid_logs = "/path/to/script/invalid_logs"
 invalid_logs = os.path.join(os.path.dirname(__file__), "invalid_logs")

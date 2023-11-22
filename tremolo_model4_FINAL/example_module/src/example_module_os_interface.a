@@ -1,0 +1,53 @@
+/** @file example_module_os_interface.a
+ *
+ *  This file defines the data structures necessary for a module that fits into
+ *  the Cirrus Logic OS Framework.
+ */
+	.include .strcat (_COMMON_INC_PATH_, "macros.h")
+	.include "example_module_module.h"
+
+#====================================================================
+# Declare the MIF for this module. It needs to be public so that it 
+# can be referenced in the ODT definition in another source file.
+# Also need to declare a public symbol for the module ID for this module
+	.public X_BY_example_module_MIF, example_module_MODULEID
+
+	.public example_module_mif
+
+example_module_mif	.ydata_ovly
+#
+# use macros to declare the MIF structure. The macros ensure that the 
+# data structure is properly constructed
+#	
+X_BY_example_module_MIF:
+	.extern example_module_HOST_MCV
+ MIF_BEGIN
+  EXT_MCV_Y    example_module_HOST_MCV
+  EXT_MCT      mct
+ MIF_END
+
+#
+# create the MCT (Module Call Table)
+# The symbols for the entry points are assumed to be external to this
+# source file, hence the .extern directives.
+#
+# To remove any particular entry point, just comment out or remove
+# that line in the MCT structure. Ordering of the entry points is not
+# important -- the macro ensures that the order expected by the OS is
+# followed.
+#
+example_module_MCT	.ydata_ovly
+	.extern X_S_example_module_PreKickstart,X_S_example_module_PostKickstart,X_S_example_module_Timer,X_S_example_module_Frame
+	.extern X_S_example_module_Brick,X_S_example_module_PreMalloc,X_S_example_module_PostMalloc,X_S_example_module_Background
+mct:
+ MCT_BEGIN
+  PREKICK      X_S_example_module_PreKickstart
+  POSTKICK     X_S_example_module_PostKickstart
+  TIMER        X_S_example_module_Timer
+  FRAME        X_S_example_module_Frame
+  BLOCK        X_S_example_module_Brick
+  PREMALLOC    X_S_example_module_PreMalloc
+  POSTMALLOC   X_S_example_module_PostMalloc
+  BACKGROUND   X_S_example_module_Background 
+ MCT_END
+

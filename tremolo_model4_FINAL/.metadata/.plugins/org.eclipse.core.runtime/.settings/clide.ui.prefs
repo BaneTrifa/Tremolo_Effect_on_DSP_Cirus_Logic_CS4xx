@@ -1,0 +1,4 @@
+CS48L2X=$(SDK_INSTALL_DIR)/CS48L2X
+crystal32=$(SDK_INSTALL_DIR)/crystal32
+eclipse.preferences.version=1
+lastImportExistingFolder=C\:\\Users\\tbran\\Desktop\\VE-1\\VE-14

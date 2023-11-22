@@ -1,0 +1,250 @@
+1     	 0000					.extern _sin_table
+2     	 0000					.extern _gen_sin
+3     	 0000					.public _lfo
+4     	 0000					.public _processBlock
+5     	 0000					.public _saturation_tremolo
+6     	 0000					.extern __rshift_laccum
+7     							.xdata_ovly
+7      >> start of macro: .xdata_ovly
+1+    									seg_single , "X_OVLY", X
+1+     >> start of macro: seg_single
+1+    						  .if ( "" != "" ) & defined( ___SegStart_X_ )
+2+    						    segment
+3+    						  .else
+4+    						    segment "X_OVLY"
+5+    							.if "" != ""
+6+    						___SegStart_X_
+7+    							.endif
+8+    						  .endif
+9+    							#RememberSegmentType
+10+    >> end of macro: seg_single
+2+     >> end of macro: .xdata_ovly
+8     	 0000				__extractedConst_0_1
+9     	 0000					.dw  (0x7fdf3b64)
+	 0000	 7FDF3B64	 
+10    							.xdata_ovly
+10     >> start of macro: .xdata_ovly
+1+    									seg_single , "X_OVLY", X
+1+     >> start of macro: seg_single
+1+    						  .if ( "" != "" ) & defined( ___SegStart_X_ )
+2+    						    segment
+3+    						  .else
+4+    						    segment "X_OVLY"
+5+    							.if "" != ""
+6+    						___SegStart_X_
+7+    							.endif
+8+    						  .endif
+9+    							#RememberSegmentType
+10+    >> end of macro: seg_single
+2+     >> end of macro: .xdata_ovly
+11    	 0000				__extractedConst_1_1
+12    	 0000					.dw  (0x0)
+	 0000	 00000000	 
+13    	 0001					.dw  (0x15cf7)
+	 0001	 00015CF7	 
+14    	 0002					.dw  (0x51db94e6)
+	 0002	 51DB94E6	 
+15    							.code_ovly
+15     >> start of macro: .code_ovly
+1+    									seg_single , "CODE_OVLY", CODE
+1+     >> start of macro: seg_single
+1+    						  .if ( "" != "" ) & defined( ___SegStart_CODE_ )
+2+    						    segment
+3+    						  .else
+4+    						    segment "CODE_OVLY"
+5+    							.if "" != ""
+6+    						___SegStart_CODE_
+7+    							.endif
+8+    						  .endif
+9+    							#RememberSegmentType
+10+    >> end of macro: seg_single
+2+     >> end of macro: .code_ovly
+16    						
+17    						
+18    						
+19    	 0000				_lfo:			/* LN: 19 | CYCLE: 0 | RULES: () */ 
+20    	 0000	 895A921F		ufixed16(a1) = (0x921f)			# LN: 25 | 
+21    	 0001	 990AB544		lo16(a1) = (0xb544)			# LN: 25 | 
+22    	 0002	 917A4261		a1l = (0x4261)			# LN: 25 | 
+23    	 0003	 910AE000		lo16(a1l) = (0xe000)			# LN: 25 | 
+24    	 0004	 A14A0001		a1g = (0x1)			# LN: 25 | 
+25    	 0005	 8C4A0002		uhalfword(b0) = (0x2)			# LN: 25 | 
+26    	 0006	 00584C08		x0 = a0h; a0 =+ a1			# LN: 19, 25 | 
+27    	 0007	 00004C21		a1 =+ b0			# LN: 25 | 
+28    	 0008	 80880000		call (__rshift_laccum)			# LN: 25 | 
+29    	 0009	 48417FFF		x1 = a0			# LN: 27 | 
+30    	 000A	 00002020		a0 = x1 * x0			# LN: 28 | 
+31    	 000B	 8030000C		do (0x3), label_end_5_0			# LN: 29 | 
+32    	 000C				label_begin_5_0:			/* LN: 29 | CYCLE: 0 | RULES: (CBitwiseFixPointShiftConstNonstandardValue) */ 
+33    	 000C				label_end_5_0:			# LN: 29 | CYCLE: 0 | RULES: (CBitwiseFixPointShiftConstNonstandardValue)
+34    	 000C	 00004E00		a0 = a0 << 1			# LN: 29 | 
+35    	 000D	 80880000		call (_gen_sin)			# LN: 31 | 
+36    	 000E	 00004E40		a0 = a0 >> 1			# LN: 32 | 
+37    	 000F	 895A4000		ufixed16(a1) = (0x4000)			# LN: 34 | 
+38    	 0010	 00004408		a0 = a0 + a1			# LN: 34 | 
+39    	 0011	 81880000		ret			# LN: 37 | 
+40    						
+41    						
+42    						
+43    	 0012				_processBlock:			/* LN: 39 | CYCLE: 0 | RULES: () */ 
+44    	 0012	 B2540017		xmem[i7] = i2; i7 += 1			# LN: 39, 39 | 
+45    	 0013	 B3540017		xmem[i7] = i3; i7 += 1			# LN: 39, 39 | 
+46    	 0014	 BA540017		xmem[i7] = i6; i7 += 1			# LN: 39, 39 | 
+47    	 0015	 82540017		xmem[i7] = x2; i7 += 1			# LN: 39, 39 | 
+48    	 0016	 83540017		xmem[i7] = x3; i7 += 1			# LN: 39, 39 | 
+49    	 0017	 A2540017		xmem[i7] = a2g; i7 += 1			# LN: 39, 39 | 
+50    	 0018	 9A540017		xmem[i7] = a2h; i7 += 1			# LN: 39, 39 | 
+51    	 0019	 92540017		xmem[i7] = a2l; i7 += 1			# LN: 39, 39 | 
+52    	 001A	 B0090032		i2 = i0			# LN: 39 | 
+53    	 001B	 B1090033		i3 = i1			# LN: 39 | 
+54    	 001C	 B809003A		i6 = i4			# LN: 39 | 
+55    	 001D	 02587FFF		x2 = a0h			# LN: 39 | 
+56    	 001E	 BA090030		i0 = i6			# LN: 47 | 
+57    	 001F	 A0140006		a0g = xmem[i6]			# LN: 47 | 
+58    	 0020	 02087FFF		i0 += 1			# LN: 47 | 
+59    	 0021	 98140010		a0h = xmem[i0]; i0 += 1			# LN: 47, 47 | 
+60    	 0022	 90140000		a0l = xmem[i0]			# LN: 47 | 
+61    	 0023	 48487FFF		a0 = a0			# LN: 47 | 
+62    	 0024	 8100005A		do (0x10), label_end_92			# LN: 49 | 
+63    	 0025				label_begin_92:			/* LN: 49 | CYCLE: 0 | RULES: () */ 
+64    	 0025	 83940002		x3 = ymem[i2]			# LN: 52 | 
+65    	 0026	 80880000		call (_lfo)			# LN: 55 | 
+66    	 0027	 895A8000		ufixed16(a1) = (0x8000)			# LN: 56 | 
+67    	 0028	 000044C0		a0 = a1 - a0			# LN: 56 | 
+68    	 0029	 00004E40		a0 = a0 >> 1			# LN: 57 | 
+69    	 002A	 48404C0A		x0 = a0; a2 =+ a1			# LN: 59, 71 | 
+70    	 002B	 00002180		a0 = x0 * x3			# LN: 59 | 
+71    	 002C	 48404E42		x0 = a0; a2 = a2 >> 1			# LN: 60, 71 | 
+72    	 002D	 00002100		a0 = x0 * x2			# LN: 60 | 
+73    	 002E	 00004E00		a0 = a0 << 1			# LN: 62 | 
+74    	 002F	 80880065		call (_saturation_tremolo)			# LN: 64 | 
+75    	 0030	 BA090030		i0 = i6			# LN: 69 | 
+76    	 0031	 A1140006		a1g = xmem[i6]			# LN: 69 | 
+77    	 0032	 02087FFF		i0 += 1			# LN: 69 | 
+78    	 0033	 99140010		a1h = xmem[i0]; i0 += 1			# LN: 69, 69 | 
+79    	 0034	 91140000		a1l = xmem[i0]			# LN: 69 | 
+80    	 0035	 A4040000		b0g = xmem[__extractedConst_1_1 + 0]			# LN: 69 | 
+81    	 0036	 9C040001		b0h = xmem[__extractedConst_1_1 + 1]			# LN: 69 | 
+82    	 0037	 94040002		b0l = xmem[__extractedConst_1_1 + 2]			# LN: 69 | 
+83    	 0038	 000044A1		a1 = a1 + b0			# LN: 69 | 
+84    	 0039	 BA090030		i0 = i6			# LN: 69 | 
+85    	 003A	 A1540006		xmem[i6] = a1g			# LN: 69 | 
+86    	 003B	 02087FFF		i0 += 1			# LN: 69 | 
+87    	 003C	 99540010		xmem[i0] = a1h; i0 += 1			# LN: 69, 69 | 
+88    	 003D	 91540000		xmem[i0] = a1l			# LN: 69 | 
+89    	 003E	 BA090030		i0 = i6			# LN: 71 | 
+90    	 003F	 A1140006		a1g = xmem[i6]			# LN: 71 | 
+91    	 0040	 02087FFF		i0 += 1			# LN: 71 | 
+92    	 0041	 99140010		a1h = xmem[i0]; i0 += 1			# LN: 71, 71 | 
+93    	 0042	 91140000		a1l = xmem[i0]			# LN: 71 | 
+94    	 0043	 00004E41		a1 = a1 >> 1			# LN: 71 | 
+95    	 0044	 98D40003		ymem[i3] = a0h			# LN: 64 | 
+96    	 0045	 00004F11		a1 - a2			# LN: 71 | 
+97    	 0046	 84880053		if (a < 0) jmp (else_2)			# LN: 71 | 
+98    	 0047	 BA090030		i0 = i6			# LN: 72 | 
+99    	 0048	 A0140006		a0g = xmem[i6]			# LN: 72 | 
+100   	 0049	 02087FFF		i0 += 1			# LN: 72 | 
+101   	 004A	 98140010		a0h = xmem[i0]; i0 += 1			# LN: 72, 72 | 
+102   	 004B	 90140000		a0l = xmem[i0]			# LN: 72 | 
+103   	 004C	 895A8000		ufixed16(a1) = (0x8000)			# LN: 72 | 
+104   	 004D	 00004448		a0 = a0 - a1			# LN: 72 | 
+105   	 004E	 BA090030		i0 = i6			# LN: 72 | 
+106   	 004F	 A0540006		xmem[i6] = a0g			# LN: 72 | 
+107   	 0050	 02087FFF		i0 += 1			# LN: 72 | 
+108   	 0051	 98540010		xmem[i0] = a0h; i0 += 1			# LN: 72, 72 | 
+109   	 0052	 90540000		xmem[i0] = a0l			# LN: 72 | 
+110   	 0053				endif_2:			/* LN: 71 | CYCLE: 0 | RULES: () */ 
+111   	 0053				else_2:			/* LN: 71 | CYCLE: 0 | RULES: () */ 
+112   	 0053	 BA090030		i0 = i6			# LN: 74 | 
+113   	 0054	 A0140006		a0g = xmem[i6]			# LN: 74 | 
+114   	 0055	 02087FFF		i0 += 1			# LN: 74 | 
+115   	 0056	 98140010		a0h = xmem[i0]; i0 += 1			# LN: 74, 74 | 
+116   	 0057	 90140000		a0l = xmem[i0]			# LN: 74 | 
+117   	 0058	 48487FFF		a0 = a0			# LN: 74 | 
+118   	 0059	 020A7FFF		i2 += 1			# LN: 76 | 
+119   	 005A				label_end_92:			# LN: 49 | CYCLE: 7 | RULES: ()
+120   	 005A	 020B7FFF		i3 += 1			# LN: 77 | 
+121   	 005B				for_end_0:			/* LN: 49 | CYCLE: 0 | RULES: () */ 
+122   	 005B	 02177FFF		i7 -= 1			# LN: 85 | 
+123   	 005C	 92140027		a2l = xmem[i7]; i7 -= 1			# LN: 85, 85 | 
+124   	 005D	 9A140027		a2h = xmem[i7]; i7 -= 1			# LN: 85, 85 | 
+125   	 005E	 A2140027		a2g = xmem[i7]; i7 -= 1			# LN: 85, 85 | 
+126   	 005F	 83140027		x3 = xmem[i7]; i7 -= 1			# LN: 85, 85 | 
+127   	 0060	 82140027		x2 = xmem[i7]; i7 -= 1			# LN: 85, 85 | 
+128   	 0061	 BA140027		i6 = xmem[i7]; i7 -= 1			# LN: 85, 85 | 
+129   	 0062	 B3140027		i3 = xmem[i7]; i7 -= 1			# LN: 85, 85 | 
+130   	 0063	 B2140007		i2 = xmem[i7]			# LN: 85 | 
+131   	 0064	 81880000		ret			# LN: 85 | 
+132   						
+133   						
+134   						
+135   	 0065				_saturation_tremolo:			/* LN: 3 | CYCLE: 0 | RULES: () */ 
+136   	 0065	 00004C25		b1 =+ a0			# LN: 3 | 
+137   	 0066	 89040000		a1 = xmem[__extractedConst_0_1 + 0]			# LN: 7 | 
+138   	 0067	 00005C08		a0 =+ a1; b0 =+ b1			# LN: 7, 7 | 
+139   	 0068	 00005E40		a0 = a0 >> 1; b0 = b0 >> 1			# LN: 7, 7 | 
+140   	 0069	 00004F24		b0 - a0			# LN: 7 | 
+141   	 006A	 8708006D		if (b <= 0) jmp (else_0)			# LN: 7 | 
+142   	 006B	 88040000		a0 = xmem[__extractedConst_0_1 + 0]			# LN: 9 | 
+143   	 006C	 80080076		jmp (__epilogue_106)			# LN: 9 | 
+144   	 006D				else_0:			/* LN: 7 | CYCLE: 0 | RULES: () */ 
+145   	 006D	 88040000		a0 = xmem[__extractedConst_0_1 + 0]			# LN: 11 | 
+146   	 006E	 00004C81		a1 =- a0			# LN: 11 | 
+147   	 006F	 00005C08		a0 =+ a1; b0 =+ b1			# LN: 11, 11 | 
+148   	 0070	 00005E40		a0 = a0 >> 1; b0 = b0 >> 1			# LN: 11, 11 | 
+149   	 0071	 00004F24		b0 - a0			# LN: 11 | 
+150   	 0072	 86C80075		if (b >= 0) jmp (else_1)			# LN: 11 | 
+151   	 0073	 00004C08		a0 =+ a1			# LN: 13 | 
+152   	 0074	 80080076		jmp (__epilogue_106)			# LN: 13 | 
+153   	 0075				endif_0:			/* LN: 7 | CYCLE: 0 | RULES: () */ 
+154   	 0075				endif_1:			/* LN: 11 | CYCLE: 0 | RULES: () */ 
+155   	 0075				else_1:			/* LN: 11 | CYCLE: 0 | RULES: () */ 
+156   	 0075	 4D487FFF		a0 = b1			# LN: 16 | 
+157   	 0076				__epilogue_106:			/* LN: 17 | CYCLE: 0 | RULES: () */ 
+158   	 0076	 81880000		ret			# LN: 17 | 
+159   						(null)
+				 SYMBOL TABLE 
+
+    Name                                                                                    Type                  Value 
+
+_COMMON_INC_PATH_                                                               					 Define                 "C:/CirrusDSP/crystal32/common/inc/"
+_DSP_                                                                           					 Define                 "a"
+_LOCAL_INC_PATH_                                                                					 Define                 "inc/"
+_LOCAL_SRC_PATH_                                                                					 Define                 "src/"
+_MUI_VERSION_                                                                   					 Define                 "020000"
+_OVLY_                                                                          					 Define                 "standalone"
+_OVLY_REVISION_                                                                 					 Define                 "020000"
+_ROUTER_INC_PATH_                                                               					 Define                 "rom_inc/"
+_SLOT_                                                                          					 Define                 "0"
+_TARGET_FAMILY_                                                                 					 Define                 "crystal32"
+_TOOLS_VERSION_                                                                 					 Define                 "0x0701"
+_VERSION_                                                                       					 Define                 "00"
+__CASM_VER__                                                                    			  Unused Variable		        0 (701H)
+__epilogue_106                                                                  			         Relocatable         tremolo_GEN_0002:0076H
+__extractedConst_0_1                                                            			         Relocatable         tremolo_GEN_0000:0000H
+__extractedConst_1_1                                                            			         Relocatable         tremolo_GEN_0001:0000H
+__rshift_laccum                                                                 					 External   
+_gen_sin                                                                        					 External   
+_lfo                                                                            			  Public Relocatable       tremolo_GEN_0002:0000H
+_processBlock                                                                   			  Public Relocatable       tremolo_GEN_0002:0012H
+_saturation_tremolo                                                             			  Public Relocatable       tremolo_GEN_0002:0065H
+_sin_table                                                                      					 External   
+else_0                                                                          			         Relocatable         tremolo_GEN_0002:006DH
+else_1                                                                          			         Relocatable         tremolo_GEN_0002:0075H
+else_2                                                                          			         Relocatable         tremolo_GEN_0002:0053H
+endif_0                                                                         			  Unused Relocatable        tremolo_GEN_0002:0075H
+endif_1                                                                         			  Unused Relocatable        tremolo_GEN_0002:0075H
+endif_2                                                                         			  Unused Relocatable        tremolo_GEN_0002:0053H
+for_end_0                                                                       			  Unused Relocatable        tremolo_GEN_0002:005BH
+label_begin_5_0                                                                 			  Unused Relocatable        tremolo_GEN_0002:000CH
+label_begin_92                                                                  			  Unused Relocatable        tremolo_GEN_0002:0025H
+label_end_5_0                                                                   			         Relocatable         tremolo_GEN_0002:000CH
+label_end_92                                                                    			         Relocatable         tremolo_GEN_0002:005AH
+
+	       SEGMENTS:
+
+Size			  Name										 Class
+0000H	 __INIT                                  			 CODE                                    
+0001H	 tremolo_GEN_0000                        			 X_OVLY                                  
+0003H	 tremolo_GEN_0001                        			 X_OVLY                                  
+0077H	 tremolo_GEN_0002                        			 CODE_OVLY                               

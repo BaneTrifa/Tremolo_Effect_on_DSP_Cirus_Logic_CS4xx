@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<CL_PROJECT>
+    <argv>C:/Users/tbran/Desktop/TestStreams/WhiteNoise.wav C:/Users/tbran/Desktop/TestStreams/WhiteNoise_m3_0.999_0.999.wav</argv>
+    <FILE_IO_CFG block_type="Input" channels_per_line="2" delay="0" file_mode="PCM" index="0" justification="Left" sample_format="LittleEndian" sample_rate="48000" sample_size="32"/>
+    <FILE_IO_CFG block_type="Output" channels_per_line="2" delay="0" file_mode="PCM" index="0" justification="Left" sample_format="LittleEndian" sample_rate="48000" sample_size="32"/>
+    <MEMORY_CFG>
+        <ULD_FILE disk_path="C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/tremolo_m3.uld"/>
+    </MEMORY_CFG>
+    <PROFILE_CFG enable="on"/>
+    <SCP_CFG load_delay="0"/>
+</CL_PROJECT>

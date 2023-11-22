@@ -1,0 +1,344 @@
+1     						#                                                                
+2     						# example_ovly ODT (Overlay Definition Table) file, produced by CLIDE version 7.1.8
+3     						#                                                            
+4     						
+5     						
+6     						EXAMPLE_OVLY_ODT_PTR .odt_ptr_ovly               
+6      >> start of macro: .odt_ptr_ovly
+1+    									seg_single EXAMPLE_OVLY_ODT_PTR, "ODT_PTR_OVLY", ODT_PTR_OVLY
+1+     >> start of macro: seg_single
+1+    						  .if ( "EXAMPLE_OVLY_ODT_PTR" != "" ) & defined( ___SegStart_ODT_PTR_OVLY_EXAMPLE_OVLY_ODT_PTR )
+2+    						EXAMPLE_OVLY_ODT_PTR    segment
+3+    						  .else
+4+    						EXAMPLE_OVLY_ODT_PTR    segment "ODT_PTR_OVLY"
+5+    							.if "EXAMPLE_OVLY_ODT_PTR" != ""
+6+    	 0000				___SegStart_ODT_PTR_OVLY_EXAMPLE_OVLY_ODT_PTR
+7+    							.endif
+8+    						  .endif
+9+    							#RememberSegmentType
+10+    >> end of macro: seg_single
+2+     >> end of macro: .odt_ptr_ovly
+7     	 0000				     .dw (X_BL_MODULES)                                        
+	 0000	 0000000000000000	 
+8     						
+9     						EXAMPLE_OVLY_MODULE_TABLE .data_ovly               
+9      >> start of macro: .data_ovly
+1+    									seg_single EXAMPLE_OVLY_MODULE_TABLE, "L_OVLY", L
+1+     >> start of macro: seg_single
+1+    						  .if ( "EXAMPLE_OVLY_MODULE_TABLE" != "" ) & defined( ___SegStart_L_EXAMPLE_OVLY_MODULE_TABLE )
+2+    						EXAMPLE_OVLY_MODULE_TABLE    segment
+3+    						  .else
+4+    						EXAMPLE_OVLY_MODULE_TABLE    segment "L_OVLY"
+5+    							.if "EXAMPLE_OVLY_MODULE_TABLE" != ""
+6+    	 0000				___SegStart_L_EXAMPLE_OVLY_MODULE_TABLE
+7+    							.endif
+8+    						  .endif
+9+    							#RememberSegmentType
+10+    >> end of macro: seg_single
+2+     >> end of macro: .data_ovly
+10    						
+11    						#========================= ODT ======================            
+12    	 0000				X_BL_MODULES                                                     
+13    						     .if !defined(example_module_mif)
+14    	 0000				       .extern example_module_mif
+15    						     .endif
+16    	 0000				     .dw   example_module_mif, 116
+	 0000	 0000000000000074	 
+17    	 0001				     .dw 0,0 # end of table
+	 0001	 0000000000000000	 
+18    						#=================== end of ODT =====================
+19    						
+20    						#=================== overlay ID =====================
+21    	 0000				_OVLY_ID_ .equ "EXAMPLE_OVLY"
+22    					    .include strcat(_COMMON_INC_PATH_, "ovly_version.h")
+22     >> open include file: C:/CirrusDSP/crystal32/common/inc/ovly_version.h
+1+    						###############################################################################
+2+    						#
+3+    						# ovly_version.h
+4+    						#
+5+    						# Athena Overlay ID Header
+6+    						#
+7+    						# $Source: /home/cvs/eng/Athena_shared/DSP_Code/common/inc/ovly_version.h,v $
+8+    						# $Revision: 1.23 $
+9+    						# $Name:  $
+10+   						# $Date: 2007/08/17 13:02:18 $
+11+   						# $Author: amits $
+12+   						#
+13+   						###############################################################################
+14+   						
+15+   						
+16+   						###############################################################################
+17+   						# This file provides a means for embedding version control information into
+18+   						# overlay images.  This is useful for determining which build is used on
+19+   						# the chip
+20+   						###############################################################################
+21+   						
+22+   						####################
+23+   						# list of all known overlay IDs. When new overlays are created, a line should
+24+   						# be added to this section with a new overlay ID
+25+   						####################
+26+   	 0000				OS_SD_A_OVLYID       .equ "0x00"
+27+   	 0000				OS_SD_B_OVLYID       .equ "0x00"
+28+   	 0000				AAC_OVLYID           .equ "0x01"
+29+   	 0000				AC3_OVLYID           .equ "0x02"
+30+   	 0000				EC3_OVLYID           .equ "0x02"
+31+   	 0000				DTS_OVLYID           .equ "0x03"
+32+   	 0000				HDCD_OVLYID          .equ "0x04"
+33+   	 0000				MPG_OVLYID           .equ "0x05"
+34+   	 0000				PCM_OVLYID           .equ "0x06"
+35+   	 0000				SGEN_OVLYID          .equ "0x07"
+36+   	 0000				CIRCLE_SURR2_OVLYID  .equ "0x08"
+37+   	 0000				CROSSBAR_OVLYID      .equ "0x09"
+38+   	 0000				DTS_NEO6_OVLYID      .equ "0x0A"
+39+   	 0000				FIVETOTWO_OVLYID     .equ "0x0B"
+40+   	 0000				FLASHMGR_OVLYID      .equ "0x0C"
+41+   	 0000				PL2X_OVLYID          .equ "0x0D"
+42+   	 0000				AM_OVLYID            .equ "0x0E"
+43+   	 0000				DMA_OVLYID           .equ "0x0F"
+44+   	 0000				SPP_OVLYID           .equ "0x10"
+45+   	 0000				WMAPRO_OVLYID        .equ "0x11"
+46+   	 0000				DH_OVLYID            .equ "0x12"
+47+   	 0000				DVS_OVLYID           .equ "0x13"
+48+   	 0000				TSXT_OVLYID          .equ "0x14"
+49+   	 0000				TRUBASS_OVLYID       .equ "0x15"
+50+   	 0000				THX_OVLYID           .equ "0x16"
+51+   	 0000				THX_SPP_OVLYID       .equ "0x17"
+52+   	 0000				LOGIC7_OVLYID        .equ "0x18"
+53+   	 0000				VMAX_OVLYID          .equ "0x19"
+54+   	 0000				IRC_OVLYID           .equ "0x1A"
+55+   	 0000				DH2_OVLYID           .equ "0x1B"
+56+   	 0000				DVS2_OVLYID          .equ "0x1C"
+57+   	 0000				FLASH_RT_OVLYID      .equ "0x1D"
+58+   	 0000				COMS_OVLYID          .equ "0x1E"
+59+   	 0000				PL2_OVLYID           .equ "0x1F"
+60+   	 0000				APP_OVLYID           .equ "0x20"
+61+   	 0000				COMS2_OVLYID         .equ "0x21"
+62+   	 0000				SF_OVLYID            .equ "0x22"
+63+   	 0000				DSD_OVLYID           .equ "0x23"
+64+   	 0000				AC3_HD_A_OVLYID      .equ "0x24"
+65+   	 0000				AC3_HD_B_OVLYID      .equ "0x25"
+66+   	 0000				EC3_HD_B_OVLYID      .equ "0x25"
+67+   	 0000				AUDISTRY_OVLYID      .equ "0x26"
+68+   	 0000				NEURAL_SURR_OVLYID   .equ "0x27"
+69+   	 0000				TSHD_OVLYID          .equ "0x28"
+70+   	 0000				AUDISTRY1_OVLYID         .equ "0x29"
+71+   	 0000				AUDISTRY2_OVLYID         .equ "0x2a"
+72+   	 0000				SHARP_DVS2_AUDISTRY1_OVLYID .equ "0x2b"
+73+   	 0000				APP_AUDISTRY2_OVLYID .equ "0x2c"
+74+   	 0000				ONKYO_OVLYID         .equ "0x2d"
+75+   	 0000				TRUEHD_HD_A_OVLYID   .equ "0x2e"
+76+   	 0000				TRUEHD_HD_B_OVLYID   .equ "0x2f"
+77+   	 0000				SBE_OVLYID           .equ "0x30"
+78+   	 0000				DTSLBR_OVLYID        .equ "0x31"
+79+   	 0000				DTSHRA_OVLYID        .equ "0x32"
+80+   	 0000				DTSMA_OVLYID         .equ "0x33"
+81+   	 0000				DV_OVLYID            .equ "0x34"
+82+   	 0000				SURR_UPMIX_OVLYID    .equ "0x35"
+83+   	 0000				DNBY2_OVLYID         .equ "0x36"
+84+   	 0000				DNBY4_OVLYID         .equ "0x37"
+85+   	 0000				WMA_OVLYID           .equ "0x38"
+86+   	 0000				PL2Z_OVLYID          .equ "0x39"
+87+   	 0000				CVT_OVLYID           .equ "0x3a"
+88+   	 0000				MEQ_OVLYID           .equ "0x3b"
+89+   	 0000				MEQ2_OVLYID          .equ "0x3b"   # use same id for Calibration and RealTime codes.
+90+   	 0000				SSS_OVLYID           .equ "0x3c"
+91+   	 0000				ADV_OVLYID           .equ "0x3d"
+92+   	 0000				THX_APP_OVLYID       .equ "0x3e"
+93+   	 0000				AAC_B_OVLYID         .equ "0x3f"
+94+   						
+95+   	 0000				CUSTOM_OS_OVLYID     .equ "0xC0"   # custom OS overlay
+96+   	 0000				CUSTOM_SLOT1_OVLYID  .equ "0xC1"   # custom (user-created) overlay
+97+   	 0000				CUSTOM_SLOT2_OVLYID  .equ "0xC2"   # custom (user-created) overlay
+98+   	 0000				CUSTOM_SLOT3_OVLYID  .equ "0xC3"   # custom (user-created) overlay
+99+   	 0000				CUSTOM_SLOT4_OVLYID  .equ "0xC4"   # custom (user-created) overlay
+100+  	 0000				CUSTOM_SLOT5_OVLYID  .equ "0xC5"   # custom (user-created) overlay
+101+  						
+102+  	 0000				CC_OVLYID            .equ "0xCC"   # coyoteCAD overlay...
+103+  						
+104+  						###############################################################################
+105+  						# OVLY_SERIALNUMBER:  serial number required for this overlay to run
+106+  						###############################################################################
+107+  	 0000				OVLY_SERIALNUMBER .equ 0x00000000
+108+  						
+109+  						###############################################################################
+110+  						# OVLY_VERSION:  Overlay Build Version
+111+  						#    Hex Syntax (from left to right):
+112+  						#      (OO) => overlay ID (unique to each combination of modules)
+113+  						#      (XX) => Major Revision Number (e.g., 01)
+114+  						#      (YY) => Minor Revision Number (e.g., 00)
+115+  						#      (ZZ) => Build Number (e.g., 01)
+116+  						###############################################################################
+117+  	 0000				THIS_OVLY_ID .set .streval(.strcat(_OVLY_ID_,"_OVLYID"))
+118+  	 0000				OVLY_VERSION .equ .streval(.strcat(THIS_OVLY_ID,_OVLY_REVISION_))
+119+  						
+120+  						###############################################################################
+121+  						# OVLY_BUILD_DATE:  Overlay Build Date
+122+  						#    Hex Syntax (from left to right):
+123+  						#         (MM) => Month
+124+  						#         (DD) => Day
+125+  						#       (YYYY) => Year
+126+  						###############################################################################
+127+  						
+128+  	 11212023				OVLY_BUILD_DATE .equ .streval(.strcat("0x",.substr(.timestamp(),1,2),.substr(.timestamp(),4,2),"20",.substr(.timestamp(),7,2)))
+129+  						
+130+  						
+131+  						###############################################################################
+132+  						# OVLY_TOOLS_VERSION:  Tools Build Version
+133+  						#    Hex Syntax (from left to right):
+134+  						#      (BD02) => marker
+135+  						#      (RRRR) => sdk rc revision number
+136+  						###############################################################################
+137+  						
+138+  	 BD020701				OVLY_TOOLS_VERSION .equ (0xBD020000+.streval(_TOOLS_VERSION_))
+139+  						
+140+  						OVLY_ID_SEGMENT  .ovly_id
+140+   >> start of macro: .ovly_id
+1+    									seg_single OVLY_ID_SEGMENT, "Y_OVLY_ID", Y_OVLY_ID
+1+     >> start of macro: seg_single
+1+    						  .if ( "OVLY_ID_SEGMENT" != "" ) & defined( ___SegStart_Y_OVLY_ID_OVLY_ID_SEGMENT )
+2+    						OVLY_ID_SEGMENT    segment
+3+    						  .else
+4+    						OVLY_ID_SEGMENT    segment "Y_OVLY_ID"
+5+    							.if "OVLY_ID_SEGMENT" != ""
+6+    	 0000				___SegStart_Y_OVLY_ID_OVLY_ID_SEGMENT
+7+    							.endif
+8+    						  .endif
+9+    							#RememberSegmentType
+10+    >> end of macro: seg_single
+2+     >> end of macro: .ovly_id
+141+  	 0000				  .bss (4*.streval(_SLOT_))          # skip past unused slots
+142+  	 0000				  .dw OVLY_SERIALNUMBER
+	 0000	 00000000	 
+143+  	 0001				  .dw OVLY_VERSION
+	 0001	 00000000	 
+144+  	 0002				  .dw OVLY_BUILD_DATE
+	 0002	 11212023	 
+145+  	 0003				  .dw OVLY_TOOLS_VERSION
+	 0003	 BD020701	 
+146+  						
+147+   >> end of include file: C:/CirrusDSP/crystal32/common/inc/ovly_version.h
+147+   >> continuing with file: C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model4_FINAL/example_ovly/gen/src/example_ovly_odt.a
+23    						#====================================================
+24    						
+25    						#===================  heapst  =====================
+26    						     .if defined(USE_HEAPSTEAL)
+27    						       .extern _CL_HEAPSTEAL_
+28    						HEAPSTEAL .equ _CL_HEAPSTEAL_
+29    						     .endif
+30    						#====================================================
+31    						
+32    						(null)
+				 SYMBOL TABLE 
+
+    Name                                                                                    Type                  Value 
+
+AAC_B_OVLYID                                                                    			  Unused String		   '0x3f' 
+AAC_OVLYID                                                                      			  Unused String		   '0x01' 
+AC3_HD_A_OVLYID                                                                 			  Unused String		   '0x24' 
+AC3_HD_B_OVLYID                                                                 			  Unused String		   '0x25' 
+AC3_OVLYID                                                                      			  Unused String		   '0x02' 
+ADV_OVLYID                                                                      			  Unused String		   '0x3d' 
+AM_OVLYID                                                                       			  Unused String		   '0x0E' 
+APP_AUDISTRY2_OVLYID                                                            			  Unused String		   '0x2c' 
+APP_OVLYID                                                                      			  Unused String		   '0x20' 
+AUDISTRY1_OVLYID                                                                			  Unused String		   '0x29' 
+AUDISTRY2_OVLYID                                                                			  Unused String		   '0x2a' 
+AUDISTRY_OVLYID                                                                 			  Unused String		   '0x26' 
+CC_OVLYID                                                                       			  Unused String		   '0xCC' 
+CIRCLE_SURR2_OVLYID                                                             			  Unused String		   '0x08' 
+COMS2_OVLYID                                                                    			  Unused String		   '0x21' 
+COMS_OVLYID                                                                     			  Unused String		   '0x1E' 
+CROSSBAR_OVLYID                                                                 			  Unused String		   '0x09' 
+CUSTOM_OS_OVLYID                                                                			  Unused String		   '0xC0' 
+CUSTOM_SLOT1_OVLYID                                                             			  Unused String		   '0xC1' 
+CUSTOM_SLOT2_OVLYID                                                             			  Unused String		   '0xC2' 
+CUSTOM_SLOT3_OVLYID                                                             			  Unused String		   '0xC3' 
+CUSTOM_SLOT4_OVLYID                                                             			  Unused String		   '0xC4' 
+CUSTOM_SLOT5_OVLYID                                                             			  Unused String		   '0xC5' 
+CVT_OVLYID                                                                      			  Unused String		   '0x3a' 
+DH2_OVLYID                                                                      			  Unused String		   '0x1B' 
+DH_OVLYID                                                                       			  Unused String		   '0x12' 
+DMA_OVLYID                                                                      			  Unused String		   '0x0F' 
+DNBY2_OVLYID                                                                    			  Unused String		   '0x36' 
+DNBY4_OVLYID                                                                    			  Unused String		   '0x37' 
+DSD_OVLYID                                                                      			  Unused String		   '0x23' 
+DTSHRA_OVLYID                                                                   			  Unused String		   '0x32' 
+DTSLBR_OVLYID                                                                   			  Unused String		   '0x31' 
+DTSMA_OVLYID                                                                    			  Unused String		   '0x33' 
+DTS_NEO6_OVLYID                                                                 			  Unused String		   '0x0A' 
+DTS_OVLYID                                                                      			  Unused String		   '0x03' 
+DVS2_OVLYID                                                                     			  Unused String		   '0x1C' 
+DVS_OVLYID                                                                      			  Unused String		   '0x13' 
+DV_OVLYID                                                                       			  Unused String		   '0x34' 
+EC3_HD_B_OVLYID                                                                 			  Unused String		   '0x25' 
+EC3_OVLYID                                                                      			  Unused String		   '0x02' 
+EXAMPLE_OVLY_MODULE_TABLE                                                       			  Unused Relocatable        EXAMPLE_OVLY_MODULE_TABLE:0000H
+EXAMPLE_OVLY_ODT_PTR                                                            			  Unused Relocatable        EXAMPLE_OVLY_ODT_PTR:0000H
+FIVETOTWO_OVLYID                                                                			  Unused String		   '0x0B' 
+FLASHMGR_OVLYID                                                                 			  Unused String		   '0x0C' 
+FLASH_RT_OVLYID                                                                 			  Unused String		   '0x1D' 
+HDCD_OVLYID                                                                     			  Unused String		   '0x04' 
+IRC_OVLYID                                                                      			  Unused String		   '0x1A' 
+LOGIC7_OVLYID                                                                   			  Unused String		   '0x18' 
+MEQ2_OVLYID                                                                     			  Unused String		   '0x3b' 
+MEQ_OVLYID                                                                      			  Unused String		   '0x3b' 
+MPG_OVLYID                                                                      			  Unused String		   '0x05' 
+NEURAL_SURR_OVLYID                                                              			  Unused String		   '0x27' 
+ONKYO_OVLYID                                                                    			  Unused String		   '0x2d' 
+OS_SD_A_OVLYID                                                                  			  Unused String		   '0x00' 
+OS_SD_B_OVLYID                                                                  			  Unused String		   '0x00' 
+OVLY_BUILD_DATE                                                                 					 Number				          287383587 (11212023H)
+OVLY_ID_SEGMENT                                                                 			  Unused Relocatable        OVLY_ID_SEGMENT:0000H
+OVLY_SERIALNUMBER                                                               					 Number				         0 (0H)
+OVLY_TOOLS_VERSION                                                              					 Number				          -1123940607 (FFFFFFFFBD020701H)
+OVLY_VERSION                                                                    					 Number				         0 (0H)
+PCM_OVLYID                                                                      			  Unused String		   '0x06' 
+PL2X_OVLYID                                                                     			  Unused String		   '0x0D' 
+PL2Z_OVLYID                                                                     			  Unused String		   '0x39' 
+PL2_OVLYID                                                                      			  Unused String		   '0x1F' 
+SBE_OVLYID                                                                      			  Unused String		   '0x30' 
+SF_OVLYID                                                                       			  Unused String		   '0x22' 
+SGEN_OVLYID                                                                     			  Unused String		   '0x07' 
+SHARP_DVS2_AUDISTRY1_OVLYID                                                     			  Unused String		   '0x2b' 
+SPP_OVLYID                                                                      			  Unused String		   '0x10' 
+SSS_OVLYID                                                                      			  Unused String		   '0x3c' 
+SURR_UPMIX_OVLYID                                                               			  Unused String		   '0x35' 
+THIS_OVLY_ID                                                                    					 Variable		            0 (0H)
+THX_APP_OVLYID                                                                  			  Unused String		   '0x3e' 
+THX_OVLYID                                                                      			  Unused String		   '0x16' 
+THX_SPP_OVLYID                                                                  			  Unused String		   '0x17' 
+TRUBASS_OVLYID                                                                  			  Unused String		   '0x15' 
+TRUEHD_HD_A_OVLYID                                                              			  Unused String		   '0x2e' 
+TRUEHD_HD_B_OVLYID                                                              			  Unused String		   '0x2f' 
+TSHD_OVLYID                                                                     			  Unused String		   '0x28' 
+TSXT_OVLYID                                                                     			  Unused String		   '0x14' 
+VMAX_OVLYID                                                                     			  Unused String		   '0x19' 
+WMAPRO_OVLYID                                                                   			  Unused String		   '0x11' 
+WMA_OVLYID                                                                      			  Unused String		   '0x38' 
+X_BL_MODULES                                                                    			         Relocatable         EXAMPLE_OVLY_MODULE_TABLE:0000H
+_COMMON_INC_PATH_                                                               					 Define                 "C:/CirrusDSP/crystal32/common/inc/"
+_DSP_                                                                           					 Define                 "a"
+_LOCAL_INC_PATH_                                                                					 Define                 "inc/"
+_LOCAL_SRC_PATH_                                                                					 Define                 "src/"
+_MUI_VERSION_                                                                   					 Define                 "010000"
+_OVLY_                                                                          					 Define                 "application"
+_OVLY_ID_                                                                       					 String		   'EXAMPLE_OVLY' 
+_OVLY_REVISION_                                                                 					 Define                 "010000"
+_ROUTER_INC_PATH_                                                               					 Define                 "rom_inc/"
+_SLOT_                                                                          					 Define                 "0"
+_TARGET_FAMILY_                                                                 					 Define                 "crystal32"
+_TOOLS_VERSION_                                                                 					 Define                 "0x0701"
+_VERSION_                                                                       					 Define                 "01"
+__CASM_VER__                                                                    			  Unused Variable		        0 (701H)
+___SegStart_L_EXAMPLE_OVLY_MODULE_TABLE                                         			  Unused Relocatable        EXAMPLE_OVLY_MODULE_TABLE:0000H
+___SegStart_ODT_PTR_OVLY_EXAMPLE_OVLY_ODT_PTR                                   			  Unused Relocatable        EXAMPLE_OVLY_ODT_PTR:0000H
+___SegStart_Y_OVLY_ID_OVLY_ID_SEGMENT                                           			  Unused Relocatable        OVLY_ID_SEGMENT:0000H
+example_module_mif                                                              					 External   
+
+	       SEGMENTS:
+
+Size			  Name										 Class
+0000H	 __INIT                                  			 CODE                                    
+0001H	 EXAMPLE_OVLY_ODT_PTR                    			 ODT_PTR_OVLY                            
+0002H	 EXAMPLE_OVLY_MODULE_TABLE               			 L_OVLY                                  
+0004H	 OVLY_ID_SEGMENT                         			 Y_OVLY_ID                               

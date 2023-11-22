@@ -2,10 +2,12 @@
 #define TREMOLO_H
 
 #include <math.h>
+#include "sin_table.h"
 
 #define SAMPLE_RATE 48000
 #define BLOCK_SIZE 16
 #define PI 3.14159265358979323846
+#define PH_STEP 0.0000416
 
 typedef enum
 {
@@ -13,25 +15,13 @@ typedef enum
 	kWaveformTriangle,
 } wave_forms_t;
 
-
-// Adjustable parameters:
 typedef struct {
-	int numChannels;
-
-	double LFO_frequency;  // LFO frequency (Hz)
-
-	double depth;      // Depth of effect (0-1)
-
-	wave_forms_t   waveform;      // What shape should be used for the LFO
-
 	double lfoPhase;
-
-	double inverseSampleRate;
 } tremolo_struct_t;
 
 
 void init(tremolo_struct_t* data);
-double lfo(double phase, wave_forms_t waveform);
+double lfo(double phase);
 void processBlock(double* input, double* output, tremolo_struct_t* data, int numSamples);
 
 #endif // !TREMOLO_H

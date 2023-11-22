@@ -241,6 +241,11 @@ int main(int argc, char* argv[])
 				}
 			}
 
+			if (i == 18740)
+			{
+				int a = 5;
+			}
+
 			if(enable) // enable is off (do passthrough only)
 			{
 				processing(sampleBuffer, sampleBuffer);

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:ULD xmlns:ns2="v7.0">
+    <SDKVersion>7_1_7</SDKVersion>
+    <CLIDEVersion>7_1_8</CLIDEVersion>
+    <chipFamily>crystal32</chipFamily>
+    <chipTargets/>
+    <designTimeProperties/>
+    <supportedOverlays>
+        <Overlay>
+            <name>application</name>
+            <supportedMemMaps>
+                <MemMap core="" config="" memoryMap="V01"/>
+            </supportedMemMaps>
+        </Overlay>
+    </supportedOverlays>
+    <modules>
+        <module controlPanelEnabled="true">example_module</module>
+    </modules>
+    <BuildConfigurations/>
+    <IsOdtGenerated>true</IsOdtGenerated>
+</ns2:ULD>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<settings built="true" last_build_time="1700615184268">
+	<dependencies>
+		<source_file last_build_time="1700615181900" path="src/tremolo.a"/>
+		<source_file last_build_time="1700615183341" path="src/example_module_os_interface.a">
+			<dependency>../../../../../../../../../../../../../CirrusDSP/crystal32/common/inc/macros.h</dependency>
+			<dependency>../gen/inc/example_module_module.h</dependency>
+		</source_file>
+		<source_file last_build_time="1700615183833" path="src/example_module_main.a">
+			<dependency>../../../../../../../../../../../../../CirrusDSP/include/dsplib/os_asm.h</dependency>
+			<dependency>../gen/inc/example_module_mcv.h</dependency>
+			<dependency>../../../../../../../../../../../../../CirrusDSP/include/dsplib/meter_asm.h</dependency>
+			<dependency>../../../../../../../../../../../../../CirrusDSP/include/dsplib/response_asm.h</dependency>
+		</source_file>
+		<source_file last_build_time="1700615182365" path="src/sine_generator.a"/>
+		<source_file last_build_time="1700615182841" path="src/processing.a">
+			<dependency>../gen/inc/example_module_mcv.h</dependency>
+			<dependency>../../../../../../../../../../../../../CirrusDSP/include/dsplib/meter_asm.h</dependency>
+			<dependency>../../../../../../../../../../../../../CirrusDSP/include/dsplib/response_asm.h</dependency>
+		</source_file>
+	</dependencies>
+</settings>
