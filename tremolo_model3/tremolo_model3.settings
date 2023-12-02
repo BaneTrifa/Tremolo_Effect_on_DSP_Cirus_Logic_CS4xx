@@ -6,9 +6,12 @@
 </clideView>
 <clideView viewId="clide.debug.ui.registersView">
 <registerView regViewCoreName="DSP_A">
-<regViewMementoCore scrollPercent="0.0">
+<regViewMementoCore scrollPercent="0.13513513" selectedItem="/DSP_A/Accum registers/a0">
 <layoutType horizontal="0" register_details="1"/>
 <expandedPath item_0="DSP_A"/>
+<expandedPath item_0="DSP_A" item_1="Data registers"/>
+<expandedPath item_0="DSP_A" item_1="Accum registers"/>
+<expandedPath item_0="DSP_A" item_1="Index registers"/>
 </regViewMementoCore>
 </registerView>
 </clideView>
@@ -16,10 +19,8 @@
 <perspective id="CLIDE.DebugPerspective"/>
 <workbench_editors>
 <editor file_path="/tremolo_m3/src/main.c"/>
-<editor file_path="/tremolo_m3/inc/common.h"/>
-<editor file_path="/tremolo_m3/src/processing.a"/>
 <editor file_path="/tremolo_m3/src/sin_gen.a"/>
-<editor file_path="/tremolo_m3/src/tremolo.a"/>
+<editor file_path="/tremolo_m3/crystal32.groovy"/>
 <editor file_path="/tremolo_m3/.suldproj"/>
 </workbench_editors>
 <views/>

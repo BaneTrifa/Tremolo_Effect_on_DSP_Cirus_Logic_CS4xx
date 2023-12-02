@@ -220,6 +220,7 @@ C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Eff
      [exec] C:\CirrusDSP\lib\crt0.o
      [exec] C:\CirrusDSP\lib\div.o
      [exec] C:\CirrusDSP\lib\exit.o
+     [exec] C:\CirrusDSP\lib\laccum_to_int.o
      [exec] C:\CirrusDSP\lib\simulator_stack.o
      [exec] C:\CirrusDSP\lib\strcpy_x2x.o
      [exec] C:\CirrusDSP\lib\udiv.o
@@ -230,10 +231,10 @@ C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Eff
      [exec] C:\CirrusDSP\lib\dsplib\crystal32\cl_wavread_getnchannels.o
      [exec] C:\CirrusDSP\lib\dsplib\crystal32\cl_wavread_number_of_frames.o
      [exec] C:\CirrusDSP\lib\dsplib\crystal32\cl_wavread_open.o
-     [exec] C:\CirrusDSP\lib\dsplib\crystal32\cl_wavread_recvsample.o
+     [exec] C:\CirrusDSP\lib\dsplib\crysta
+     [exec] l32\cl_wavread_recvsample.o
      [exec] C:\CirrusDSP\lib\dsplib\crystal32\cl_wavwrite_close.o
-     [exec] C:\CirrusDSP\lib\dsplib\crystal32\cl_wa
-     [exec] vwrite_open.o
+     [exec] C:\CirrusDSP\lib\dsplib\crystal32\cl_wavwrite_open.o
      [exec] C:\CirrusDSP\lib\dsplib\crystal32\cl_wavwrite_sendsample.o
      [exec] C:\CirrusDSP\lib\dsplib\crystal32\printf.o
 Creating .uld file...
@@ -243,7 +244,7 @@ C:/CirrusDSP/bin/lnkuld
  C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/tremolo_m3.uld
      [exec] 
      [exec] Reading file: C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/tremolo_m3.img ...
-     [exec] 	Processed 816 line(s).
+     [exec] 	Processed 806 line(s).
      [exec] 
      [exec] Writing output to file: C:/Users/tbran/D
      [exec] esktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/output/standalone/tremolo_m3.uld ...

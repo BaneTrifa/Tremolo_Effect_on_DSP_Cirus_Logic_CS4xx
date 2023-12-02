@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="20" version="2.0">
+<workbench progressCount="18" version="2.0">
 <workbenchAdvisor/>
-<window height="1377" maximized="true" width="1298" x="4577" y="941">
+<window height="1377" maximized="true" width="1298" x="921" y="480">
 <fastViewData fastViewLocation="1024"/>
 <perspectiveBar>
 <itemSize x="160"/>
@@ -43,23 +43,23 @@
 </editorArea>
 <editor id="clide.debug.ui.ceditor" name="main.c" partName="/tremolo_m3/src/main.c" path="C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/src/main.c" title="/tremolo_m3/src/main.c" tooltip="C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/src/main.c&#x0A;tremolo_m3/src/main.c" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/tremolo_m3/src/main.c"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1542" selectionTopPixel="240"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1542" selectionTopPixel="520"/>
 </editor>
 <editor id="pda.editor" name="processing.a" partName="/tremolo_m3/src/processing.a" path="C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/src/processing.a" title="/tremolo_m3/src/processing.a" tooltip="C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/src/processing.a&#x0A;tremolo_m3/src/processing.a" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/tremolo_m3/src/processing.a"/>
 <editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="3394" selectionTopPixel="2120"/>
 </editor>
-<editor id="pda.editor" name="sin_gen.a" partName="/tremolo_m3/src/sin_gen.a" path="C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/src/sin_gen.a" title="/tremolo_m3/src/sin_gen.a" tooltip="C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/src/sin_gen.a&#x0A;tremolo_m3/src/sin_gen.a" workbook="DefaultEditorWorkbook">
+<editor activePart="true" focus="true" id="pda.editor" name="sin_gen.a" partName="/tremolo_m3/src/sin_gen.a" path="C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/src/sin_gen.a" title="/tremolo_m3/src/sin_gen.a" tooltip="C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/src/sin_gen.a&#x0A;tremolo_m3/src/sin_gen.a" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/tremolo_m3/src/sin_gen.a"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="9552" selectionTopPixel="6197"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="6769" selectionTopPixel="4693"/>
 </editor>
 <editor id="pda.editor" name="tremolo.a" partName="/tremolo_m3/src/tremolo.a" path="C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/src/tremolo.a" title="/tremolo_m3/src/tremolo.a" tooltip="C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/src/tremolo.a&#x0A;tremolo_m3/src/tremolo.a" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/tremolo_m3/src/tremolo.a"/>
 <editorState selectionHorizontalPixel="0" selectionLength="5095" selectionOffset="0" selectionTopPixel="562"/>
 </editor>
-<editor activePart="true" focus="true" id="clide.scripteditor.ui.editor" name="crystal32.groovy" partName="/tremolo_m3/crystal32.groovy" path="C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/crystal32.groovy" title="/tremolo_m3/crystal32.groovy" tooltip="tremolo_m3/crystal32.groovy" workbook="DefaultEditorWorkbook">
+<editor id="clide.scripteditor.ui.editor" name="crystal32.groovy" partName="/tremolo_m3/crystal32.groovy" path="C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/crystal32.groovy" title="/tremolo_m3/crystal32.groovy" tooltip="tremolo_m3/crystal32.groovy" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/tremolo_m3/crystal32.groovy"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="3299" selectionTopPixel="1760"/>
+<editorState selectionHorizontalPixel="0" selectionLength="114" selectionOffset="3258" selectionTopPixel="1575"/>
 </editor>
 <editor id="dsp.uld.ui.editors.StandaloneMultiPageEditor" name=".suldproj" partName="/tremolo_m3/.suldproj" path="C:/Users/tbran/Desktop/BRANKO/E2/1_FTN_E2/1_Fakultet/AA_DSP/Projekat/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/tremolo_model3/tremolo_m3/.suldproj" title="/tremolo_m3/.suldproj" tooltip="tremolo_m3/.suldproj" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/tremolo_m3/.suldproj"/>
@@ -112,7 +112,7 @@
 <viewState/>
 </view>
 </views>
-<perspectives activePart="clide.scripteditor.ui.editor" activePerspective="CLIDE.DebugPerspective">
+<perspectives activePart="clide.debug.ui.DebugView" activePerspective="CLIDE.DebugPerspective">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="clide.ui.perspectives.Perspective" id="CLIDE.perspective" label="Development"/>
 <alwaysOnActionSet id="clide.ui.cheatsheets.actionSet"/>
@@ -215,7 +215,7 @@
 <page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
 </folder>
 </info>
-<info folder="true" part="clide.wiewFolder.debug" ratio="0.18281679" ratioLeft="466" ratioRight="2083" relationship="2" relative="left">
+<info folder="true" part="clide.wiewFolder.debug" ratio="0.18791683" ratioLeft="479" ratioRight="2070" relationship="2" relative="left">
 <folder activePageID="clide.debug.ui.DebugView" appearance="2" expanded="2">
 <page content="clide.debug.ui.DebugView" label="Debug"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
@@ -223,8 +223,8 @@
 </presentation>
 </folder>
 </info>
-<info folder="true" part="clide.wiewFolder.console" ratio="0.65649396" ratioLeft="925" ratioRight="484" relationship="4" relative="clide.wiewFolder.debug">
-<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
+<info folder="true" part="clide.wiewFolder.console" ratio="0.7054516" ratioLeft="867" ratioRight="362" relationship="4" relative="clide.wiewFolder.debug">
+<folder activePageID="clide.ui.consoleviews.SimulatorConsoleView" appearance="2" expanded="2">
 <page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
 <page content="clide.debug.ui.memoryView" label="Memory View"/>
 <page content="clide.ui.visualization.views.VisualizationView" label="Visualization View"/>
@@ -260,164 +260,156 @@
 <workingSets/>
 <navigationHistory>
 <editors>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="clide.debug.ui.ceditor" path="/tremolo_m3/src/main.c"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="clide.scripteditor.ui.editor" path="/tremolo_m3/crystal32.groovy"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="dsp.uld.ui.editors.StandaloneMultiPageEditor" path="/tremolo_m3/.suldproj"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="clide.debug.ui.ceditor" path="/tremolo_m3/inc/common.h"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="pda.editor" path="/tremolo_m3/src/tremolo.a"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="clide.debug.ui.ceditor" path="/tremolo_m3/src/tremolo.c"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="clide.debug.ui.ceditor" path="/tremolo_m3/inc/sin_table.h"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="clide.debug.ui.ceditor" path="/tremolo_m3/inc/tremolo.h"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="clide.debug.ui.ceditor" path="/tremolo_m3/inc/common.h"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="pda.editor" path="/tremolo_m3/src/processing.a"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="pda.editor" path="/tremolo_m3/src/sin_gen.a"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="dsp.uld.ui.editors.StandaloneMultiPageEditor" path="/tremolo_m3/.suldproj"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="clide.debug.ui.ceditor" path="/tremolo_m3/src/main.c"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="clide.debug.ui.ceditor" path="/tremolo_m3/inc/common.h"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="pda.editor" path="/tremolo_m3/src/processing.a"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="pda.editor" path="/tremolo_m3/src/tremolo.a"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="pda.editor" path="/tremolo_m3/src/sin_gen.a"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="clide.scripteditor.ui.editor" path="/tremolo_m3/crystal32.groovy"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="dsp.uld.ui.editors.StandaloneMultiPageEditor" path="/tremolo_m3/.suldproj"/>
 </editors>
-<item historyLabel="/tremolo_m3/.suldproj" index="2"/>
-<item historyLabel="/tremolo_m3/src/main.c" index="0">
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position info="not_deleted" x="7166" y="0"/>
+</item>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position info="not_deleted" x="5690" y="0"/>
+</item>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position info="not_deleted" x="7166" y="0"/>
+</item>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position info="not_deleted" x="7250" y="0"/>
+</item>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
 <position/>
 </item>
-<item historyLabel="/tremolo_m3/.suldproj" index="2"/>
-<item historyLabel="/tremolo_m3/crystal32.groovy" index="1">
-<position info="not_deleted" x="2742" y="0"/>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position info="not_deleted" x="4300" y="0"/>
 </item>
-<item historyLabel="/tremolo_m3/src/main.c" index="0">
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position info="not_deleted" x="6286" y="0"/>
+</item>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position info="not_deleted" x="6286" y="0"/>
+</item>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position info="not_deleted" x="6273" y="0"/>
+</item>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position info="not_deleted" x="6272" y="0"/>
+</item>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
 <position/>
 </item>
-<item historyLabel="/tremolo_m3/src/tremolo.c" index="5">
-<position info="not_deleted" x="0" y="0"/>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position/>
 </item>
-<item historyLabel="/tremolo_m3/inc/tremolo.h" index="7">
-<position info="not_deleted" x="57" y="24"/>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position/>
 </item>
-<item historyLabel="/tremolo_m3/src/main.c" index="0">
-<position info="not_deleted" x="139" y="21"/>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position/>
 </item>
-<item historyLabel="/tremolo_m3/inc/tremolo.h" index="7">
-<position info="not_deleted" x="345" y="0"/>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position/>
 </item>
-<item historyLabel="/tremolo_m3/src/tremolo.c" index="5">
-<position info="not_deleted" x="0" y="0"/>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position info="not_deleted" x="6272" y="0"/>
 </item>
-<item historyLabel="/tremolo_m3/inc/common.h" index="3">
-<position info="not_deleted" x="1316" y="70"/>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position info="not_deleted" x="6275" y="0"/>
 </item>
-<item historyLabel="/tremolo_m3/src/tremolo.c" index="5">
-<position info="not_deleted" x="0" y="0"/>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position/>
 </item>
-<item historyLabel="/tremolo_m3/crystal32.groovy" index="1">
-<position info="not_deleted" x="3191" y="0"/>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position info="not_deleted" x="4300" y="0"/>
 </item>
-<item historyLabel="/tremolo_m3/src/tremolo.c" index="5">
-<position info="not_deleted" x="0" y="0"/>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position info="not_deleted" x="6272" y="0"/>
 </item>
-<item historyLabel="/tremolo_m3/inc/tremolo.h" index="7">
-<position info="not_deleted" x="345" y="0"/>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position info="not_deleted" x="6289" y="0"/>
 </item>
-<item historyLabel="/tremolo_m3/inc/sin_table.h" index="6">
-<position info="not_deleted" x="0" y="0"/>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position info="not_deleted" x="6357" y="0"/>
 </item>
-<item historyLabel="/tremolo_m3/inc/tremolo.h" index="7">
-<position info="not_deleted" x="81" y="0"/>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position/>
 </item>
-<item historyLabel="/tremolo_m3/inc/common.h" index="3">
-<position info="not_deleted" x="1316" y="70"/>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position info="not_deleted" x="6272" y="0"/>
 </item>
-<item historyLabel="/tremolo_m3/src/tremolo.c" index="5">
-<position info="not_deleted" x="0" y="0"/>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position info="not_deleted" x="7166" y="0"/>
 </item>
-<item historyLabel="/tremolo_m3/inc/tremolo.h" index="7">
-<position info="not_deleted" x="8" y="9"/>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position/>
 </item>
-<item historyLabel="/tremolo_m3/src/main.c" index="0">
-<position info="not_deleted" x="111" y="0"/>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position/>
 </item>
-<item historyLabel="/tremolo_m3/inc/common.h" index="8">
-<position info="not_deleted" x="1361" y="0"/>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position info="not_deleted" x="7250" y="0"/>
 </item>
-<item historyLabel="/tremolo_m3/src/processing.a" index="9">
-<position info="not_deleted" x="0" y="0"/>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position info="not_deleted" x="7166" y="0"/>
 </item>
-<item historyLabel="/tremolo_m3/src/sin_gen.a" index="10">
-<position info="not_deleted" x="1" y="0"/>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position info="not_deleted" x="7179" y="0"/>
 </item>
-<item historyLabel="/tremolo_m3/src/tremolo.a" index="4">
-<position info="not_deleted" x="0" y="0"/>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position info="not_deleted" x="7184" y="0"/>
 </item>
-<item historyLabel="/tremolo_m3/src/sin_gen.a" index="10">
-<position info="not_deleted" x="1" y="0"/>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position info="not_deleted" x="7226" y="0"/>
 </item>
-<item historyLabel="/tremolo_m3/src/tremolo.a" index="4">
-<position info="not_deleted" x="0" y="0"/>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position info="not_deleted" x="7226" y="0"/>
 </item>
-<item historyLabel="/tremolo_m3/src/processing.a" index="9">
-<position info="not_deleted" x="0" y="0"/>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position info="not_deleted" x="7228" y="0"/>
 </item>
-<item historyLabel="/tremolo_m3/inc/common.h" index="8">
-<position info="not_deleted" x="1361" y="0"/>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position info="not_deleted" x="7226" y="0"/>
 </item>
-<item historyLabel="/tremolo_m3/src/main.c" index="0">
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position info="not_deleted" x="7254" y="0"/>
+</item>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position info="not_deleted" x="7239" y="0"/>
+</item>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position info="not_deleted" x="7324" y="0"/>
+</item>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position info="not_deleted" x="7333" y="0"/>
+</item>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position info="not_deleted" x="7360" y="0"/>
+</item>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position info="not_deleted" x="7370" y="0"/>
+</item>
+<item historyLabel="/tremolo_m3/src/main.c" index="2">
 <position info="not_deleted" x="1542" y="0"/>
 </item>
-<item historyLabel="/tremolo_m3/.suldproj" index="11"/>
-<item historyLabel="/tremolo_m3/src/main.c" index="12">
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position info="not_deleted" x="2865" y="0"/>
+</item>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position info="not_deleted" x="6675" y="0"/>
+</item>
+<item historyLabel="/tremolo_m3/src/main.c" index="2">
 <position info="not_deleted" x="1542" y="0"/>
 </item>
-<item historyLabel="/tremolo_m3/inc/common.h" index="13">
-<position info="not_deleted" x="329" y="0"/>
+<item historyLabel="/tremolo_m3/crystal32.groovy" index="0">
+<position info="not_deleted" x="3258" y="114"/>
 </item>
-<item historyLabel="/tremolo_m3/src/main.c" index="12">
+<item historyLabel="/tremolo_m3/src/main.c" index="2">
 <position info="not_deleted" x="1542" y="0"/>
 </item>
-<item historyLabel="/tremolo_m3/src/processing.a" index="14">
-<position info="not_deleted" x="0" y="0"/>
+<item historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position info="not_deleted" x="6675" y="0"/>
 </item>
-<item historyLabel="/tremolo_m3/src/tremolo.a" index="15">
-<position info="not_deleted" x="4255" y="0"/>
-</item>
-<item historyLabel="/tremolo_m3/src/processing.a" index="14">
-<position info="not_deleted" x="3899" y="0"/>
-</item>
-<item historyLabel="/tremolo_m3/src/sin_gen.a" index="16">
-<position info="not_deleted" x="1" y="0"/>
-</item>
-<item historyLabel="/tremolo_m3/src/tremolo.a" index="15">
-<position info="not_deleted" x="2443" y="0"/>
-</item>
-<item historyLabel="/tremolo_m3/src/sin_gen.a" index="16">
-<position info="not_deleted" x="7189" y="0"/>
-</item>
-<item historyLabel="/tremolo_m3/src/tremolo.a" index="15">
-<position info="not_deleted" x="2443" y="0"/>
-</item>
-<item historyLabel="/tremolo_m3/src/sin_gen.a" index="16">
-<position info="not_deleted" x="9552" y="0"/>
-</item>
-<item historyLabel="/tremolo_m3/src/tremolo.a" index="15">
-<position info="not_deleted" x="0" y="5095"/>
-</item>
-<item historyLabel="/tremolo_m3/src/processing.a" index="14">
-<position info="not_deleted" x="3394" y="0"/>
-</item>
-<item historyLabel="/tremolo_m3/crystal32.groovy" index="17">
-<position info="not_deleted" x="3413" y="0"/>
-</item>
-<item historyLabel="/tremolo_m3/src/main.c" index="12">
-<position info="not_deleted" x="1542" y="0"/>
-</item>
-<item historyLabel="/tremolo_m3/.suldproj" index="18"/>
-<item historyLabel="/tremolo_m3/crystal32.groovy" index="17">
-<position info="not_deleted" x="3353" y="0"/>
-</item>
-<item active="true" historyLabel="/tremolo_m3/crystal32.groovy" index="17">
-<position info="not_deleted" x="3353" y="0"/>
+<item active="true" historyLabel="/tremolo_m3/src/sin_gen.a" index="1">
+<position info="not_deleted" x="6769" y="0"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -425,6 +417,13 @@
 <workbenchWindowAdvisor/>
 <actionBarAdvisor/>
 <trimLayout>
+<trimArea IMemento.internal.id="16384">
+<trimItem IMemento.internal.id="clide.wiewFolder.debug"/>
+<trimItem IMemento.internal.id="left"/>
+</trimArea>
+<trimArea IMemento.internal.id="131072">
+<trimItem IMemento.internal.id="clide.wiewFolder.watch"/>
+</trimArea>
 <trimArea IMemento.internal.id="128">
 <trimItem IMemento.internal.id="org.eclipse.ui.internal.WorkbenchWindow.topBar"/>
 </trimArea>
@@ -432,6 +431,7 @@
 <trimItem IMemento.internal.id="org.eclise.ui.internal.FastViewBar"/>
 <trimItem IMemento.internal.id="org.eclipse.jface.action.StatusLineManager"/>
 <trimItem IMemento.internal.id="org.eclipse.ui.internal.progress.ProgressRegion"/>
+<trimItem IMemento.internal.id="clide.wiewFolder.console"/>
 </trimArea>
 </trimLayout>
 </window>
@@ -450,21 +450,6 @@
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="pda.editor" name="processing.a" tooltip="tremolo_m3/src/processing.a">
 <persistable path="/tremolo_m3/src/processing.a"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="clide.debug.ui.ceditor" name="common.h" tooltip="tremolo_m3/inc/common.h">
-<persistable path="/tremolo_m3/inc/common.h"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="clide.debug.ui.ceditor" name="tremolo.h" tooltip="tremolo_m3/inc/tremolo.h">
-<persistable path="/tremolo_m3/inc/tremolo.h"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="clide.debug.ui.ceditor" name="sin_table.h" tooltip="tremolo_m3/inc/sin_table.h">
-<persistable path="/tremolo_m3/inc/sin_table.h"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="clide.debug.ui.ceditor" name="tremolo.c" tooltip="tremolo_m3/src/tremolo.c">
-<persistable path="/tremolo_m3/src/tremolo.c"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="pda.editor" name="sine_table.s" tooltip="tremolo_m3/output/standalone/src/sine_table.s">
-<persistable path="/tremolo_m3/output/standalone/src/sine_table.s"/>
 </file>
 </mruList>
 </workbench>

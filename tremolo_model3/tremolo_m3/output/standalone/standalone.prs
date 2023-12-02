@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<settings built="true" last_build_time="1700615351007">
+<settings built="true" last_build_time="1701370012876">
 	<dependencies>
 		<source_file last_build_time="1700615172435" path="src/tremolo.a"/>
 		<source_file last_build_time="0" path="src/tremolo.c">
@@ -10,6 +10,7 @@
 			<dependency>../../../../../../../../../../../../../CirrusDSP/include/stdfix.h</dependency>
 			<dependency>../../../../../../../../../../../../../CirrusDSP/include/scaling_coeff.h</dependency>
 		</source_file>
+		<source_file last_build_time="1701369793456" path="src/sin_gen.a"/>
 		<source_file last_build_time="1700601128422" path="src/main.c">
 			<dependency>../../../../../../../../../../../../../CirrusDSP/include/stdio.h</dependency>
 			<dependency>../../../../../../../../../../../../../CirrusDSP/include/dsplib/wavefile.h</dependency>
@@ -20,7 +21,6 @@
 			<dependency>../../../../../../../../../../../../../CirrusDSP/include/dsplib/timers.h</dependency>
 			<dependency>../inc/common.h</dependency>
 		</source_file>
-		<source_file last_build_time="1700615172905" path="src/sin_gen.a"/>
 		<source_file last_build_time="0" path="src/sine_table.c">
 			<dependency>../inc/sin_table.h</dependency>
 			<dependency>../inc/common.h</dependency>

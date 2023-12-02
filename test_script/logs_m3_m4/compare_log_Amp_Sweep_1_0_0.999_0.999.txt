@@ -1,7 +1,0 @@
-C:\Users\tbran\Desktop\TestStream_m4>PCMCompare.exe Amp_Sweep_m3_0.999_0.999.wav Amp_Sweep_m4_0.999_0.999.wav
-    Recorded file is 52080 samples shorter than the reference file!
-    Test error! Recorded file is 52080 samples shorter than the reference file!
-      No differences encountered!
-      No differences encountered!
-
-C:\Users\tbran\Desktop\TestStream_m4>
