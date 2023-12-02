@@ -9,5 +9,6 @@ The goal of the project is to implement channel combining based on the given sch
 </p>
 
 ## Algorithm implementation flow for the target platform
-
-<img width="226" alt="3" src="https://github.com/BaneTrifa/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/assets/88882867/87b587a0-0c70-410c-b2d6-a0513580655a">
+<p align="center">
+  <img width="226" alt="3" src="https://github.com/BaneTrifa/Tremolo_Effect_on_DSP_Cirus_Logic_CS4xx/assets/88882867/87b587a0-0c70-410c-b2d6-a0513580655a">
+</p>
